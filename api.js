@@ -7,10 +7,10 @@ import { adminRoutes } from "./Route/adminRoute.js"
 
 dotenv.config()
 
-
-const app = express()
 app.use(cors())
 app.use(express.json())
+const app = express()
+
 
 const port = process.env.PORT
 const mongo = process.env.MONGO_URL
