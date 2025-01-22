@@ -69,7 +69,7 @@ export const addCompetition = async(req,res)=>{
 export const AllCompetitions = async(req,res)=>{
     try{
         const all = await competitionsSchema.find({})
-        return res.json({success:true})
+        return res.json({success:true,AllCompetitions:all})
 
 
     }catch(error){
