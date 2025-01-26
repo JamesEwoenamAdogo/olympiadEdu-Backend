@@ -28,7 +28,7 @@ export const addUser = async(req,res)=>{
         const newUser= new userModel({firstName,lastName,DOB,email,password:hashedPassword,mobileNumber,Category,educationalLevel,grade,purpose_Of_Registration,userName,gender,School,country})
 
         newUser.save()
-        const token = jwt.sign({id:newUser._id,firstName:newUser.firstName, lastName:newUser.lastName,userName:newUser.userName},process.env.TOKEN_SECRET, {expiresIn:"30m"})
+        const token = jwt.sign({id:newUser._id,firstName:newUser.firstName, lastName:newUser.lastName,userName:newUser.userName,Registered:checkExisting[0].Registered,Paid:checkExisting[0].Paid, Invoice:checkExisting[0].Invoice},process.env.TOKEN_SECRET, {expiresIn:"30m"})
         
         return res.json({success:true, message:"User Created successfully",token,userName,purpose_Of_Registration})
 
@@ -77,7 +77,7 @@ export const loginUser = async(req,res)=>{
             if(!comparePassword){
                 return res.json({success:false,message:"Invalid credentials"})
             }
-            const token = jwt.sign({id:checkExisting[0]._id,firstName:checkExisting[0].firstName, lastName:checkExisting[0].lastName},process.env.MONGO_SECRET, {expiresIn:"30m"})
+            const token = jwt.sign({id:checkExisting[0]._id,firstName:checkExisting[0].firstName, lastName:checkExisting[0].lastName,Registered:checkExisting[0].Registered,Paid:checkExisting[0].Paid, Invoice:checkExisting[0].Invoice},process.env.MONGO_SECRET, {expiresIn:"30m"})
             return res.json({success:true,token,message:"User created successfully"})
         }
 
