@@ -107,7 +107,7 @@ export const fetchUsers = async(req,res)=>{
 
 export const updateUsers = async(req,res)=>{
     try{
-        const {id} = req.params
+        const id = req.userId
         const updateBody = req.body
         const updateUser = await competitionsSchema.findByIdAndUpdate(id,updateBody,{new:true})
         if(!updateUser){

@@ -16,6 +16,9 @@ const competitions = new mongoose.Schema({
     },
     subTypes:{
         type:[Object]
+    },
+    cost:{
+        type:Number
     }
 
 }, {timestamps:true})
