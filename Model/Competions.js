@@ -19,6 +19,9 @@ const competitions = new mongoose.Schema({
     },
     cost:{
         type:Number
+    },
+    addOnsCost:{
+        type:Number
     }
 
 }, {timestamps:true})
