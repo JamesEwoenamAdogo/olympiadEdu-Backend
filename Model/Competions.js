@@ -2,17 +2,17 @@ import mongoose from "mongoose"
 
 const competitions = new mongoose.Schema({
     name:{
-        type:"String",
+        type:String,
         
     },
     startDate:{
-        type:"String"
+        type:String
     },
     EndDate:{
-        type:"String"
+        type:String
     },
     Description:{
-        type:"String"
+        type:String
     },
     subTypes:{
         type:[Object]
