@@ -5,6 +5,7 @@ dotenv.config()
 export const authenticateUser = async(req,res,next)=>{
 
 const token = req.headers.token
+console.log(token)
 const verifyUser = jwt.verify(token,process.env.TOKEN_SECRET)
 if(!token){
     return res.json({success:false, message:"User not logged in"})
