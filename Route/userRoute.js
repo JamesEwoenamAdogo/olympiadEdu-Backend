@@ -1,5 +1,5 @@
 import express from "express"
-import { addUser, loginUser, updateUsers} from "../Controllers/userController.js"
+import { addUser, loginUser, updateUsers,updateAddInvoiceAddOns} from "../Controllers/userController.js"
 import { authenticateUser } from "../Middlewares/authUser.js"
 
 export const userRoute = express.Router()
@@ -7,6 +7,7 @@ export const userRoute = express.Router()
 userRoute.post("/register-user",addUser)
 userRoute.post("/login", loginUser)
 userRoute.put("/update-user",authenticateUser, updateUsers)
+userRoute.get("/fetch-user-details",authenticateUser,updateAddInvoiceAddOns)
 
 
 

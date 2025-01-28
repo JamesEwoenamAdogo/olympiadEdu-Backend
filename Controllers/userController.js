@@ -36,7 +36,7 @@ export const addUser = async(req,res)=>{
         const newUser= new userModel({firstName,lastName,DOB,email,password:hashedPassword,mobileNumber,Category,educationalLevel,grade,purposeOfRegistration:userExams,userName,gender,School,country})
 
         newUser.save()
-        const token = jwt.sign({id:newUser._id,firstName:newUser.firstName, lastName:newUser.lastName,userName:newUser.userName,Registered:newUser.Registered,Paid:newUser.Paid, Invoice:newUser.Invoice},process.env.TOKEN_SECRET, {expiresIn:"30m"})
+        const token = jwt.sign({id:newUser._id,firstName:newUser.firstName, lastName:newUser.lastName,userName:newUser.userName,Registered:newUser.Registered,Paid:newUser.Paid, Invoice:newUser.Invoice,AddOns:newUser.AddOns},process.env.TOKEN_SECRET, {expiresIn:"30m"})
        
         return res.json({success:true, message:"User Created successfully",token,userName,purpose_Of_Registration:userExams})
 
@@ -96,6 +96,36 @@ export const loginUser = async(req,res)=>{
         return res.status(500).json({success:false})
     }
 }
+export const updateAddInvoiceAddOns = async(req,res)=>{
+    try{
+        const {Registered,Invoice,AddOns,Paid}= req.body
+        const id = req.userId
+        const userDetails = userModel.findById(id)
+        const registered = userDetails.Registered.push(Registered)
+        const invoice = userDetails.Invoice.push(Invoice)
+        const addOns = userDetails.AddOns.push(AddOns)
+        let paid = ""
+        if(Paid){
+            paid = userDetails.Paid.push(Paid)
+            const updatedwithPaid = await userModel.findByIdAndUpdate(id,{Registered:registered,Invoice:invoice,AddOns:addOns,Paid:paid}, {new:true})
+            return res.json({success:true})
+
+        }
+        const updated = await userModel.findByIdAndUpdate(id,{Registered:registered,Invoice:invoice,AddOns:addOns},{new:true})
+        return res.json({success:true})
+
+
+
+        
+       
+
+
+
+    }catch(error){
+        console.log(error)
+        res.status(500).json({message:"error",})
+    }
+}
 
 export const fetchUsers = async(req,res)=>{
     try{
@@ -112,6 +142,7 @@ export const fetchUsers = async(req,res)=>{
         res.status(500).json({message:"Error",success:false})
     }
 }
+
 
 export const updateUsers = async(req,res)=>{
     try{
