@@ -12,7 +12,7 @@ dotenv.config()
 export const addUser = async(req,res)=>{
     try{
         const {firstName, lastName,DOB,email,password,mobileNumber,Category,educationalLevel,grade,purposeOfRegistration,gender,School,country}= req.body
-        console.log(firstName,lastName,DOB, email,password,mobileNumber,Category,educationalLevel,grade,country,School,gender,purpose_Of_Registration)
+        console.log(firstName,lastName,DOB, email,password,mobileNumber,Category,educationalLevel,grade,country,School,gender,purposeOfRegistration)
         const existingUser = await userModel.find({email})
         const allCompetitions = await competitionsSchema.find({})
         const exsitingUserByPhoneNumber = await userModel.find({mobileNumber})
