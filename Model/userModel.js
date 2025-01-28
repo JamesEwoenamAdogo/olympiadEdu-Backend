@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
     grade:{
         type:String
     },
-    purpose_Of_Registration:{
+    purposeOfRegistration:{
 
         type:[String]
     },

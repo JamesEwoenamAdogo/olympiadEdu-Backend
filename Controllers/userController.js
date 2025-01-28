@@ -28,16 +28,12 @@ export const addUser = async(req,res)=>{
         let userExams= []
         for(let exam of purpose_Of_Registration){
             let examinations = allCompetitions.filter((item)=>{return item.name == exam})
-            userExams.push(examinations)
+            userExams.push(...examinations)
 
         }
         const hashedPassword = await bcrypt.hash(password,10)
         const userName = email.split("@")[0]+ Math.ceil(Math.random()*1000000)
-        const newUser= new userModel({firstName,lastName,DOB,email,password:hashedPassword,mobileNumber,Category,educationalLevel,grade,purpose_Of_Registration:userExams,userName,gender,School,country})
-
-
-
-      
+        const newUser= new userModel({firstName,lastName,DOB,email,password:hashedPassword,mobileNumber,Category,educationalLevel,grade,purposeOfRegistration:userExams,userName,gender,School,country})
 
         newUser.save()
         const token = jwt.sign({id:newUser._id,firstName:newUser.firstName, lastName:newUser.lastName,userName:newUser.userName,Registered:newUser.Registered,Paid:newUser.Paid, Invoice:newUser.Invoice},process.env.TOKEN_SECRET, {expiresIn:"30m"})
