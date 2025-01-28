@@ -117,7 +117,8 @@ export const updateUsers = async(req,res)=>{
     try{
         const id = req.userId
         const updateBody = req.body
-        const updateUser = await competitionsSchema.findByIdAndUpdate(id,updateBody,{new:true})
+        console.log(updateBody)
+        const updateUser = await userModel.findByIdAndUpdate(id,updateBody,{new:true})
         if(!updateUser){
             return res.json({succes:false,message:"Success"})
         }
