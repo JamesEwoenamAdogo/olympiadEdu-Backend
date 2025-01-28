@@ -104,7 +104,7 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
         const registered = userDetails.Registered.push(Registered)
         const invoice = userDetails.Invoice.push(Invoice)
         const addOns = userDetails.AddOns.push(AddOns)
-        let paid = ""
+        let paid = []
         if(Paid){
             paid = userDetails.Paid.push(Paid)
             const updatedwithPaid = await userModel.findByIdAndUpdate(id,{Registered:registered,Invoice:invoice,AddOns:addOns,Paid:paid}, {new:true})
