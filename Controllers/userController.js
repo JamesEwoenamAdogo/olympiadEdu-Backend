@@ -11,7 +11,7 @@ dotenv.config()
 
 export const addUser = async(req,res)=>{
     try{
-        const {firstName, lastName,DOB,email,password,mobileNumber,Category,educationalLevel,grade,purpose_Of_Registration,gender,School,country}= req.body
+        const {firstName, lastName,DOB,email,password,mobileNumber,Category,educationalLevel,grade,purposeOfRegistration,gender,School,country}= req.body
         console.log(firstName,lastName,DOB, email,password,mobileNumber,Category,educationalLevel,grade,country,School,gender,purpose_Of_Registration)
         const existingUser = await userModel.find({email})
         const allCompetitions = await competitionsSchema.find({})
@@ -26,7 +26,7 @@ export const addUser = async(req,res)=>{
         }
 
         let userExams= []
-        for(let exam of purpose_Of_Registration){
+        for(let exam of purposeOfRegistration){
             let examinations = allCompetitions.filter((item)=>{return item.name == exam})
             userExams.push(...examinations)
 
