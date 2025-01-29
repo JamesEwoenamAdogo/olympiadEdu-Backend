@@ -101,9 +101,11 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
         const {Registered,Invoice,AddOns,Paid}= req.body
         const id = req.userId
         const userDetails = userModel.findById(id)
+        console.log(userDetails)
         const registered = userDetails.Registered.push(Registered)
         const invoice = userDetails.Invoice.push(Invoice)
         const addOns = userDetails.AddOns.push(AddOns)
+        
         let paid = []
         if(Paid){
             paid = userDetails.Paid.push(Paid)
