@@ -100,6 +100,7 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
     try{
         const {Registered,Invoice,AddOns,Paid}= req.body
         const id = req.userId
+        console.log(id)
         const userDetails = userModel.findById(id)
         console.log(userDetails)
         const registered = userDetails.Registered.push(Registered)
