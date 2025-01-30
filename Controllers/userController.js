@@ -106,6 +106,15 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
         const registered = userDetails.Registered.push(Registered)
         const invoice = userDetails.Invoice.push(Invoice)
         const addOns = userDetails.AddOns.push(AddOns)
+
+        const checkPaidAlready = userDetails.Paid.find((item)=>{return item == Paid })
+        if(checkPaidAlready.length>=1){
+            return res.json({success:false, message:"payment already made for this examination"})
+        }
+        const checkExistingInvoice = userDetails.Invoice.find((item)=>{return item.name == Paid})
+        if(checkExistingInvoice.length>=1){
+            return res.json({success:false,message:"Invoice already added"})
+        }
         
         let paid = []
         if(Paid){
