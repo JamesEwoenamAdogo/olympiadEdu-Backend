@@ -108,14 +108,14 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
         const addOns = userDetails.AddOns.push(AddOns)
 
         const checkPaidAlready = userDetails.Paid.find((item)=>{return item == Paid })
-        console.log(checkPaidAlready)
-        if(checkPaidAlready.length>=1){
+        
+        if(!checkPaidAlready){
             return res.json({success:false, message:"payment already made for this examination"})
         }
         
         const checkExistingInvoice = userDetails.Invoice.find((item)=>{return item.name == Paid})
-        console.log(checkExistingInvoice)
-        if(checkExistingInvoice.length>=1){
+        
+        if(!checkExistingInvoice){
             return res.json({success:false,message:"Invoice already added"})
         }
         
