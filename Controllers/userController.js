@@ -102,7 +102,7 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
         const id = req.userId
        
         const userDetails = await userModel.findById(id)
-        console.log(userDetails)
+        console.log(userDetails,req.body)
         const registered = userDetails.Registered.push(Registered)
         const invoice = userDetails.Invoice.push(Invoice)
         const addOns = userDetails.AddOns.push(AddOns)
