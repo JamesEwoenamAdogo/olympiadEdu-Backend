@@ -127,6 +127,7 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
 
         }
         const updated = await userModel.findByIdAndUpdate(id,{Registered:registered,Invoice:invoice,AddOns:addOns},{new:true})
+        console.log(updated)
         return res.json({success:true})
 
 
