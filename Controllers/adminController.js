@@ -1,6 +1,6 @@
 import { userModel } from "../Model/userModel.js";
 import { competitionsSchema } from "../Model/Competions.js";
-import {adminModel} from "../Model/adminModel.js"
+import {adminSchema} from "../Model/adminModel.js"
 import bcrypt from "bcryptjs"
 
 
