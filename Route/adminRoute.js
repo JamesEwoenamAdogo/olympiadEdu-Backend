@@ -6,7 +6,7 @@ import { fetchUsers } from "../Controllers/userController.js"
 
 export const adminRoutes = express.Router()
 adminRoutes.post("/admin-register",adminSignUp)
-adminRoutes.post("/admin-login,LoginUser)
+adminRoutes.post("/admin-login",LoginUser)
                  
 adminRoutes.get("/registered-for/:name", authenticateUser ,registeredForUsers)
 adminRoutes.get("/paid-for/:name", authenticateUser , paidForUsers)
