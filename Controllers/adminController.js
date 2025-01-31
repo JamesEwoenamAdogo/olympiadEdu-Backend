@@ -1,6 +1,33 @@
 import { userModel } from "../Model/userModel.js";
 import { competitionsSchema } from "../Model/Competions.js";
+import {adminModel} from "../Model/adminModel.js"
+import bcrypt from "bcryptjs"
 
+
+
+
+export const LoginUser = async(req,res)=>{
+    try{
+        const {email,password}= req.body
+        const user = await adminModel.findOne({email})
+        if(!user){
+            return res.status(400).json({success:false,message:"user does not exist"})
+        }
+        const passwordMatch = await bcrypt.compare(password,user.password)
+        if(!passwordMatch){
+            return res.status(400).json({success:false, message:"invalid credentials"})
+        }
+        const token = await createToken(user._id,user.name)
+    
+        
+        
+        return res.status(200).json({token:token,success:true,message:"login successful"})
+
+    }catch(error){
+        console.log(error)
+        res.status(500).json({message:"error"})
+    }
+}
 export const registeredForUsers = async(req, res)=>{
 
     try{
