@@ -2,10 +2,29 @@ import { userModel } from "../Model/userModel.js";
 import { competitionsSchema } from "../Model/Competions.js";
 import {adminSchema} from "../Model/adminModel.js"
 import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken"
+import dotenv from "dotenv"
 
 
 
-
+export const adminSignUp = async(req,res)=>{
+    try{
+        const {email,password} = req.body
+        const existingUser = await adminSchema.findOne({email})
+        if(existingUser){
+            return res.json({success:false,message:"user already registered"})
+        }
+        const hashedPassword = await bcrypt.hash(password,10)
+        const newUser = await new adminSchema({email,password:hashedPassword})
+        newUser.save()
+        return res.json({success:true,message:"Admin added successfully"})
+        
+        
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({success:false,message:"Error"})
+    }
+}
 export const LoginUser = async(req,res)=>{
     try{
         const {email,password}= req.body
@@ -17,7 +36,7 @@ export const LoginUser = async(req,res)=>{
         if(!passwordMatch){
             return res.status(400).json({success:false, message:"invalid credentials"})
         }
-        const token = await createToken(user._id,user.name)
+        const token = jwt.sign({id:user._id,email:user.email},process.env.TOKEN_SECRET)
     
         
         
