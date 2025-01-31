@@ -28,7 +28,7 @@ export const adminSignUp = async(req,res)=>{
 export const LoginUser = async(req,res)=>{
     try{
         const {email,password}= req.body
-        const user = await adminModel.findOne({email})
+        const user = await adminSchema.findOne({email})
         if(!user){
             return res.status(400).json({success:false,message:"user does not exist"})
         }
