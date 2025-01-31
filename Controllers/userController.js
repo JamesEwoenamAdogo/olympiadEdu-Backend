@@ -181,3 +181,19 @@ export const updateUsers = async(req,res)=>{
         return res.status(500).json({success:false,message:"Error"})
     }
 }
+
+export const loadPurpose = async(req,res)=>{
+    try{
+        const id = req.userId
+        const userDetails = await userModel.findById(id)
+        return res.json({success:true, purpose_Of_Registration:userDetails.purposeOfRegistration})
+
+        
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({success:false,message:"error"})
+    }
+
+
+    
+}
