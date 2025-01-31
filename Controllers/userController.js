@@ -195,7 +195,7 @@ export const loadPurpose = async(req,res)=>{
 
         }
         const updatedPurpose = await findByIdAndUpdate(id,{purposeOfRegistration:userExams},{new:true})
-        return res.json({success:true, purpose_Of_Registration:updatedPurpose.purposeOfRegistration})
+        return res.json({success:true, purpose_Of_Registration:updatedPurpose.purposeOfRegistration,Invoice:updatedPurpose.Invoice,AddOns:updatedPurpose.AddOns})
 
         
     }catch(error){
