@@ -128,7 +128,7 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
         }
         // const updated = await userModel.findByIdAndUpdate(id,{Registered:registered,Invoice:invoice,AddOns:addOns},{new:true})
          const updatedwithoutPaid = await userModel.findByIdAndUpdate(id,{Registered:[...registered, Registered],Invoice:[...invoice,Invoice]}, {new:true})
-        console.log(updated)
+        // console.log(updated)
         return res.json({success:true})
 
 
