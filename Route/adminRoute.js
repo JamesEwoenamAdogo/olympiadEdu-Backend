@@ -9,7 +9,7 @@ adminRoutes.get("/registered-for/:name", authenticateUser ,registeredForUsers)
 adminRoutes.get("/paid-for/:name", authenticateUser , paidForUsers)
 adminRoutes.get("/all-users", fetchUsers)
 
-adminRoutes.post("/add-competition",authenticateUser,addCompetition)
+adminRoutes.post("/add-competition",addCompetition)
 adminRoutes.get("/all-competitions",AllCompetitions)
 adminRoutes.delete("/delete-competition/:id",authenticateUser, deleteCompetition)
 adminRoutes.put("/update-competition/:id", authenticateUser,updateCompetition)
