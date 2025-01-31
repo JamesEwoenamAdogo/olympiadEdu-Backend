@@ -185,8 +185,17 @@ export const updateUsers = async(req,res)=>{
 export const loadPurpose = async(req,res)=>{
     try{
         const id = req.userId
-        const userDetails = await userModel.findById(id)
-        return res.json({success:true, purpose_Of_Registration:userDetails.purposeOfRegistration})
+        const userDetail = await userModel.findById(id)
+        const allCompetitions = await competitionsSchema.find({})
+
+        let userExams = []
+        for(let exam of userDetail.purposeOfRegistration){
+            let examinations = allCompetitions.filter((item)=>{return item.name == exam})
+            userExams.push(...examinations)
+
+        }
+        const updatedPurpose = await findByIdAndUpdate(id,{purposeOfRegistration:userExams},{new:true})
+        return res.json({success:true, purpose_Of_Registration:updatedPurpose.purposeOfRegistration})
 
         
     }catch(error){
