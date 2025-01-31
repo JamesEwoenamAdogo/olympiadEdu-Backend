@@ -103,9 +103,9 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
        
         const userDetails = await userModel.findById(id)
         console.log(userDetails,req.body)
-        const registered = userDetails.Registered.push(Registered)
-        const invoice = userDetails.Invoice.push(Invoice)
-        const addOns = userDetails.AddOns.push(AddOns)
+        const registered = userDetails.Registered
+        const invoice = userDetails.Invoice
+        const addOns = userDetails.AddOns
 
         const checkPaidAlready = userDetails.Paid.find((item)=>{return item == Paid })
         
@@ -121,12 +121,13 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
         
         let paid = []
         if(Paid){
-            paid = userDetails.Paid.push(Paid)
-            const updatedwithPaid = await userModel.findByIdAndUpdate(id,{Registered:registered,Invoice:invoice,AddOns:addOns,Paid:paid}, {new:true})
+            paid = userDetails.Paid
+            const updatedwithPaid = await userModel.findByIdAndUpdate(id,{Registered:[...registered, Registered],Invoice:[...invoice,Invoice],AddOns:[...addOns,AddOns],Paid:[...paid, Paid]}, {new:true})
             return res.json({success:true})
 
         }
-        const updated = await userModel.findByIdAndUpdate(id,{Registered:registered,Invoice:invoice,AddOns:addOns},{new:true})
+        // const updated = await userModel.findByIdAndUpdate(id,{Registered:registered,Invoice:invoice,AddOns:addOns},{new:true})
+         const updatedwithoutPaid = await userModel.findByIdAndUpdate(id,{Registered:[...registered, Registered],Invoice:[...invoice,Invoice]}, {new:true})
         console.log(updated)
         return res.json({success:true})
 
