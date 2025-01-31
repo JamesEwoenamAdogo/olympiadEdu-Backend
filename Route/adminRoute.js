@@ -1,10 +1,13 @@
 import express from "express"
-import { paidForUsers, registeredForUsers,addCompetition,AllCompetitions,deleteCompetition,updateCompetition,findOneCompetion } from "../Controllers/adminController.js"
+import { paidForUsers, registeredForUsers,addCompetition,AllCompetitions,deleteCompetition,updateCompetition,findOneCompetion, LoginUser, adminSignUp } from "../Controllers/adminController.js"
 import { authenticateUser } from "../Middlewares/authUser.js"
 import { fetchUsers } from "../Controllers/userController.js"
 
 
 export const adminRoutes = express.Router()
+adminRoutes.post("/admin-register",adminSignUp)
+adminRoutes.post("/admin-login,LoginUser)
+                 
 adminRoutes.get("/registered-for/:name", authenticateUser ,registeredForUsers)
 adminRoutes.get("/paid-for/:name", authenticateUser , paidForUsers)
 adminRoutes.get("/all-users", fetchUsers)
