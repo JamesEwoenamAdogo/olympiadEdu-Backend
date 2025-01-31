@@ -7,7 +7,7 @@ export const userRoute = express.Router()
 userRoute.post("/register-user",addUser)
 userRoute.post("/login", loginUser)
 
-userRoute.get("/load-purpose",authenticateUser,loadPurposes)
+userRoute.get("/load-purpose",authenticateUser,loadPurpose)
 userRoute.put("/update-user",authenticateUser, updateUsers)
 userRoute.post("/update-user-details",authenticateUser,updateAddInvoiceAddOns)
 
