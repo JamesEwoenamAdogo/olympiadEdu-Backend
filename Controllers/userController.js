@@ -187,13 +187,14 @@ export const loadPurpose = async(req,res)=>{
         const id = req.userId
         const userDetail = await userModel.findById(id)
         const allCompetitions = await competitionsSchema.find({})
-
+        
         let userExams = []
         for(let exam of userDetail.purposeOfRegistration){
             let examinations = allCompetitions.filter((item)=>{return item.name == exam})
             userExams.push(...examinations)
 
         }
+        console.log(userDetail)
         const updatedPurpose = await userModel.findByIdAndUpdate(id,{purposeOfRegistration:userExams},{new:true})
         console.log(updatedPurpose)
         console.log(userExams)
