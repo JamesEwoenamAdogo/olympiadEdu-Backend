@@ -190,7 +190,7 @@ export const loadPurpose = async(req,res)=>{
         
         let userExams = []
         for(let exam of userDetail.purposeOfRegistration){
-            let examinations = allCompetitions.filter((item)=>{return item.name == exam})
+            let examinations = allCompetitions.filter((item)=>{return item.name ==exam.name})
             userExams.push(...examinations)
 
         }
