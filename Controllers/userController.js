@@ -189,7 +189,8 @@ export const loadPurpose = async(req,res)=>{
         const allCompetitions = await competitionsSchema.find({})
         
         let userExams = []
-        for(let exam of userDetail.purposeOfRegistration){
+        for(let exam of userDetail.purposeOfRegistration){ 
+            
             let examinations = allCompetitions.filter((item)=>{return item.name ==exam.name})
             userExams.push(...examinations)
 
