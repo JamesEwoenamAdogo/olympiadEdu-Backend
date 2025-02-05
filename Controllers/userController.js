@@ -131,7 +131,7 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
             const subUpdate = {...currentSub,paid:currentSub.paid+1,registered:currentSub.registered+1}
 
             const updatePaid = await competitionsSchema.findByIdAndUpdate(subCompetition._id,{subTypes:[...otherSub,subUpdate]},{new:true})
-            return res.json({success:true})
+            return res.json({success:true })
 
         }
         // const updated = await userModel.findByIdAndUpdate(id,{Registered:registered,Invoice:invoice,AddOns:addOns},{new:true})
