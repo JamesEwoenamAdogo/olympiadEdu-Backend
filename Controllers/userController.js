@@ -102,6 +102,9 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
         const id = req.userId
        
         const userDetails = await userModel.findById(id)
+        const allCompetitions = await competitionsSchema.find({})
+        const subCompetition = allCompetitions.find((item)=>{return item.subTypes.find((items)=>{return items.name==Registered}).name==Registered})
+
         console.log(userDetails,req.body)
         const registered = userDetails.Registered
         const invoice = userDetails.Invoice
@@ -118,15 +121,24 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
         if(checkExistingInvoice){
             return res.json({success:false,message:"Invoice already added"})
         }
-        
+        const otherSub = subCompetition.subTypes.filter((item)=>{return !(item.name==Registered)})
+        const currentSub = subCompetition.subTypes.find((item)=>{return item.name==Registered})
         let paid = []
         if(Paid){
             paid = userDetails.Paid
             const updatedwithPaid = await userModel.findByIdAndUpdate(id,{Registered:[...registered, Registered],Invoice:[...invoice,Invoice],AddOns:[...addOns,AddOns],Paid:[...paid, Paid]}, {new:true})
+        
+            const subUpdate = {...currentSub,paid:currentSub.paid+1,registered:currentSub.registered+1}
+
+            const updatePaid = await competitionsSchema.findByIdAndUpdate(subCompetition._id,{subTypes:[...otherSub,subUpdate]},{new:true})
             return res.json({success:true})
 
         }
         // const updated = await userModel.findByIdAndUpdate(id,{Registered:registered,Invoice:invoice,AddOns:addOns},{new:true})
+        const subUpdate = {...currentSub,registered:currentSub.registered+1}
+        const updatePaid = await competitionsSchema.findByIdAndUpdate(subCompetition._id,{subTypes:[...otherSub,subUpdate]},{new:true})
+
+
          const updatedwithoutPaid = await userModel.findByIdAndUpdate(id,{Registered:[...registered, Registered],Invoice:[...invoice,Invoice]}, {new:true})
         // console.log(updated)
         return res.json({success:true})
