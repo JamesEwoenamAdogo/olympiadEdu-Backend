@@ -222,3 +222,14 @@ export const loadPurpose = async(req,res)=>{
 
     
 }
+
+export const payAfterInvoice = async(req,res)=>{
+    try{
+
+    }catch(error){
+        console.log(error)
+        res.status(500).json({success:false})
+    }
+
+}
+
