@@ -99,11 +99,12 @@ export const loginUser = async(req,res)=>{
 export const updateAddInvoiceAddOns = async(req,res)=>{
     try{
         const {Registered,Invoice,AddOns,Paid}= req.body
-        const id = req.userId
+        const userId = req.userId
+        const {id} = req.params
        
-        const userDetails = await userModel.findById(id)
-        const allCompetitions = await competitionsSchema.find({})
-        const subCompetition = allCompetitions.find((item)=>{return item.subTypes.find((items)=>{return items.name==Registered}).name==Registered})
+        const userDetails = await userModel.findById(userId)
+        const allCompetitions = await competitionsSchema.findById(id)
+        const subCompetition = allCompetitions
 
         console.log(userDetails,req.body)
         const registered = userDetails.Registered
