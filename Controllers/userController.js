@@ -127,7 +127,7 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
         let paid = []
         if(Paid){
             paid = userDetails.Paid
-            const updatedwithPaid = await userModel.findByIdAndUpdate(id,{Registered:[...registered, Registered],Invoice:[...invoice,Invoice],AddOns:[...addOns,AddOns],Paid:[...paid, Paid]}, {new:true})
+            const updatedwithPaid = await userModel.findByIdAndUpdate(userId,{Registered:[...registered, Registered],Invoice:[...invoice,Invoice],AddOns:[...addOns,AddOns],Paid:[...paid, Paid]}, {new:true})
         
             const subUpdate = {...currentSub,paid:currentSub.paid+1,registered:currentSub.registered+1}
 
@@ -140,7 +140,7 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
         const updatePaid = await competitionsSchema.findByIdAndUpdate(subCompetition._id,{subTypes:[...otherSub,subUpdate]},{new:true})
 
 
-         const updatedwithoutPaid = await userModel.findByIdAndUpdate(id,{Registered:[...registered, Registered],Invoice:[...invoice,Invoice]}, {new:true})
+         const updatedwithoutPaid = await userModel.findByIdAndUpdate(userId,{Registered:[...registered, Registered],Invoice:[...invoice,Invoice]}, {new:true})
         // console.log(updated)
         return res.json({success:true})
 
