@@ -30,11 +30,11 @@ export const LoginUser = async(req,res)=>{
         const {email,password}= req.body
         const user = await adminSchema.findOne({email})
         if(!user){
-            return res.status(400).json({success:false,message:"user does not exist"})
+            return res.json({success:false,message:"user does not exist"})
         }
         const passwordMatch = await bcrypt.compare(password,user.password)
         if(!passwordMatch){
-            return res.status(400).json({success:false, message:"invalid credentials"})
+            return res.json({success:false, message:"invalid credentials"})
         }
         const token = jwt.sign({id:user._id,email:user.email},process.env.TOKEN_SECRET)
     
