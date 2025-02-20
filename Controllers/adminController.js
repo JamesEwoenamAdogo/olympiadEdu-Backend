@@ -147,7 +147,7 @@ export const updateCompetition = async (req,res)=>{
         const existingCompetition = await competitionsSchema.findById(id)
         const updatedSubTypes = existingCompetition.subTypes.push(updateBody)
 
-        const updateCompetition = await competitionsSchema.findByIdAndUpdate(id,{subTypes:updatedSubTypes},{new:true})
+        const updateCompetition = await competitionsSchema.findByIdAndUpdate(id,updateBody,{new:true})
         if(!updateCompetition){
             return res.json({success:false, message:"Update not completed"})
         }
