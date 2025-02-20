@@ -144,8 +144,8 @@ export const updateCompetition = async (req,res)=>{
     try{
         const {id}= req.params
         const updateBody = req.body 
-        const existingCompetition = await competitionsSchema.findById(id)
-        const updatedSubTypes = existingCompetition.subTypes.push(updateBody)
+        // const existingCompetition = await competitionsSchema.findById(id)
+        // const updatedSubTypes = existingCompetition.subTypes.push(updateBody)
 
         const updateCompetition = await competitionsSchema.findByIdAndUpdate(id,updateBody,{new:true})
         if(!updateCompetition){
