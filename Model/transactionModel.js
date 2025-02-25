@@ -8,7 +8,7 @@ const transactionSchema = new mongoose.Schema({
     amount:{
         type:String
     },
-    decription:{
+    description:{
         type:String
     },
    
