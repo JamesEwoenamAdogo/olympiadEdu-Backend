@@ -1,6 +1,7 @@
 import { userModel } from "../Model/userModel.js";
 import { competitionsSchema } from "../Model/Competions.js";
 import {adminSchema} from "../Model/adminModel.js"
+import { transactionModel } from "../Model/transactionModel.js";
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 import dotenv from "dotenv"
@@ -171,6 +172,21 @@ export const deleteCompetition = async(req,res)=>{
         console.log(error)
         res.status(500).json({success:false,message:true})
     }
+}
+
+
+export const fetchTransactions = async(req,res)=>{
+    try{
+        const allTransactions = await transactionModel.find({})
+        return res.json({success:true, transactions:allTransactions})
+
+
+
+    }catch(error){
+        console.log(error)
+        return res.json({success:false})
+    }
+
 }
 
 

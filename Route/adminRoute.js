@@ -1,5 +1,5 @@
 import express from "express"
-import { paidForUsers, registeredForUsers,addCompetition,AllCompetitions,deleteCompetition,updateCompetition,findOneCompetion, LoginUser, adminSignUp } from "../Controllers/adminController.js"
+import { paidForUsers, registeredForUsers,addCompetition,AllCompetitions,deleteCompetition,updateCompetition,findOneCompetion, LoginUser, adminSignUp, fetchTransactions } from "../Controllers/adminController.js"
 import { authenticateUser } from "../Middlewares/authUser.js"
 import { fetchUsers } from "../Controllers/userController.js"
 
@@ -18,3 +18,4 @@ adminRoutes.delete("/delete-competition/:id",authenticateUser, deleteCompetition
 adminRoutes.put("/update-competition/:id" ,updateCompetition)
 adminRoutes.get("/all-competition", authenticateUser,AllCompetitions)
 adminRoutes.get("/competition/:id",authenticateUser,findOneCompetion)
+adminRoutes.get("/all-transactions", fetchTransactions)
