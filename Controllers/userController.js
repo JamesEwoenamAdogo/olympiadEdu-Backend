@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken"
 
 import dotenv from "dotenv"
 import { competitionsSchema } from "../Model/Competions.js";
+import { transactionModel } from "../Model/transactionModel.js";
 dotenv.config()
 
 
@@ -105,6 +106,7 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
         const userDetails = await userModel.findById(userId)
         const allCompetitions = await competitionsSchema.findById(id)
         const subCompetition = allCompetitions
+        const date = new Date()
 
         console.log(userDetails,req.body)
         const registered = userDetails.Registered
@@ -130,18 +132,22 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
             const updatedwithPaid = await userModel.findByIdAndUpdate(userId,{Registered:[...registered, Registered],Invoice:[...invoice,Invoice],AddOns:[...addOns,AddOns],Paid:[...paid, Paid]}, {new:true})
         
             const subUpdate = {...currentSub,paid:currentSub.paid+1,registered:currentSub.registered+1}
+
+            const transactionObject = {name:userDetails.userName,amount:Invoice.Cost,description:Invoice.name,status:"Paid",generatedOn:`${date.getMonth()} ${date.getFullYear()}`,paidOn:"--"}
             
+            const transaction = new transactionModel(transactionObject)
+            transaction.save()
 
             const updatePaid = await competitionsSchema.findByIdAndUpdate(subCompetition._id,{subTypes:[...otherSub,subUpdate]},{new:true})
             return res.json({success:true })
-
         }
         
         const subUpdate = {...currentSub,registered:currentSub.registered+1}
         const updatePaid = await competitionsSchema.findByIdAndUpdate(subCompetition._id,{subTypes:[...otherSub,subUpdate]},{new:true})
-
-
-         const updatedwithoutPaid = await userModel.findByIdAndUpdate(userId,{Registered:[...registered, Registered],Invoice:[...invoice,Invoice]}, {new:true})
+        const transactionBody = {name:userDetails.userName,amount:Invoice.Cost,description:Invoice.name,status:"Pending",generatedOn:`${date.getMonth()} ${date.getFullYear()}`,paidOn:"--"}
+        const transaction = new transactionModel(transactionBody)
+        transaction.save()
+        const updatedwithoutPaid = await userModel.findByIdAndUpdate(userId,{Registered:[...registered, Registered],Invoice:[...invoice,Invoice]}, {new:true})
        
         return res.json({success:true})
 
