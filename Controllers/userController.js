@@ -133,7 +133,7 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
         
             const subUpdate = {...currentSub,paid:currentSub.paid+1,registered:currentSub.registered+1}
 
-            const transactionObject = {name:userDetails.userName,amount:Invoice.Cost,description:Invoice.name,status:"Paid",generatedOn:`${date.getMonth()} ${date.getFullYear()}`,paidOn:"--"}
+            const transactionObject = {name:userDetails.userName,amount:Invoice.Cost,description:Invoice.name,status:"Paid",generatedOn:`${date.getMonth()+1} ${date.getFullYear()}`,paidOn:"--"}
             
             const transaction = new transactionModel(transactionObject)
             transaction.save()
@@ -144,7 +144,7 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
         
         const subUpdate = {...currentSub,registered:currentSub.registered+1}
         const updatePaid = await competitionsSchema.findByIdAndUpdate(subCompetition._id,{subTypes:[...otherSub,subUpdate]},{new:true})
-        const transactionBody = {name:userDetails.userName,amount:Invoice.Cost,description:Invoice.name,status:"Pending",generatedOn:`${date.getMonth()} ${date.getFullYear()}`,paidOn:"--"}
+        const transactionBody = {name:userDetails.userName,amount:Invoice.Cost,description:Invoice.name,status:"Pending",generatedOn:`${date.getMonth()+1} ${date.getFullYear()}`,paidOn:"--"}
         const transaction = new transactionModel(transactionBody)
         transaction.save()
         const updatedwithoutPaid = await userModel.findByIdAndUpdate(userId,{Registered:[...registered, Registered],Invoice:[...invoice,Invoice]}, {new:true})
