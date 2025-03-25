@@ -18,7 +18,7 @@ export const addExamination = async(req,res)=>{
                 return  res.status(500).json({sucess:false,message:"Error"})
                 
             }
-            res.json({success:true,message:"Picture uploaded",data: result})
+            // res.json({success:true,message:"Picture uploaded",data: result})
            
             publicId = result.public_id
            
