@@ -24,9 +24,13 @@ export const addExamination = async(req,res)=>{
            
 
         });
+        const optimizeUrl = cloudinary.url(publicId,{
+            fetch_format: "auto",
+            quality:"auto"
+        })
 
 
-        const newQuiz = new examinationModel({title,description,time,numberOfQuestions,questions:parsedQuestions,image:publicId})
+        const newQuiz = new examinationModel({title,description,time,numberOfQuestions,questions:parsedQuestions,image:optimizeUrl})
         newQuiz.save()
         return res.json({success:true, message:"success"})
 
