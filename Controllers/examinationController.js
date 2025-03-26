@@ -14,7 +14,7 @@ export const addExamination = async(req,res)=>{
             await cloudinary.uploader.upload(image, (err, result)=>{
                 if(err){
                     console.log(err)
-                    return  res.status(500).json({sucess:false,message:"Error"})     
+                    return  res.status(500).json({success:false,message:"Error",error:err})     
                 }      
                 imageUrl = result.public_id
                
