@@ -9,7 +9,7 @@ export const addExamination = async(req,res)=>{
         console.log(req.body)
 
         const parsedQuestions = JSON.parse(questions).map(async(item)=>{
-            const image = item.image.name 
+            const image = item.image 
             let imageUrl=""
             await cloudinary.uploader.upload(image, (err, result)=>{
                 if(err){
