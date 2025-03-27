@@ -4,7 +4,7 @@ import dotenv from "dotenv"
 import mongoose from "mongoose"
 import { userRoute } from "./Route/userRoute.js"
 import { adminRoutes } from "./Route/adminRoute.js"
-import { examRoute } from "./Route/examinationRoute.js"
+import  examRoute  from "./Route/examinationRoute.js"
 
 dotenv.config()
 
