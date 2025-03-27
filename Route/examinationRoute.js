@@ -1,10 +1,19 @@
-import express from "express"
-import { addExamination , allExam } from "../Controllers/examinationController.js"
-import { upload } from "../Middlewares/UploadFile.js"
+import express from "express";
+import { addExamination, allExam } from "../controllers/examController.js";
+import upload from "../Middlewares/UploadFile.js";
 
-export const examRoute = express.Router()
+const router = express.Router();
 
+// Handle multiple file uploads
+router.post(
+  "/add-exam",
+  upload.fields([
+    { name: "image", maxCount: 1 }, // Main quiz image
+    { name: "questionImages", maxCount: 20 }, // Multiple question images
+  ]),
+  addExamination
+);
 
+router.get("/all-exams", allExam);
 
-examRoute.post("/add-exam",upload.single("image"),addExamination)
-examRoute.post("/all-exam", allExam)
+export default router;

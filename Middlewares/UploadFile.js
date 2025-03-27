@@ -1,18 +1,19 @@
-import multer from "multer"
-import path from "path"
-import dotenv from "dotenv"
-dotenv.config()
+import multer from "multer";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import cloudinary from "../utils/cloudinaryConfig.js";
 
-const storage = multer.diskStorage({
-    destination:(req,file,cb)=>{
-        cb(null,"./uploads")
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: async (req, file) => {
+    return {
+      folder: "exam_quizzes", // Cloudinary folder
+      format: "png", // Convert all images to PNG
+      public_id: `${file.originalname.split(".")[0]}-${Date.now()}`, // Unique ID
+    };
+  },
+});
 
-    },
-    filename:(req,file,cb)=>{
-        cb(null, Date.now()+ path.extname(file.originalname))
-    }
-})
+// Configure Multer to use Cloudinary storage
+const upload = multer({ storage });
 
-export const upload = multer({storage})
-
- 
+export default upload;
