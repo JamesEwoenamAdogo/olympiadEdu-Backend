@@ -8,27 +8,27 @@ export const addExamination = async(req,res)=>{
         const { title, description, time, numberOfQuestions, questions } = req.body;
         console.log(req.body)
 
-        const parsedQuestions = JSON.parse(questions).map(async(item)=>{
-            const image = item.image 
-            let imageUrl=""
-            await cloudinary.uploader.upload(image, (err, result)=>{
-                if(err){
-                    console.log(err)
-                    return  res.status(500).json({success:false,message:"Error",error:err})     
-                }      
-                imageUrl = result.public_id
+        const parsedQuestions = JSON.parse(questions)
+        //     const image = item.image 
+        //     let imageUrl=""
+        //     await cloudinary.uploader.upload(image, (err, result)=>{
+        //         if(err){
+        //             console.log(err)
+        //             return  res.status(500).json({success:false,message:"Error",error:err})     
+        //         }      
+        //         imageUrl = result.public_id
                
     
-            });
-            const optimizeUrl = cloudinary.url(imageUrl,{
-                fetch_format: "auto",
-                quality:"auto"
-            })
-            return {...item, image:optimizeUrl}
+        //     });
+        //     const optimizeUrl = cloudinary.url(imageUrl,{
+        //         fetch_format: "auto",
+        //         quality:"auto"
+        //     })
+        //     return {...item, image:optimizeUrl}
 
 
 
-        })
+        // })
 
         let publicId
         
