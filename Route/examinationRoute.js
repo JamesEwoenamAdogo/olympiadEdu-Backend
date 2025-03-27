@@ -1,5 +1,5 @@
 import express from "express";
-import { addExamination, allExam } from "../controllers/examController.js";
+import { addExamination, allExam } from "../controllers/examinationController.js";
 import upload from "../Middlewares/UploadFile.js";
 
 const router = express.Router();
