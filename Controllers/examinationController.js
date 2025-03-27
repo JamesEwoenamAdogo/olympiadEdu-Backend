@@ -51,3 +51,16 @@ export const allExam = async(req,res)=>{
         return res.status(500).json({message:"error"})
     }
 }
+
+export const getOneExam = async(req,res)=>{
+  try{
+    const {id} = req.params
+    const exam = await examinationModel.findById(id)
+    return res.json({exam,success:true})
+
+
+
+  }catch(error){
+    console.log(error)
+  }
+}
