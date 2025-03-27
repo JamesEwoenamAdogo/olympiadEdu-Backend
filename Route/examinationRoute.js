@@ -16,4 +16,4 @@ router.post(
 
 router.get("/all-exams", allExam);
 
-export default router;
+export default  router;
