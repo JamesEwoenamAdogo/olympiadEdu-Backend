@@ -88,8 +88,8 @@ export const courseUpload = async (req, res) => {
     const { title, modules } = req.body;
     const newCourse = new courseSchema({ title, modules });
     await newCourse.save();
-    res.status(201).json({ message: "Course saved successfully", course: newCourse });
+    return res.status(201).json({ message: "Course saved successfully", course: newCourse });
   } catch (error) {
-    res.status(500).json({ message: "Error saving course", error });
+    return res.status(500).json({ message: "Error saving course", error });
   }
 };
