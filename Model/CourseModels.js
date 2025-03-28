@@ -8,7 +8,7 @@ const courseModel = new mongoose.Schema({
         type:String
     },
     files:{
-        type:[String]
+        type:[Object]
     }
 },{timestamps:true})
 
