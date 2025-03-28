@@ -71,12 +71,14 @@ export const courseFileUpload = async(req, res) => {
     url: file.path,
     public_id: file.filename,
   }));
- 
+  console.log(req.body.title)
   const newCourse = new courseSchema({ title: req.body.title, modules: uploadedFiles });
   await newCourse.save();
   res.json({ message: "Files uploaded successfully", files: uploadedFiles });
   return res.status(201).json({ message: "Course saved successfully", course: newCourse });
 }
+
+
 
 export const courseVideoUpload = async (req, res) => {
   
@@ -86,6 +88,12 @@ export const courseVideoUpload = async (req, res) => {
   }));
   return res.json({ message: "Videos uploaded successfully", files: uploadedFiles });
 }
+
+
+
+
+
+
 
 export const courseUpload = async (req, res) => {
   try {
