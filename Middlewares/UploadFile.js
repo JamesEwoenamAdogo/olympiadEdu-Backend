@@ -18,6 +18,7 @@ const courseStorage = new CloudinaryStorage({
   params: async (req, file) => ({
     folder: "course_uploads",
     resource_type: file.mimetype.startsWith("video/") ? "video" : "raw",
+    format:"pdf",
     public_id: `${Date.now()}-${file.originalname}`,
   }),
 });
