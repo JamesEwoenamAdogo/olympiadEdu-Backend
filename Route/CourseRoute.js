@@ -1,7 +1,7 @@
 import express from "express"
-import upload, { courseUpload } from "../Middlewares/UploadFile"
+import upload, { courseUpload } from "../Middlewares/UploadFile.js"
 // import router from "./examinationRoute"
-import { courseFileUpload, courseVideoUpload } from "../Controllers/examinationController"
+import { courseFileUpload, courseVideoUpload } from "../Controllers/examinationController.js"
 
 
 export const courseRoute = express.Router()
