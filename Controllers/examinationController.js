@@ -70,7 +70,7 @@ export const courseFileUpload = async(req, res) => {
     url: file.path,
     public_id: file.filename,
   }));
-  res.json({ message: "Videos uploaded successfully", files: uploadedFiles });
+  return res.json({ message: "Videos uploaded successfully", files: uploadedFiles });
 }
 
 export const courseVideoUpload = async (req, res) => {
@@ -78,5 +78,5 @@ export const courseVideoUpload = async (req, res) => {
     url: file.path,
     public_id: file.filename,
   }));
-  res.json({ message: "Files uploaded successfully", files: uploadedFiles });
+  return res.json({ message: "Files uploaded successfully", files: uploadedFiles });
 }
