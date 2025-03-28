@@ -4,14 +4,12 @@ const courseModel = new mongoose.Schema({
     title:{
         type:String
     },
-    modules:[
-            {
-                title:String,
-                videos:[String],
-                file:[String]
-            }
-        ]
-    
+    grade:{
+        type:String
+    },
+    files:{
+        type: [String]
+    }
 },{timestamps:true})
 
 
