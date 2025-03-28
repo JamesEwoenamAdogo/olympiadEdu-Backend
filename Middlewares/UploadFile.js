@@ -23,6 +23,7 @@ const courseStorage = new CloudinaryStorage({
 });
 // Configure Multer to use Cloudinary storage
 const upload = multer({ storage });
+
 export const courseUpload = multer({storage:courseStorage})
 
 export default upload;
