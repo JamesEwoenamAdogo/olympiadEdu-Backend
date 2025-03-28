@@ -64,3 +64,19 @@ export const getOneExam = async(req,res)=>{
     console.log(error)
   }
 }
+
+export const courseFileUpload = async(req, res) => {
+  const uploadedFiles = req.files.map((file) => ({
+    url: file.path,
+    public_id: file.filename,
+  }));
+  res.json({ message: "Videos uploaded successfully", files: uploadedFiles });
+}
+
+export const courseVideoUpload = async (req, res) => {
+  const uploadedFiles = req.files.map((file) => ({
+    url: file.path,
+    public_id: file.filename,
+  }));
+  res.json({ message: "Files uploaded successfully", files: uploadedFiles });
+}

@@ -13,7 +13,16 @@ const storage = new CloudinaryStorage({
   },
 });
 
+const courseStorage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: async (req, file) => ({
+    folder: "course_uploads",
+    resource_type: file.mimetype.startsWith("video/") ? "video" : "raw",
+    public_id: `${Date.now()}-${file.originalname}`,
+  }),
+});
 // Configure Multer to use Cloudinary storage
 const upload = multer({ storage });
+export const courseUpload = multer({storage:courseStorage})
 
 export default upload;

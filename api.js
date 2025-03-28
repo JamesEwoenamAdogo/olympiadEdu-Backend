@@ -5,6 +5,7 @@ import mongoose from "mongoose"
 import { userRoute } from "./Route/userRoute.js"
 import { adminRoutes } from "./Route/adminRoute.js"
 import  examRoute  from "./Route/examinationRoute.js"
+import { courseRoute } from "./Route/CourseRoute.js"
 
 dotenv.config()
 
@@ -26,5 +27,5 @@ mongoose.connect(mongo).then(()=>{
 app.use("/api/v1",userRoute)
 app.use("/api/v1", adminRoutes)
 app.use("/api/v1",examRoute)
-
+app.use("/api/v1",courseRoute)
 
