@@ -76,7 +76,7 @@ export const courseFileUpload = async(req, res) => {
   const newCourse = new courseSchema({ title: req.body.title, grade:req.body.grade, files : uploadedFiles });
   await newCourse.save();
   res.json({ message: "Files uploaded successfully", files: uploadedFiles });
-  // return res.status(201).json({ message: "Course saved successfully", course: newCourse });
+ 
 }
 
 

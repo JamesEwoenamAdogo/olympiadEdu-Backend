@@ -6,6 +6,6 @@ import { courseFileUpload, courseVideoUpload ,courseUpload} from "../Controllers
 
 export const courseRoute = express.Router()
 courseRoute.post("/upload/video",upload.array("video"),courseVideoUpload)
-courseRoute.post("/upload/file",upload.array("file"),courseFileUpload)
+courseRoute.post("/upload/file",upload.array("files"),courseFileUpload)
 courseRoute.post("/course",courseUpload)
 
