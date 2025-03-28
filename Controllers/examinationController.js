@@ -95,14 +95,66 @@ export const courseVideoUpload = async (req, res) => {
 
 
 
+// export const courseUpload = async (req, res) => {
+//   try {
+//     const { title, modules } = req.body;
+//     const newCourse = new courseSchema({ title, modules });
+//     await newCourse.save();
+//     console.log(modules)
+//     return res.status(201).json({ message: "Course saved successfully", course: newCourse });
+//   } catch (error) {
+//     return res.status(500).json({ message: "Error saving course", error });
+//   }
+// };
+
+
 export const courseUpload = async (req, res) => {
   try {
-    const { title, modules } = req.body;
-    const newCourse = new courseSchema({ title, modules });
-    await newCourse.save();
-    console.log(modules)
-    return res.status(201).json({ message: "Course saved successfully", course: newCourse });
+    // Extract courseTitle and moduleTitle from request body
+    const { courseTitle, moduleTitle } = req.body;
+
+    // Extract uploaded files
+    const uploadedFiles = req.files.map((file) => ({
+      url: file.path,
+      public_id: file.filename,
+    }));
+
+    console.log("Uploaded Files:", uploadedFiles);
+
+    // Find existing course by title or create a new one
+    let course = await courseSchema.findOne({ title: courseTitle });
+
+    if (!course) {
+      // Create a new course if it doesn't exist
+      course = new courseSchema({
+        title: courseTitle,
+        modules: [],
+      });
+    }
+
+    // Check if the module already exists in the course
+    let moduleIndex = course.modules.findIndex((mod) => mod.title === moduleTitle);
+
+    if (moduleIndex !== -1) {
+      // If module exists, add files to it
+      course.modules[moduleIndex].files.push(...uploadedFiles);
+    } else {
+      // If module doesn't exist, create a new module
+      course.modules.push({
+        title: moduleTitle,
+        files: uploadedFiles,
+      });
+    }
+
+    // Save the updated course
+    await course.save();
+
+    res.json({
+      message: "Files uploaded successfully",
+      course,
+    });
   } catch (error) {
-    return res.status(500).json({ message: "Error saving course", error });
+    console.error("Upload Error:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
