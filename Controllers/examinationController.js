@@ -1,3 +1,4 @@
+import { courseSchema } from "../Model/CourseModels.js";
 import { examinationModel } from "../Model/Examination.js";
 import cloudinary from "../utils/cloudinaryConfig.js";
 
@@ -70,13 +71,25 @@ export const courseFileUpload = async(req, res) => {
     url: file.path,
     public_id: file.filename,
   }));
-  return res.json({ message: "Videos uploaded successfully", files: uploadedFiles });
+  return res.json({ message: "Files uploaded successfully", files: uploadedFiles });
 }
 
 export const courseVideoUpload = async (req, res) => {
+  
   const uploadedFiles = req.files.map((file) => ({
     url: file.path,
     public_id: file.filename,
   }));
-  return res.json({ message: "Files uploaded successfully", files: uploadedFiles });
+  return res.json({ message: "Videos uploaded successfully", files: uploadedFiles });
 }
+
+export const courseUpload = async (req, res) => {
+  try {
+    const { title, modules } = req.body;
+    const newCourse = new courseSchema({ title, modules });
+    await newCourse.save();
+    res.status(201).json({ message: "Course saved successfully", course: newCourse });
+  } catch (error) {
+    res.status(500).json({ message: "Error saving course", error });
+  }
+};
