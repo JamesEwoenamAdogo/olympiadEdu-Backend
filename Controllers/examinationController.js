@@ -1,6 +1,7 @@
 import { courseSchema } from "../Model/CourseModels.js";
 import { examinationModel } from "../Model/Examination.js";
 import cloudinary from "../utils/cloudinaryConfig.js";
+import { uploadToGCS } from "../utils/googleCloudConfig.js";
 
 
 
@@ -68,14 +69,28 @@ export const getOneExam = async(req,res)=>{
 }
 
 export const courseFileUpload = async(req, res) => {
-  const uploadedFiles = req.files.map((file) => ({
-    url: file.path,
-    public_id: file.filename,
-  }));
-  console.log(uploadedFiles)
-  const newCourse = new courseSchema({ title: req.body.title, grade:req.body.grade, files : uploadedFiles });
-  await newCourse.save();
-  res.json({ message: "Files uploaded successfully", files: uploadedFiles });
+  // const uploadedFiles = req.files.map((file) => ({
+  //   url: file.path,
+  //   public_id: file.filename,
+  // }));
+  // console.log(uploadedFiles)
+  // const newCourse = new courseSchema({ title: req.body.title, grade:req.body.grade, files : uploadedFiles });
+  // await newCourse.save();
+  // res.json({ message: "Files uploaded successfully", files: uploadedFiles });
+  try {
+    const { title, grade } = req.body;
+    const files = req.files["files"] ? await Promise.all(req.files["files"].map(uploadToGCS)) : [];
+    const thumbnail = req.files["thumbnail"] ? await uploadToGCS(req.files["thumbnail"][0]) : null;
+
+    // Save to MongoDB
+    const course = new courseSchema({ title, grade, files, thumbnail });
+    await course.save();
+
+    res.json({ message: "Course uploaded successfully!", course });
+  } catch (error) {
+    console.error("Upload error:", error);
+    res.status(500).json({ error: "Failed to upload course" });
+  }
  
 }
 
