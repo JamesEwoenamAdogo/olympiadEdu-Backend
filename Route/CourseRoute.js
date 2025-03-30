@@ -1,6 +1,6 @@
 import express from "express"
 import upload from "../Middlewares/UploadFile.js"
-import { courseThumbnailStorage } from "../Middlewares/UploadFile.js"
+import {  courseThumbnailUpload } from "../Middlewares/UploadFile.js"
 // import router from "./examinationRoute"
 import { courseFileUpload, courseVideoUpload ,courseUpload} from "../Controllers/examinationController.js"
 
