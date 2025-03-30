@@ -1,8 +1,14 @@
 import { Storage } from "@google-cloud/storage";
 import path from "path"
 
+import { fileURLToPath } from 'url';
+import path from 'path';
 
-const googleCloudStorage = new Storage({keyFilename: "C:/Users/Emma/giftedBackend/olympiadEdu-Backend/utils/analog-memento-455312-d8-379164cc9b2a.json", projectId:"analog-memento-455312-d8"})
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+
+const googleCloudStorage = new Storage({keyFilename: path.join(__dirname,"./analog-memento-455312-d8-379164cc9b2a.json"), projectId:"analog-memento-455312-d8"})
 
 googleCloudStorage.getBuckets(x=> console.log(x))
 const googleStorage = googleCloudStorage.bucket("gifted")
