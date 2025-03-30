@@ -1,5 +1,5 @@
 import { Storage } from "@google-cloud/storage";
-const path = require("path")
+import path from "path"
 
 
 const googleCloudStorage = new Storage({keyFilename: path.join(__dirname,"./analog-memento-455312-d8-379164cc9b2a.json"), projectId:"analog-memento-455312-d8"})
