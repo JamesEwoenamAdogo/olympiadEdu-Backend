@@ -7,6 +7,9 @@ const courseModel = new mongoose.Schema({
     grade:{
         type:String
     },
+    thumbnail:{
+      type:String  
+    },
     files:{
         type:[Object]
     }
