@@ -12,6 +12,16 @@ const storage = new CloudinaryStorage({
     };
   },
 });
+const courseThumbnailStorage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: async (req, file) => {
+    return {
+      folder: "course_thumbnail", // Cloudinary folder
+      format: "png", // Convert all images to PNG
+      public_id: `${file.originalname.split(".")[0]}-${Date.now()}`, // Unique ID
+    };
+  },
+});
 
 const courseStorage = new CloudinaryStorage({
   cloudinary: cloudinary,
@@ -26,5 +36,6 @@ const courseStorage = new CloudinaryStorage({
 const upload = multer({ storage });
 
 export const courseUpload = multer({storage:courseStorage})
+export const courseThumbnail = multer({storage:courseThumbnailStorage})
 
 export default upload;
