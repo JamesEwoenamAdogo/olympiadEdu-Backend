@@ -36,6 +36,6 @@ const courseStorage = new CloudinaryStorage({
 const upload = multer({ storage });
 
 export const courseUpload = multer({storage:courseStorage})
-export const courseThumbnailStorage = multer({storage:courseThumbnailStorage})
+export const courseThumbnailUpload = multer({storage:courseThumbnailStorage})
 
 export default upload;
