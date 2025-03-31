@@ -124,3 +124,14 @@ export const courseUpload = async (req, res) => {
 };
 
 
+export const allCourses = async(req,res)=>{
+  try{
+    const courses = await courseSchema.find({})
+    return res.json({successs:true, courses})
+
+
+
+  }catch(error){
+    console.log(error)
+  }
+}

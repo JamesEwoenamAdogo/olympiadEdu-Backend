@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "analog-memento-455312-d8",
+  "private_key_id": "639226e78933853338afa2633d0a36b0344262f2",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDiH2WdTLeMSA+P\nRWzYTcouz7k7fPaOmLtaKM7vhDoZiHC0huKyfgkNXurEaPy3Q1b3UhPCBW8Zdgda\nUijLSUAkShyPMwUKWJrtyl4PEUxLNMa9Hf47P5zrrS+m7ROHsz4lru02KbgUIyU4\nR/+agWNAhrFJ2JZ4KnSdV8Fgimqj9XGa42ZbmQEOC4gr7x6++0eEsnZCb94/P40v\nypGQ6ysHN54HWSjZ6r6vuMmqJsOxyy9vX/7PB2SdTc9mzhIzxh9JS/aY/J5ReKnQ\nMjaDw97Ev1tlGbZTcJGgvd0Z03AKuxg7XJM3ys1HK4eEqHbnNnoq1geeNqL+SoH/\nS0T6Oc+NAgMBAAECggEACKSvbJPpjTFrn4FFb+mIoaxGKzsI1/pdvkxtMonA8x0R\nxSNwcrxaFLqCKff4YaSaOacXwxS+7Sp44qUy0tMYjPqPPRMJGDQ7AdK4hdtrqZFE\nH9JPwjcu2fGwrrEFDCzCt/aH3Ig7itDYGUlj62WS5BJx9ZMTl1bKG9c7o04kgDgC\naI+vydQELBNCiEjQ3/4cELgvqOrYa2/hbEEf9ZdZpotM2+yqiZMRRw61vGR4C2Kj\nfo/bIOykIAm94Zcy0lNMGreGkGNg4sg/em5SlBTnfDoVqvjaXHjU2a0JVr7+X0uo\nsNNQnkg62Ik1iQfpD/4oacMt1w1GVsuAEBYpugP9uQKBgQD6ctZ2QNPP1LrdAlXM\nppglxxOrxijdjqbQIUT7XsCRzRn+1av0BkLOc0LGHc+CDVzO++0qKlqsAcTHD01S\nuTYPWqlQNpX44hoKOKR9FZANkbDkRbKxGXMkUv+Lzhh2SdDWp3hX2DcRVra/2Mop\ntrwENhc79x2bVvwNpF0YQvesCQKBgQDnIoW+lRjnmiHT+akk6WxH1VH4xsZiiRpM\naPuLt1nP604UUUKJ4r6DMV2rr78dng87J+a201lV8r6QYqI7wCS7yLEU2I7da4G3\ngyKxrqLpChZaeA+AVb2xuHpMcmbVch8minsSyNvtqaX8m6JFZgnjfRpVDVZ+HNxn\nz40aRwdwZQKBgQCVmnuZb+gWwdBNrNNryCgiiOSrO1e14TysHvOB5HvLnGTm4OQy\nhHrrr9Y3Wh9WZH0H910YTuySywusjOt3esNcMJ/rFnBHl2hOqr83KOY/9MNh2HCB\ncd5h2GJmNNpP7pAdaTRt5O4gIVhRCULZ4Bo3ucfvPhIldLRjwccKcxZXYQKBgQCH\nGbu5WWcUQRiS0bSXecUr+7mNQ4rEH8V6ckbONN7PVIfwAkt1U07uWlWZPAHm6vOW\nLU2DAeiO/3N5691ONZKDHNy9BZQEQomw3XrTBvP8aUQFn3XYGsXlcqIxuxD2pF0m\n5vznTvaWZXo7PDFOhUU0bnSM0F4FGxONrliYynnDrQKBgQCy4tDMYvTAIuW7r7I8\nS7nvRVI1EPBp3KhvsJW4OdwxdBwfvdyyzoSvFT9YjBOMLB67u67lF7R31dGD677s\nnNViNylZPFlxd+VdjVC7l4N7AS1VsLwuwoQnJCAWn+dOcEN21uTfqjCSpSoNsuMI\n9EfPq2UDqUp9K4tgtFp5HMDGeg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "gifted-user-project@analog-memento-455312-d8.iam.gserviceaccount.com",
+  "client_id": "110114926128673904735",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/gifted-user-project%40analog-memento-455312-d8.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

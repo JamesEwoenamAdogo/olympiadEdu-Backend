@@ -1,15 +1,11 @@
 import { Storage } from "@google-cloud/storage";
 import path from "path"
-import { fileURLToPath } from 'url';
-// import path from 'path';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 
-const googleCloudStorage = new Storage({keyFilename: path.join(__dirname,"./analog-memento-455312-d8-379164cc9b2a.json"), projectId:"analog-memento-455312-d8"})
+const googleCloudStorage = new Storage({keyFilename: "C:/Users/Emma/giftedBackend/olympiadEdu-Backend/utils/analog-memento-455312-d8-639226e78933.json", projectId:"analog-memento-455312-d8"})
 
 googleCloudStorage.getBuckets(x=> console.log(x))
-const googleStorage = googleCloudStorage.bucket("gifted")
+const googleStorage = googleCloudStorage.bucket("gifted-user-storage")
 
 export const uploadToGCS = async (file) => {
     return new Promise((resolve, reject) => {
@@ -17,7 +13,7 @@ export const uploadToGCS = async (file) => {
       const blobStream = blob.createWriteStream({
         resumable: false,
         metadata: { contentType: file.mimetype },
-        
+
       });
   
       blobStream.on("finish", () => {
