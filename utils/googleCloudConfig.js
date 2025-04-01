@@ -1,5 +1,10 @@
 import { Storage } from "@google-cloud/storage";
 import path from "path"
+import { fileURLToPath } from "url";
+
+// Get the current directory equivalent to `__dirname`
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 
 const googleCloudStorage = new Storage({keyFilename: path.join(__dirname, "utils","analog-memento-455312-d8-639226e78933.json"), projectId:"analog-memento-455312-d8"})
