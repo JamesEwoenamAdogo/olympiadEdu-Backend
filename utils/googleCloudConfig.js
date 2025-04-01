@@ -2,7 +2,7 @@ import { Storage } from "@google-cloud/storage";
 import path from "path"
 
 
-const googleCloudStorage = new Storage({keyFilename: "C:/Users/Emma/giftedBackend/olympiadEdu-Backend/utils/analog-memento-455312-d8-639226e78933.json", projectId:"analog-memento-455312-d8"})
+const googleCloudStorage = new Storage({keyFilename: path.join(__dirname, "utils","analog-memento-455312-d8-639226e78933.json"), projectId:"analog-memento-455312-d8"})
 
 googleCloudStorage.getBuckets(x=> console.log(x))
 const googleStorage = googleCloudStorage.bucket("gifted-user-storage")
