@@ -12,6 +12,9 @@ const courseModel = new mongoose.Schema({
     },
     files:{
         type:[Object]
+    },
+    registered:{
+        type:[String]
     }
 },{timestamps:true})
 

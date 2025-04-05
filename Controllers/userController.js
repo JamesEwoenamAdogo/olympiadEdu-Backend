@@ -5,6 +5,8 @@ import jwt from "jsonwebtoken"
 import dotenv from "dotenv"
 import { competitionsSchema } from "../Model/Competions.js";
 import { transactionModel } from "../Model/transactionModel.js";
+import { courseSchema } from "../Model/CourseModels.js";
+import { examinationModel } from "../Model/Examination.js";
 dotenv.config()
 
 
@@ -99,7 +101,7 @@ export const loginUser = async(req,res)=>{
 }
 export const updateAddInvoiceAddOns = async(req,res)=>{
     try{
-        const {Registered,Invoice,AddOns,Paid}= req.body
+        const {Registered,Invoice,AddOns,Paid,choice,grade}= req.body
         const userId = req.userId
         const {id} = req.params
        
@@ -113,37 +115,39 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
         const invoice = userDetails.Invoice
         const addOns = userDetails.AddOns
 
-        const checkPaidAlready = userDetails.Paid.find((item)=>{return item == Paid })
+        // const checkPaidAlready = userDetails.Paid.find((item)=>{return item == Paid })
         
-        if(checkPaidAlready){
-            return res.json({success:false, message:"payment already made for this examination"})
-        }
+        // if(checkPaidAlready){
+        //     return res.json({success:false, message:"payment already made for this examination"})
+        // }
         
-        const checkExistingInvoice = userDetails.Invoice.find((item)=>{return item.name == Paid})
+        const checkExistingInvoice = userDetails.Invoice.find((item)=>{return item.name == Registered})
         
         if(checkExistingInvoice){
             return res.json({success:false,message:"Invoice already added"})
         }
-        const otherSub = subCompetition.subTypes.filter((item)=>{return !(item.name==Registered)})
-        const currentSub = subCompetition.subTypes.find((item)=>{return item.name==Registered})
-        let paid = []
-        if(Paid){
-            paid = userDetails.Paid
-            const updatedwithPaid = await userModel.findByIdAndUpdate(userId,{Registered:[...registered, Registered],Invoice:[...invoice,Invoice],AddOns:[...addOns,AddOns],Paid:[...paid, Paid]}, {new:true})
+        // const otherSub = subCompetition.subTypes.filter((item)=>{return !(item.name==Registered)})
+        // const currentSub = subCompetition.subTypes.find((item)=>{return item.name==Registered})
+        // let paid = []
+        // if(Paid){
+        //     paid = userDetails.Paid
+        //     const updatedwithPaid = await userModel.findByIdAndUpdate(userId,{Registered:[...registered, Registered],Invoice:[...invoice,Invoice],AddOns:[...addOns,AddOns],Paid:[...paid, Paid]}, {new:true})
         
-            const subUpdate = {...currentSub,paid:currentSub.paid+1,registered:currentSub.registered+1}
+        //     const subUpdate = {...currentSub,paid:currentSub.paid+1,registered:currentSub.registered+1}
 
-            const transactionObject = {name:userDetails.userName,amount:Invoice.Cost,description:Invoice.name,status:"Paid",generatedOn:`${date.getMonth()+1} ${date.getFullYear()}`,paidOn:"--"}
+        //     const transactionObject = {name:userDetails.userName,amount:Invoice.Cost,description:Invoice.name,status:"Paid",generatedOn:`${date.getMonth()+1} ${date.getFullYear()}`,paidOn:"--"}
             
-            const transaction = new transactionModel(transactionObject)
-            transaction.save()
+        //     const transaction = new transactionModel(transactionObject)
+        //     transaction.save()
 
-            const updatePaid = await competitionsSchema.findByIdAndUpdate(subCompetition._id,{subTypes:[...otherSub,subUpdate]},{new:true})
-            return res.json({success:true })
-        }
+        //     const updatePaid = await competitionsSchema.findByIdAndUpdate(subCompetition._id,{subTypes:[...otherSub,subUpdate]},{new:true})
+        //     return res.json({success:true })
+        // }
         
-        const subUpdate = {...currentSub,registered:currentSub.registered+1}
-        const updatePaid = await competitionsSchema.findByIdAndUpdate(subCompetition._id,{subTypes:[...otherSub,subUpdate]},{new:true})
+        // const subUpdate = {...currentSub,registered:currentSub.registered+1}
+
+        // const updatePaid = await competitionsSchema.findByIdAndUpdate(subCompetition._id,{subTypes:[...otherSub,subUpdate]},{new:true})
+
         const transactionBody = {name:userDetails.userName,amount:Invoice.Cost,description:Invoice.name,status:"Pending",generatedOn:`${date.getMonth()+1} ${date.getFullYear()}`,paidOn:"--"}
         const transaction = new transactionModel(transactionBody)
         transaction.save()
@@ -152,10 +156,77 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
         return res.json({success:true})
 
 
+    }catch(error){
+        console.log(error)
+        res.status(500).json({message:"error",})
+    }
+}
+export const updateAddPaymentAddOns = async(req,res)=>{
+   try{
+    const {Registered,Invoice,AddOns,Paid,choice,grade}= req.body
+   
 
+    const user = await userModel.findById(req.userId)
+    const updateUser = await userModel.findByIdAndUpdate(user._id,{Paid:[...user.Paid,Invoice]},{new:true})
+    const date = new Date()
+    const transactionBody = {name:user.userName,amount:Invoice.Cost,description:Invoice.name,status:"Pending",generatedOn:`${date.getMonth()+1} ${date.getFullYear()}`,paidOn:"--"}
+    const newTransaction = new transactionModel(transactionBody)
+    newTransaction.save()
+
+
+    if(choice.assessment && choice.course)
+    {
+    const course = await courseSchema.find({title:Registered,grade})
+    const courseRegistered = course[0].registered
+    const assessment = await examinationModel.find({title:Registered,grade})
+    const assessmentRegistered = assessment[0].registered
+
+    for(let id of courseRegistered){
+        if(id==req.userId){
+            return res.json({success:false,message:"User already registered"})
+        }
+    }
+    
+    for(let id of assessmentRegistered){
+        if(id==req.userId){
+            return res.json({success:false,message:"User already registered"})
+        }
+    }
+    
+
+    const updateCourse = await courseSchema.findByIdAndUpdate(course[0]._id,{registered:[...courseRegistered,req.userId]})
+    const assessmentUpdate = await examinationModel.findByIdAndUpdate(assessment[0]._id,{registered:[...assessmentRegistered,req.userId]},{new:true})
+    return res.json({success:true,message:"success"})
+    }
+    else if(choice.assessment && !choice.course){
+        const assessment = await examinationModel.find({title:Registered,grade})
+        const assessmentRegistered = assessment[0].registered
+        for(let id of assessmentRegistered){
+            if(id==req.userId){
+                return res.json({success:false,message:"User already registered"})
+            }
+        }
         
-       
 
+        const assessmentCourse = await examinationModel.findByIdAndUpdate(assessment[0]._id,{registered:[...assessmentRegistered,req.userId]},{new:true})
+        return res.json({success:true,message:"success"})
+    
+    }
+    else if(!choice.assessment && choice.course){
+        const course = await courseSchema.find({title:Registered,grade})
+        const courseRegistered = course[0].registered
+        for(let id of courseRegistered){
+            if(id==req.userId){
+                return res.json({success:false,message:"User already registered"})
+            }
+        }
+        
+        const updateCourse = await courseSchema.findByIdAndUpdate(course[0]._id,{registered:[...courseRegistered,req.userId]},{new:true})
+
+        return res.json({success:true,message:"success"})
+
+    
+    }
 
 
     }catch(error){

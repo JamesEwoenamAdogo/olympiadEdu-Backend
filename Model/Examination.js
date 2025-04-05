@@ -21,6 +21,9 @@ const examinationSchema = new mongoose.Schema({
     },
     questions:{
         type:[Object]
+    },
+    registered:{
+        type:[String]
     }
 }, {timestamps:true})
 
