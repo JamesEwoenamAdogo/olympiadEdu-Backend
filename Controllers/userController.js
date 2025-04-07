@@ -173,9 +173,11 @@ export const updateAddPaymentAddOns = async(req,res)=>{
     const newTransaction = new transactionModel(transactionBody)
     newTransaction.save()
 
+    console.log(req.body)
 
     if(choice.assessment && choice.course)
     {
+    
     const course = await courseSchema.find({title:Registered,grade})
     const courseRegistered = course[0].registered
     const assessment = await examinationModel.find({title:Registered,grade})
