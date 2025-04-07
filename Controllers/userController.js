@@ -178,7 +178,7 @@ export const updateAddPaymentAddOns = async(req,res)=>{
     if(choice.assessment && choice.course)
     {
     
-    const course = await courseSchema.find({title:Registered,grade})
+    const course = await courseSchema.find({title:Registered,grade:grade.split(" ")[1]})
     console.log(course)
     const courseRegistered = course[0].registered
     const assessment = await examinationModel.find({title:Registered,grade})
