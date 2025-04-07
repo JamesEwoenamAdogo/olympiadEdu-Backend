@@ -163,7 +163,7 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
 }
 export const updateAddPaymentAddOns = async(req,res)=>{
    try{
-    const {Registered,Invoice,AddOns,Paid,choice,grade}= req.body
+    const {Registered,Invoice,AddOns,Paid,choice,Grade}= req.body
    
 
     const user = await userModel.findById(req.userId)
@@ -178,10 +178,10 @@ export const updateAddPaymentAddOns = async(req,res)=>{
     if(choice.assessment && choice.course)
     {
     
-    const course = await courseSchema.find({title:Registered,grade:grade.split(" ")[1]})
+    const course = await courseSchema.find({title:Registered,grade:Grade})
     console.log(course)
     const courseRegistered = course[0].registered
-    const assessment = await examinationModel.find({title:Registered,grade})
+    const assessment = await examinationModel.find({title:Registered,grade:Grade})
     const assessmentRegistered = assessment[0].registered
 
     for(let id of courseRegistered){
