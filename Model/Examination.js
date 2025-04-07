@@ -23,7 +23,8 @@ const examinationSchema = new mongoose.Schema({
         type:[Object]
     },
     registered:{
-        type:[String]
+        type:[String],
+        default:[""]
     }
 }, {timestamps:true})
 
