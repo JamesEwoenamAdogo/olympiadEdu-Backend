@@ -182,6 +182,7 @@ export const updateAddPaymentAddOns = async(req,res)=>{
     console.log(course)
     const courseRegistered = course[0].registered
     const assessment = await examinationModel.find({title:Registered,grade:Grade})
+    console.log(assessment)
     const assessmentRegistered = assessment[0].registered
 
     for(let id of courseRegistered){
