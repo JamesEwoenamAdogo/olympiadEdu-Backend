@@ -48,7 +48,7 @@ const userSchema = new mongoose.Schema({
         type:[String]
     },
     Paid:{
-        type:[String]
+        type:[Object]
     },
     Invoice:{
         type: [Object]
