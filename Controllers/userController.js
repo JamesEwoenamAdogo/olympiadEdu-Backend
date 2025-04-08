@@ -169,7 +169,7 @@ export const updateAddPaymentAddOns = async(req,res)=>{
     const user = await userModel.findById(req.userId)
     const updateUser = await userModel.findByIdAndUpdate(user._id,{Paid:[...user.Paid,Invoice]},{new:true})
     const date = new Date()
-    const transactionBody = {name:user.userName,amount:Invoice.Cost,description:Invoice.name,status:"Pending",generatedOn:`${date.getMonth()+1} ${date.getFullYear()}`,paidOn:"--"}
+    const transactionBody = {name:user.userName,amount:Invoice.Cost,description:Invoice.name,status:"Paid",generatedOn:`${date.getMonth()+1} ${date.getFullYear()}`,paidOn:"--"}
     const newTransaction = new transactionModel(transactionBody)
     newTransaction.save()
 
