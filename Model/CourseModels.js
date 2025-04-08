@@ -26,7 +26,8 @@ const courseModel = new mongoose.Schema({
         type:String
     },
     featured:{
-        type:String
+        type:Boolean,
+        default:false
     },
     rating:{
         type:Number,
