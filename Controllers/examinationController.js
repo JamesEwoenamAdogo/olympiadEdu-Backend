@@ -78,12 +78,12 @@ export const courseFileUpload = async(req, res) => {
   // await newCourse.save();
   // res.json({ message: "Files uploaded successfully", files: uploadedFiles });
   try {
-    const { title, grade } = req.body;
+    const { title, grade,description ,featured, tags,category,level, duration } = req.body;
     const files = req.files["files"] ? await Promise.all(req.files["files"].map(uploadToGCS)) : [];
     const thumbnail = req.files["thumbnail"] ? await uploadToGCS(req.files["thumbnail"][0]) : null;
 
     // Save to MongoDB
-    const course = new courseSchema({ title, grade, files, thumbnail });
+    const course = new courseSchema({ title, grade, files, image:thumbnail,tags,level,duration,featured,description, category });
     await course.save();
 
     res.json({ message: "Course uploaded successfully!", course });

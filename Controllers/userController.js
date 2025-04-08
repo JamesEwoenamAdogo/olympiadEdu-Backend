@@ -185,6 +185,16 @@ export const updateAddPaymentAddOns = async(req,res)=>{
     console.log(assessment)
     const assessmentRegistered = assessment[0].registered
 
+    if(assessment.length==0 && course.length==0){
+        return res.json({success:false,message:`Assessment and Course for grade ${Grade} ${Registered} does not exist`})
+    }
+    if(assessment.length==0){
+        return res.json({success:false,message:`Assessment for grade ${Grade} ${Registered} does not exist`})
+    }
+    if(course.length==0){
+        return res.json({success:false,message:`Course for grade ${Grade} ${Registered} does not exist`})
+    }
+
     for(let id of courseRegistered){
         if(id==req.userId){
             return res.json({success:false,message:"User already registered"})
@@ -203,7 +213,10 @@ export const updateAddPaymentAddOns = async(req,res)=>{
     return res.json({success:true,message:"success"})
     }
     else if(choice.assessment && !choice.course){
-        const assessment = await examinationModel.find({title:Registered,grade})
+        const assessment = await examinationModel.find({title:Registered,grade:Grade})
+        if(assessment.length==0){
+            return res.json({success:false,message:`Assessment for grade ${Grade} ${Registered} does not exist`})
+        }
         const assessmentRegistered = assessment[0].registered
         for(let id of assessmentRegistered){
             if(id==req.userId){
@@ -217,8 +230,11 @@ export const updateAddPaymentAddOns = async(req,res)=>{
     
     }
     else if(!choice.assessment && choice.course){
-        const course = await courseSchema.find({title:Registered,grade})
+        const course = await courseSchema.find({title:Registered,grade:Grade})
         const courseRegistered = course[0].registered
+        if(course.length==0){
+            return res.json({success:false,message:`Course for grade ${Grade} ${Registered} does not exist`})
+        }
         for(let id of courseRegistered){
             if(id==req.userId){
                 return res.json({success:false,message:"User already registered"})
