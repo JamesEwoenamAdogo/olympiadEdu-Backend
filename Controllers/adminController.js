@@ -197,7 +197,7 @@ export const fetchTransactions = async(req,res)=>{
 
 export const createGroup = async (req, res) => {
   try {
-    const { name, description } = req.body;
+    const { name, description, category,isOpen,recentDiscussion } = req.body;
 
     // Assuming you have middleware to extract the admin user from token
     const userId = req.userId;
@@ -207,7 +207,10 @@ export const createGroup = async (req, res) => {
       description,
       createdBy: userId,
       members: [userId], // Admin auto-joins group
-      image: req.file ? req.file.path : null
+      image: req.file ? req.file.path : null,
+      category,
+      isOpen,
+    //   recentDiscussion
     });
 
     await group.save();
@@ -217,3 +220,15 @@ export const createGroup = async (req, res) => {
     res.status(500).json({ message: 'Failed to create group' });
   }
 };
+
+export const getAllGroups = async(req,res)=>{
+    try{
+        const allGroups = await GroupModel.find({})
+        return res.json({success:true, allGroups})
+
+
+
+    }catch(error){
+        console.log(error)
+    }
+}

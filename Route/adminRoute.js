@@ -1,5 +1,5 @@
 import express from "express"
-import { paidForUsers, registeredForUsers,addCompetition,AllCompetitions,deleteCompetition,updateCompetition,findOneCompetion, LoginUser, adminSignUp, fetchTransactions, createGroup } from "../Controllers/adminController.js"
+import { paidForUsers, registeredForUsers,addCompetition,AllCompetitions,deleteCompetition,updateCompetition,findOneCompetion, LoginUser, adminSignUp, fetchTransactions, createGroup, getAllGroups } from "../Controllers/adminController.js"
 import { authenticateUser } from "../Middlewares/authUser.js"
 import { fetchUsers } from "../Controllers/userController.js"
 import UploadFile from "../Middlewares/UploadFile.js"
@@ -21,3 +21,4 @@ adminRoutes.get("/all-competition", authenticateUser,AllCompetitions)
 adminRoutes.get("/competition/:id",authenticateUser,findOneCompetion)
 adminRoutes.get("/all-transactions", fetchTransactions)
 adminRoutes.post("/create-group", UploadFile.communityThumbnailUpload.single("image"), authenticateUser,createGroup)
+adminRoutes.post("/all-groups",authenticateUser,getAllGroups)
