@@ -5,6 +5,7 @@ import { transactionModel } from "../Model/transactionModel.js";
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 import dotenv from "dotenv"
+import { GroupModel } from "../Model/AdminCommunityModel.js";
 
 
 
@@ -37,7 +38,7 @@ export const LoginUser = async(req,res)=>{
         if(!passwordMatch){
             return res.json({success:false, message:"invalid credentials"})
         }
-        const token = jwt.sign({id:user._id,email:user.email},process.env.TOKEN_SECRET)
+        const token = jwt.sign({id:user._id,email:user.email},process.env.TOKEN_SECRET,{expiresIn:"30m"})
     
         
         
@@ -191,3 +192,28 @@ export const fetchTransactions = async(req,res)=>{
 
 
 
+// controllers/groupController.js
+
+
+export const createGroup = async (req, res) => {
+  try {
+    const { name, description } = req.body;
+
+    // Assuming you have middleware to extract the admin user from token
+    const userId = req.userId;
+
+    const group = new GroupModel({
+      name,
+      description,
+      createdBy: userId,
+      members: [userId], // Admin auto-joins group
+      image: req.file ? req.file.path : null
+    });
+
+    await group.save();
+    res.status(201).json(group);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to create group' });
+  }
+};

@@ -22,6 +22,16 @@ const courseThumbnailStorage = new CloudinaryStorage({
     };
   },
 });
+const communityThumbnailStorage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: async (req, file) => {
+    return {
+      folder: "course_thumbnail", // Cloudinary folder
+      format: "png", // Convert all images to PNG
+      public_id: `${file.originalname.split(".")[0]}-${Date.now()}`, // Unique ID
+    };
+  },
+});
 
 const courseStorage = new CloudinaryStorage({
   cloudinary: cloudinary,
@@ -34,8 +44,10 @@ const courseStorage = new CloudinaryStorage({
 });
 // Configure Multer to use Cloudinary storage
 const upload = multer({ storage });
+const communityThumbnailUpload = multer({ storage:communityThumbnailStorage });
 
 export const courseUpload = multer({storage:courseStorage})
-export const courseThumbnailUpload = multer({storage:courseThumbnailStorage})
+// export const courseThumbnailUpload = multer({storage:courseThumbnailStorage})
 
-export default upload;
+
+export default {upload,communityThumbnailUpload};

@@ -7,7 +7,7 @@ const router = express.Router();
 // Handle multiple file uploads
 router.post(
   "/add-exam",
-  upload.fields([
+  upload.upload.fields([
     { name: "image", maxCount: 1 }, // Main quiz image
     { name: "questionImages", maxCount: 20 }, // Multiple question images
   ]),
