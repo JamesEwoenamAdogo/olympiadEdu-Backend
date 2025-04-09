@@ -47,7 +47,7 @@ const upload = multer({ storage });
 const communityThumbnailUpload = multer({ storage:communityThumbnailStorage });
 
 export const courseUpload = multer({storage:courseStorage})
-// export const courseThumbnailUpload = multer({storage:courseThumbnailStorage})
+export const courseThumbnailUpload = multer({storage:courseThumbnailStorage})
 
 
 export default {upload,communityThumbnailUpload};
