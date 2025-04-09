@@ -8,6 +8,7 @@ const GroupSchema = new mongoose.Schema({
   members: [{ type: mongoose.Schema.Types.ObjectId, ref: 'admin' }],
   category:{type:String},
   isOpen:{type:String},
+  featured:{type:String},
   recentDiscussion:{type:String, default:""}
 }, { timestamps: true });
 

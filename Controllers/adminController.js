@@ -197,7 +197,7 @@ export const fetchTransactions = async(req,res)=>{
 
 export const createGroup = async (req, res) => {
   try {
-    const { name, description, category,isOpen,recentDiscussion } = req.body;
+    const { name, description, category,isOpen,feature } = req.body;
 
     // Assuming you have middleware to extract the admin user from token
     const userId = req.userId;
@@ -210,6 +210,7 @@ export const createGroup = async (req, res) => {
       image: req.file ? req.file.path : null,
       category,
       isOpen,
+      featured
     //   recentDiscussion
     });
 
