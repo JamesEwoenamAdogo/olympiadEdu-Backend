@@ -10,10 +10,21 @@ export const assessAnalyticsController = async(req,res)=>{
         const existing = await assessmentAnalysisModel.find({userId})
         if(existing.length==1){
             const updateAnalytics = await assessmentAnalysisModel.findByIdAndUpdate(existing._id,{details:[...existing.details,details]},{new:true})
+            
             return res.json({success:true,update:updateAnalytics})
         }
-        const newUpdate = new assessmentAnalysisModel(req.body)
+        const newUpdate = new assessmentAnalysisModel({userId:req.body.userId, details:[details]})
         newUpdate.save()
+
+    }catch(error){
+        console.log(error)
+    }
+}
+export const allAssessment = async(req,res)=>{
+    try{
+        const allAssessments = assessmentAnalysisModel.find({})
+        return res.json({success,allAssessments})
+
 
     }catch(error){
         console.log(error)
@@ -28,11 +39,21 @@ export const LearningResourceAnalysisController = async(req,res)=>{
             const updateAnalytics = await learningResourcesModel.findByIdAndUpdate(existing._id,{learningAnalytics:[...existing.learningAnalytics,learningAnalytics]},{new:true})
             return res.json({success:true,update:updateAnalytics})
         }
-        const newUpdate = new learningResourcesModel(req.body)
+        const newUpdate = new learningResourcesModel({userId, learningAnalytics:[learningAnalytics]})
         newUpdate.save()
 
 
 
+
+    }catch(error){
+        console.log(error)
+    }
+}
+
+export const allLearningResourceAnalytics = async(req,res)=>{
+    try{
+    const allLearningResourceData = await learningResourcesModel.find({})
+    return res.json({success:true, allLearningData:allLearningResourceData})
 
     }catch(error){
         console.log(error)
