@@ -9,7 +9,7 @@ export const assessAnalyticsController = async(req,res)=>{
         const {userId,details}= req.body
         const existing = await assessmentAnalysisModel.find({userId})
         if(existing.length==1){
-            const updateAnalytics = await assessmentAnalysisModel.findByIdAndUpdate(existing._id,{details:[...existing.details,details]},{new:true})
+            const updateAnalytics = await assessmentAnalysisModel.findByIdAndUpdate(existing[0]._id,{details:[...existing[0].details,details]},{new:true})
             
             return res.json({success:true,update:updateAnalytics})
         }
@@ -37,7 +37,7 @@ export const LearningResourceAnalysisController = async(req,res)=>{
         const {userId,learningAnalytics}= req.body
         const existing = await learningResourcesModel.find({userId})
         if(existing.length==1){
-            const updateAnalytics = await learningResourcesModel.findByIdAndUpdate(existing._id,{learningAnalytics:[...existing.learningAnalytics,learningAnalytics]},{new:true})
+            const updateAnalytics = await learningResourcesModel.findByIdAndUpdate(existing[0]._id,{learningAnalytics:[...existing[0].learningAnalytics,learningAnalytics]},{new:true})
             return res.json({success:true,update:updateAnalytics})
         }
         const newUpdate = new learningResourcesModel({userId, learningAnalytics:[learningAnalytics]})
