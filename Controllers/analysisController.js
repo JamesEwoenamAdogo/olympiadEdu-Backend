@@ -42,6 +42,7 @@ export const LearningResourceAnalysisController = async(req,res)=>{
         }
         const newUpdate = new learningResourcesModel({userId, learningAnalytics:[learningAnalytics]})
         newUpdate.save()
+        return res.json({success:true, newUpdate})
 
 
 
