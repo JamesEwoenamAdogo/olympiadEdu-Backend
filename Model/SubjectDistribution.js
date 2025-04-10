@@ -8,6 +8,6 @@ const subjectDistribution = new mongoose.Schema({
     subjectDistribution:{
         type:[Object]
     }
-},{timestamps})
+},{timestamps:true})
 
 export const subjectDistributionModel = mongoose.model("subjectDistribution",subjectDistribution)
