@@ -15,6 +15,7 @@ export const assessAnalyticsController = async(req,res)=>{
         }
         const newUpdate = new assessmentAnalysisModel({userId:req.body.userId, details:[details]})
         newUpdate.save()
+        return res.json({success:true,newUpdate})
 
     }catch(error){
         console.log(error)
