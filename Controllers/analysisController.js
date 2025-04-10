@@ -9,7 +9,7 @@ export const assessAnalyticsController = async(req,res)=>{
         const {userId,details}= req.body
         const existing = await assessmentAnalysisModel.find({userId})
         if(existing.length==1){
-            const updatedDetails = existing[0].details.filter((item)=>{return (item.title!==details.title&&item.grade!==details.grade)})
+            const updatedDetails = existing[0].details.filter((item)=>{return item.title!==details.title})
             updatedDetails.push(details)
             const updateAnalytics = await assessmentAnalysisModel.findByIdAndUpdate(existing[0]._id,{details: updatedDetails},{new:true})
             return res.json({success:true,update:updateAnalytics})
@@ -38,7 +38,7 @@ export const LearningResourceAnalysisController = async(req,res)=>{
         const {userId,learningAnalytics}= req.body
         const existing = await learningResourcesModel.find({userId})
         if(existing.length==1){
-            const updatedLearningAnalytics = existing[0].learningAnalytics.filter((item)=>{return item.title!==learningAnalytics.title&&item.grade!==learningAnalytics.grade})
+            const updatedLearningAnalytics = existing[0].learningAnalytics.filter((item)=>{return item.title!==learningAnalytics.title})
             updatedLearningAnalytics.push(learningAnalytics)
             const updateAnalytics = await learningResourcesModel.findByIdAndUpdate(existing[0]._id,{learningAnalytics:updatedLearningAnalytics},{new:true})
             return res.json({success:true,update:updateAnalytics})
