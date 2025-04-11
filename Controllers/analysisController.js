@@ -24,8 +24,8 @@ export const assessAnalyticsController = async(req,res)=>{
 }
 export const allAssessment = async(req,res)=>{
     try{
-        const allAssessments = assessmentAnalysisModel.find({})
-        return res.json({success,allAssessments})
+        const allAssessments = await assessmentAnalysisModel.find({})
+        return res.json({success:true,allAssessments})
 
 
     }catch(error){
