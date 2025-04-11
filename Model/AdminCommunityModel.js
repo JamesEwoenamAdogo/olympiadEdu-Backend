@@ -11,6 +11,7 @@ const GroupSchema = new mongoose.Schema({
   featured:{type:Boolean,default:false},
   recentDiscussion:{type:String, default:""},
   trending:{type:Boolean,default:false}
+
 }, { timestamps: true });
 
 export const GroupModel = mongoose.model('Group', GroupSchema);

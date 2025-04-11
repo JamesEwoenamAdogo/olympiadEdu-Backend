@@ -7,6 +7,8 @@ import { competitionsSchema } from "../Model/Competions.js";
 import { transactionModel } from "../Model/transactionModel.js";
 import { courseSchema } from "../Model/CourseModels.js";
 import { examinationModel } from "../Model/Examination.js";
+import { channelFeedModel } from "../Model/ChannelFeed.js";
+
 dotenv.config()
 
 
@@ -330,5 +332,27 @@ export const payAfterInvoice = async(req,res)=>{
         res.status(500).json({success:false})
     }
 
+}
+
+export const UpdateMessage = async(req,res) =>{
+    try{
+        const {messages, channelId}= req.body
+        const existing = await channelFeedModel.find({channelId})
+        if(existing.length==1){
+
+            const updateMessages = channelFeedModel.findByIdAndUpdate(existing[0]._id,{messages:[...existing[0].messages,{...messages,attachment:req.file?req.file:null}]},{new:true})
+            return res.json({success:true,update:updateMessages})
+          
+
+        }
+        const newMessageList = [{...messages,attachment:req.file.image? req.file.image:null}]
+        const newMessage = new channelFeedModel({channelId,messages:newMessageList})
+        newMessage.save()
+        return res.json({success:true,newMessage})
+        
+        
+    }catch(error){
+        console.log(error)
+    }
 }
 
