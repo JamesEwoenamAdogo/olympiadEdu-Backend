@@ -24,7 +24,8 @@ export const assessAnalyticsController = async(req,res)=>{
 }
 export const allAssessment = async(req,res)=>{
     try{
-        const allAssessments = await assessmentAnalysisModel.find({})
+        const {id}= req.params
+        const allAssessments = await assessmentAnalysisModel.find({userId:id})
         return res.json({success:true,allAssessments})
 
 
@@ -57,7 +58,8 @@ export const LearningResourceAnalysisController = async(req,res)=>{
 
 export const allLearningResourceAnalytics = async(req,res)=>{
     try{
-    const allLearningResourceData = await learningResourcesModel.find({})
+    const {id} = req.params
+    const allLearningResourceData = await learningResourcesModel.find({userId:id})
     return res.json({success:true, allLearningData:allLearningResourceData})
 
     }catch(error){

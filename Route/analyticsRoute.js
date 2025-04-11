@@ -4,7 +4,7 @@ import { assessAnalyticsController,PerformanceDataController,SubjectDistribution
 export const analyticsRoutes = express.Router()
 
 analyticsRoutes.post("/assessment-analytics",assessAnalyticsController)
-analyticsRoutes.get("/all-assessment-analytics",allAssessment)
+analyticsRoutes.get("/all-assessment-analytics/:id",allAssessment)
 
 analyticsRoutes.post("/performance-analytics",PerformanceDataController)
 
@@ -13,4 +13,4 @@ analyticsRoutes.post("/subject-distribution-analytics",SubjectDistributionContro
 
 
 analyticsRoutes.post("/learning-resource-analytics",LearningResourceAnalysisController)
-analyticsRoutes.get("/all-learning-resource-analytics",allLearningResourceAnalytics)
+analyticsRoutes.get("/all-learning-resource-analytics/:id",allLearningResourceAnalytics)
