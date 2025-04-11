@@ -337,15 +337,16 @@ export const payAfterInvoice = async(req,res)=>{
 export const UpdateMessage = async(req,res) =>{
     try{
         const {messages, channelId}= req.body
+        const message = JSON.parse(messages)
         const existing = await channelFeedModel.find({channelId})
         if(existing.length==1){
 
-            const updateMessages = channelFeedModel.findByIdAndUpdate(existing[0]._id,{messages:[...existing[0].messages,{...messages,attachment:req.file?req.file:null}]},{new:true})
+            const updateMessages = channelFeedModel.findByIdAndUpdate(existing[0]._id,{messages:[...existing[0].messages,{...message,attachment:req.file?req.file.image:null}]},{new:true})
             return res.json({success:true,update:updateMessages})
           
 
         }
-        const newMessageList = [{...messages,attachment:req.file.image? req.file.image:null}]
+        const newMessageList = [{...message,attachment:req.file? req.file.image:null}]
         const newMessage = new channelFeedModel({channelId,messages:newMessageList})
         newMessage.save()
         return res.json({success:true,newMessage})
