@@ -344,8 +344,10 @@ export const UpdateMessage = async(req,res) =>{
         
         const existing = await channelFeedModel.find({channelId})
         if(existing.length==1){
-
-            const updateMessages = channelFeedModel.findByIdAndUpdate(existing[0]._id,{messages:[...existing[0].messages,{...message, attachment:req.file?req.file.path:null}]},{new:true})
+            const existingMessages = existing[0].messages
+            const newIncomingMessages = {...message,attachment: req.file? req.file.path : null}
+            const finalNewMessage = [...existingMessages, newIncomingMessages]
+            const updateMessages = await channelFeedModel.findByIdAndUpdate(existing[0]._id,{messages:finalNewMessage},{new:true})
             return res.json({success:true,message:"completed successfully"})
           
 
