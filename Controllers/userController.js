@@ -336,11 +336,12 @@ export const payAfterInvoice = async(req,res)=>{
 
 export const UpdateMessage = async(req,res) =>{
     try{
-        const {messages, channelId}= req.body
+        const {channelId,sender,content,}= req.body
         console.log(req.body)
-        const message = JSON.parse(messages)
-        console.log(messages)
+        const message = {sender,content}
+        
         console.log(message)
+        
         const existing = await channelFeedModel.find({channelId})
         if(existing.length==1){
 
