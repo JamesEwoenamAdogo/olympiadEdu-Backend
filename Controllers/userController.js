@@ -363,3 +363,15 @@ export const UpdateMessage = async(req,res) =>{
     }
 }
 
+export const fetchChannelFeed = async(req,res)=>{
+    try{
+        const {channelId} = req.params
+        const channelFeed = await channelFeedModel.find({channelId})
+        return res.json({success:true,channelFeed})
+
+
+    }catch(error){
+        console.log(error)
+    }
+}
+

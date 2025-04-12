@@ -1,5 +1,5 @@
 import express from "express"
-import { addUser, loginUser, updateUsers,updateAddInvoiceAddOns,loadPurpose, updateAddPaymentAddOns,UpdateMessage} from "../Controllers/userController.js"
+import { addUser, loginUser, updateUsers,updateAddInvoiceAddOns,loadPurpose, updateAddPaymentAddOns,UpdateMessage, fetchChannelFeed} from "../Controllers/userController.js"
 import { authenticateUser } from "../Middlewares/authUser.js"
 import { channelImageUpload } from "../Middlewares/UploadFile.js"
 
@@ -13,6 +13,7 @@ userRoute.put("/update-user",authenticateUser, updateUsers)
 userRoute.post("/update-user-details/:id",authenticateUser,updateAddInvoiceAddOns)
 userRoute.post("/update-user-payment-details/:id",authenticateUser,updateAddPaymentAddOns)
 userRoute.post("/send-message",channelImageUpload.single("image"),UpdateMessage)
+userRoute.get("/channel-feed/:channelId",fetchChannelFeed)
 
 
 
