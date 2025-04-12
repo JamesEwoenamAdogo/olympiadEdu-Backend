@@ -337,6 +337,7 @@ export const payAfterInvoice = async(req,res)=>{
 export const UpdateMessage = async(req,res) =>{
     try{
         const {messages, channelId}= req.body
+        console.log(req.body)
         const message = JSON.parse(messages)
         console.log(messages)
         console.log(message)
