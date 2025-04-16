@@ -326,6 +326,10 @@ export const loadPurpose = async(req,res)=>{
 
 export const payAfterInvoice = async(req,res)=>{
     try{
+        const userId = req.userId
+        const userDetails = await userModel.findById(userId)
+        const Invoice =
+
 
     }catch(error){
         console.log(error)
