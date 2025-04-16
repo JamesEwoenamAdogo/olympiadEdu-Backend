@@ -1,22 +1,31 @@
-import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
-dotenv.config();
+import jwt from "jsonwebtoken"
+import dotenv from "dotenv"
+import { Socket } from "socket.io"
+dotenv.config()
 
-io.use((socket, next) => {
-  const token = socket.handshake.auth.token; // token sent from client
+export const authenticateUser = async(req,res,next,socket)=>{
+    try{
+        const token = req.headers.token
+        console.log(token)
+        const verifyUser = jwt.verify(token,process.env.TOKEN_SECRET)
+        if(!token){
+            return res.json({success:false, message:"User not logged in"})
+        }
+        if(!verifyUser){
+            return res.json({success: false, message:"invalid token"})
+        }
 
-  if (!token) {
-    return next(new Error("Authentication error: No token provided"));
-  }
+        req.userId = verifyUser.id
 
-  try {
-    const verifyUser = jwt.verify(token, process.env.TOKEN_SECRET);
+        socket.user = 
+        
+        next()
+
+    }catch(error){
+        console.log(error)
+    }
     
-    socket.user = { id: verifyUser.id }; // Store user info in socket
+        
 
-    next();
-  } catch (err) {
-    console.error("JWT verification failed", err);
-    next(new Error("Authentication error: Invalid token"));
-  }
-});
+
+}
