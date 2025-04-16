@@ -326,9 +326,95 @@ export const loadPurpose = async(req,res)=>{
 
 export const payAfterInvoice = async(req,res)=>{
     try{
+        const {Invoice}= req.body
         const userId = req.userId
         const userDetails = await userModel.findById(userId)
-        const Invoice =
+        const invoicePayed = userDetails.Invoice.find((item)=>{return item.name==Invoice.name})
+        const payedItems = [...userDetails.Paid,invoicePayed]
+        const updated = await userModel.findByIdAndUpdate(req.userId,{Paid:payedItems}, {new:true})
+
+        const date = new Date()
+        const transactionBody = {name:user.userName,amount:Invoice.Cost,description:Invoice.name,status:"Paid",generatedOn:`${date.getMonth()+1} ${date.getFullYear()}`,paidOn:"--"}
+        const newTransaction = new transactionModel(transactionBody)
+        newTransaction.save()
+
+        if(choice.assessment && choice.course)
+            {
+            
+            const course = await courseSchema.find({title:Invoice.name,grade:Grade})
+            console.log(course)
+            const courseRegistered = course[0].registered
+            const assessment = await examinationModel.find({title:Registered,grade:Grade})
+            console.log(assessment)
+            const assessmentRegistered = assessment[0].registered
+        
+            if(assessment.length==0 && course.length==0){
+                return res.json({success:false,message:`Assessment and Course for grade ${Grade} ${Registered} does not exist`})
+            }
+            if(assessment.length==0){
+                return res.json({success:false,message:`Assessment for grade ${Grade} ${Registered} does not exist`})
+            }
+            if(course.length==0){
+                return res.json({success:false,message:`Course for grade ${Grade} ${Registered} does not exist`})
+            }
+        
+            for(let id of courseRegistered){
+                if(id==req.userId){
+                    return res.json({success:false,message:"User already registered"})
+                }
+            }
+            
+            for(let id of assessmentRegistered){
+                if(id==req.userId){
+                    return res.json({success:false,message:"User already registered"})
+                }
+            }
+            
+        
+            const updateCourse = await courseSchema.findByIdAndUpdate(course[0]._id,{registered:[...courseRegistered,req.userId]})
+            const assessmentUpdate = await examinationModel.findByIdAndUpdate(assessment[0]._id,{registered:[...assessmentRegistered,req.userId]},{new:true})
+            return res.json({success:true,message:"success"})
+            }
+
+            else if(choice.assessment && !choice.course)
+            {
+                const assessment = await examinationModel.find({title:Registered,grade:Grade})
+                if(assessment.length==0){
+                    return res.json({success:false,message:`Assessment for grade ${Grade} ${Registered} does not exist`})
+                }
+                const assessmentRegistered = assessment[0].registered
+                for(let id of assessmentRegistered){
+                    if(id==req.userId){
+                        return res.json({success:false,message:"User already registered"})
+                    }
+                }
+                
+        
+                const assessmentCourse = await examinationModel.findByIdAndUpdate(assessment[0]._id,{registered:[...assessmentRegistered,req.userId]},{new:true})
+                return res.json({success:true,message:"success"})
+            
+            }
+
+            else if(!choice.assessment && choice.course)
+            {
+                const course = await courseSchema.find({title:Registered,grade:Grade})
+                const courseRegistered = course[0].registered
+                if(course.length==0){
+                    return res.json({success:false,message:`Course for grade ${Grade} ${Registered} does not exist`})
+                }
+                for(let id of courseRegistered){
+                    if(id==req.userId){
+                        return res.json({success:false,message:"User already registered"})
+                    }
+                }
+                
+                const updateCourse = await courseSchema.findByIdAndUpdate(course[0]._id,{registered:[...courseRegistered,req.userId]},{new:true})
+        
+                return res.json({success:true,message:"success"})
+            }
+        
+
+
 
 
     }catch(error){
