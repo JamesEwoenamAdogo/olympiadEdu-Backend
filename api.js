@@ -19,7 +19,7 @@ const server = http.createServer(app) // ⬅️ important change
 // Socket.IO setup
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173", // allow frontend origin here
+    origin: "https://gifted-project-eight.vercel.app", // allow frontend origin here
     methods: ["GET", "POST"],
   },
 })
