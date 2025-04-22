@@ -272,6 +272,22 @@ export const fetchUsers = async(req,res)=>{
         res.status(500).json({message:"Error",success:false})
     }
 }
+export const fetchSingleUser = async(req,res)=>{
+    try{
+        const {id}= req.params
+        const user = await userModel.findById(id)
+        res.json({success:true, user})
+
+        
+        
+
+
+
+    }catch(error){
+        console.log(error)
+        res.status(500).json({message:"Error",success:false})
+    }
+}
 
 
 export const updateUsers = async(req,res)=>{
