@@ -298,6 +298,7 @@ export const updateUsers = async(req,res)=>{
             const user = await userModel.findById(id)
             console.log(updateBody)
             const comparePasswords = bcrypt.compare(user.password,updateBody.oldPassword)
+            console.log(comparePasswords)
             if(!comparePasswords){
                 return res.json({success:false, message:"The old password you entered is incorrect"})
 
