@@ -295,6 +295,7 @@ export const updateUsers = async(req,res)=>{
         const id = req.userId
         const updateBody = req.body
         console.log(updateBody)
+        console.log(id)
         const updateUser = await userModel.findByIdAndUpdate(id,updateBody,{new:true})
         console.log(updateUser)
         if(!updateUser){
