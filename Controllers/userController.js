@@ -296,6 +296,7 @@ export const updateUsers = async(req,res)=>{
         const updateBody = req.body
         console.log(updateBody)
         const updateUser = await userModel.findByIdAndUpdate(id,updateBody,{new:true})
+        console.log(updateUser)
         if(!updateUser){
             return res.json({succes:false,message:"Success"})
         }
