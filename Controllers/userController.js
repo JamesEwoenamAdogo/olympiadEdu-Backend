@@ -294,6 +294,23 @@ export const updateUsers = async(req,res)=>{
     try{
         const {id} = req.params
         const updateBody = req.body
+        if(updateBody["editingField"]){
+            const user = await userModel.findById(id)
+            console.log(updateBody)
+            const comparePasswords = await bcrypt.compare(user.password,updateBody.oldPassword)
+            if(!comparePasswords){
+                return res.json({success:false, message:"The old password you entered is incorrect"})
+
+
+            }
+            const newPassword = await bcrypt.hash(updateBody.newPassword,10)
+            const passwordField = {password: newPassword}
+            const update = await userModel.findByIdAndUpdate(id,passwordField,{new:true})
+            return res.json({success:true, message:"Pasword Updated"})
+
+
+
+        }
         console.log(updateBody)
         console.log(id)
         const updateUser = await userModel.findByIdAndUpdate(id,updateBody,{new:true})
