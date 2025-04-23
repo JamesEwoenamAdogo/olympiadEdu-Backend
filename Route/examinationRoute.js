@@ -1,5 +1,5 @@
 import express from "express";
-import { addExamination, allExam ,getOneExam} from "../Controllers/examinationController.js";
+import { addExamination, allExam ,course,getOneExam,updateOneExam} from "../Controllers/examinationController.js";
 import upload from "../Middlewares/UploadFile.js";
 
 const router = express.Router();
@@ -17,5 +17,6 @@ router.post(
 router.get("/all-exams", allExam);
 
 router.get("/all-exams/:id", getOneExam)
+router.put("/update-exams/:id", updateOneExam)
 
 export default  router;

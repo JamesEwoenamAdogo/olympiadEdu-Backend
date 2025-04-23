@@ -67,6 +67,18 @@ export const getOneExam = async(req,res)=>{
     console.log(error)
   }
 }
+export const updateOneExam = async(req,res)=>{
+  try{
+    const {id} = req.params
+    const exam = await examinationModel.findByIdAndUpdate(id,req.body,{new:true})
+    return res.json({exam,success:true})
+
+
+
+  }catch(error){
+    console.log(error)
+  }
+}
 
 export const courseFileUpload = async(req, res) => {
   // const uploadedFiles = req.files.map((file) => ({
@@ -129,6 +141,29 @@ export const allCourses = async(req,res)=>{
     const courses = await courseSchema.find({})
     return res.json({successs:true, courses})
 
+
+
+  }catch(error){
+    console.log(error)
+  }
+}
+
+export const course = async(req,res)=>{
+  try{
+    const {id} = req.params
+    const courseDetails = await courseSchema.findById(id)
+    return res.json({success:true, courseDetails})
+
+
+  }catch(error){
+    console.log(error)
+  }
+}
+export const updateCourse = async(req,res)=>{
+  try{
+    const {id} = req.params
+    const courseDetails = await courseSchema.findByIdAndUpdate(id,req.body,{new:true})
+    return res.json({success:true, courseDetails})
 
 
   }catch(error){
