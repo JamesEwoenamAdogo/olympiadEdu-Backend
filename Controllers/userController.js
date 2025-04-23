@@ -325,6 +325,7 @@ export const loadPurpose = async(req,res)=>{
 
         }
         console.log(userDetail)
+        
         const updatedPurpose = await userModel.findByIdAndUpdate(id,{purposeOfRegistration:userExams},{new:true})
         console.log(updatedPurpose)
         console.log(userExams)
