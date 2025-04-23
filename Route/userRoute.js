@@ -9,7 +9,7 @@ userRoute.post("/register-user",addUser)
 userRoute.post("/login", loginUser)
 
 userRoute.get("/load-purpose",authenticateUser,loadPurpose)
-userRoute.put("/update-user",authenticateUser, updateUsers)
+userRoute.put("/update-user/:id", updateUsers)
 userRoute.put("/update-user-details/:id",authenticateUser,updateAddInvoiceAddOns)
 userRoute.post("/update-user-payment-details/:id",authenticateUser,updateAddPaymentAddOns)
 userRoute.post("/update-pay-after-invoice",authenticateUser,payAfterInvoice)

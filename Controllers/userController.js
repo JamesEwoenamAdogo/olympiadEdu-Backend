@@ -292,7 +292,7 @@ export const fetchSingleUser = async(req,res)=>{
 
 export const updateUsers = async(req,res)=>{
     try{
-        const id = req.userId
+        const {id} = req.params
         const updateBody = req.body
         console.log(updateBody)
         console.log(id)
