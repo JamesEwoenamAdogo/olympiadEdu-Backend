@@ -190,6 +190,7 @@ export const updateCourse = async(req,res)=>{
     }
     else if(req.files["thumbnail"]){
       const thumbnail = req.files["thumbnail"] ? await uploadToGCS(req.files["thumbnail"][0]) : null;
+      console.log(req.files.thumbnail)
       const courseDetails = await courseSchema.findByIdAndUpdate(id,{image: thumbnail},{new:true})
       return res.json({success:true, courseDetails})
 
