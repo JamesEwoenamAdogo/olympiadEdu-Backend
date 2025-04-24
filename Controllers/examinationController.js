@@ -228,3 +228,25 @@ export const updateCourseFiles = async(req,res)=>{
     console.log(error)
   }
 }
+export const updateCourseFilesAfterDelete = async(req,res)=>{
+  try{
+    const {id}= req.params
+    const details = await courseSchema.findById(id)
+    
+
+    if(req.files["files"]){
+      const files = req.files["files"] ? await Promise.all(req.files["files"].map(uploadToGCS)) : [];
+      
+
+      const courseDetails = await courseSchema.findByIdAndUpdate(id,{files},{new:true})
+      console.log(req.files)
+
+      return res.json({success:true, courseDetails})
+
+    }
+
+
+  }catch(error){
+    console.log(error)
+  }
+}
