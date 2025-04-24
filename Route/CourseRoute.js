@@ -3,7 +3,7 @@ import express from "express"
 import {  courseThumbnailUpload } from "../Middlewares/UploadFile.js"
 import multer from "multer"
 // import router from "./examinationRoute"
-import { courseFileUpload, courseVideoUpload ,courseUpload, allCourses,course, updateCourse} from "../Controllers/examinationController.js"
+import { courseFileUpload, courseVideoUpload ,courseUpload, allCourses,course, updateCourse, updateCourseThumbnail, updateCourseDetails, updateCourseFiles} from "../Controllers/examinationController.js"
 
 
 export const courseRoute = express.Router()
@@ -15,6 +15,9 @@ courseRoute.post("/upload/file",upload.fields([{name:"thumbnail"},{name:"files"}
 courseRoute.get("/all-courses",allCourses)
 courseRoute.post("/course",courseUpload)
 courseRoute.get("/course/:id", course)
-courseRoute.put("/update-course/:id",upload.fields([{name:"thumbnail"},{name:"files"}]), updateCourse)
+courseRoute.put("/update-course-thumbnail/:id",upload.fields([{name:"thumbnail"},{name:"files"}]), updateCourseThumbnail)
+courseRoute.put("/update-course-files/:id", upload.fields([{name:"thumbnail"},{name:"files"}]), updateCourseFiles)
+courseRoute.put("/update-course-details/:id", updateCourseDetails)
+
 
 
