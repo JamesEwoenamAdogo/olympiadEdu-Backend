@@ -182,6 +182,7 @@ export const updateCourse = async(req,res)=>{
     if(req.files["files"]){
       const files = req.files["files"] ? await Promise.all(req.files["files"].map(uploadToGCS)) : [];
       const courseDetails = await courseSchema.findByIdAndUpdate(id,{files},{new:true})
+      console.log(req.files)
 
       return res.json({success:true, courseDetails})
 
