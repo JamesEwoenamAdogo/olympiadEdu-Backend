@@ -77,7 +77,7 @@ export const updateOneExam = async(req,res)=>{
       return res.json({exam,success:true})
   
     }
-    const image = {image: req.file.image[0]}
+    const image = {image: req.file.path}
     console.log(image)
     const exam = await examinationModel.findByIdAndUpdate(id,image,{new:true})
     return res.json({exam,success:true})
