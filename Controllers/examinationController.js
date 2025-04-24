@@ -172,13 +172,9 @@ export const updateCourse = async(req,res)=>{
   try{
     const {id} = req.params
     console.log(req.body)
-    if(Object.keys(req.body)!==0){
-      console.log(req.body)
-      const courseDetails = await courseSchema.findByIdAndUpdate(id,req.body,{new:true})
-      return res.json({success:true, courseDetails})
-    }
+   
 
-    else if(req.files["files"]){
+    if(req.files["files"]){
       const files = req.files["files"] ? await Promise.all(req.files["files"].map(uploadToGCS)) : [];
 
       const courseDetails = await courseSchema.findByIdAndUpdate(id,{files},{new:true})
@@ -193,6 +189,11 @@ export const updateCourse = async(req,res)=>{
       const courseDetails = await courseSchema.findByIdAndUpdate(id,{image: thumbnail},{new:true})
       return res.json({success:true, courseDetails})
 
+    }
+    else if(Object.keys(req.body)!==0){
+      console.log(req.body)
+      const courseDetails = await courseSchema.findByIdAndUpdate(id,req.body,{new:true})
+      return res.json({success:true, courseDetails})
     }
 
    
