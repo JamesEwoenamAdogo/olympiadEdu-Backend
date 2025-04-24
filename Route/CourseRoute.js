@@ -15,6 +15,6 @@ courseRoute.post("/upload/file",upload.fields([{name:"thumbnail"},{name:"files"}
 courseRoute.get("/all-courses",allCourses)
 courseRoute.post("/course",courseUpload)
 courseRoute.get("/course/:id", course)
-courseRoute.get("/update-course/:id",upload.fields([{name:"thumbnail"},{name:"files"}]), updateCourse)
+courseRoute.put("/update-course/:id",upload.fields([{name:"thumbnail"},{name:"files"}]), updateCourse)
 
 
