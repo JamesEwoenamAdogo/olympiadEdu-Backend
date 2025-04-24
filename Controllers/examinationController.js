@@ -70,6 +70,8 @@ export const getOneExam = async(req,res)=>{
 export const updateOneExam = async(req,res)=>{
   try{
     const {id} = req.params
+    console.log(req.body)
+    console.log(req.files)
     if(!req.files){
       const exam = await examinationModel.findByIdAndUpdate(id,req.body,{new:true})
       return res.json({exam,success:true})
