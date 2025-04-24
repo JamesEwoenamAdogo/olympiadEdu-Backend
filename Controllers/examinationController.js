@@ -171,9 +171,27 @@ export const course = async(req,res)=>{
 export const updateCourse = async(req,res)=>{
   try{
     const {id} = req.params
+    if(req.files["files"]){
+      const files = req.files["files"] ? await Promise.all(req.files["files"].map(uploadToGCS)) : [];
+      const courseDetails = await courseSchema.findByIdAndUpdate(id,{files},{new:true})
+
+      return res.json({success:true, courseDetails})
+
+    }
+    else if(req.files["thumbnail"]){
+      const thumbnail = req.files["thumbnail"] ? await uploadToGCS(req.files["thumbnail"][0]) : null;
+  
+      const courseDetails = await courseSchema.findByIdAndUpdate(id,{thumbnail},{new:true})
+      return res.json({success:true, courseDetails})
+
+    }
+
     const courseDetails = await courseSchema.findByIdAndUpdate(id,req.body,{new:true})
     return res.json({success:true, courseDetails})
 
+   
+
+    
 
   }catch(error){
     console.log(error)
