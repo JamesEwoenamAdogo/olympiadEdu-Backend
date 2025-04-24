@@ -171,7 +171,7 @@ export const course = async(req,res)=>{
 export const updateCourse = async(req,res)=>{
   try{
     const {id} = req.params
-    console.log(req.file)
+    console.log(req.body)
     if(Object.keys(req.body)!==0){
       const courseDetails = await courseSchema.findByIdAndUpdate(id,req.body,{new:true})
       return res.json({success:true, courseDetails})
