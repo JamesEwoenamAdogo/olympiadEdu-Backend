@@ -70,14 +70,14 @@ export const getOneExam = async(req,res)=>{
 export const updateOneExam = async(req,res)=>{
   try{
     const {id} = req.params
-    console.log(req.body.image)
+    // console.log(req.body.image)
     console.log(req.file)
-    if(!req.files){
+    if(!req.file){
       const exam = await examinationModel.findByIdAndUpdate(id,req.body,{new:true})
       return res.json({exam,success:true})
   
     }
-    const image = {image: req.files.image[0]}
+    const image = {image: req.file.image[0]}
     console.log(image)
     const exam = await examinationModel.findByIdAndUpdate(id,image,{new:true})
     return res.json({exam,success:true})
