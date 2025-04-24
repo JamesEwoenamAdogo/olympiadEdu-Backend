@@ -3,7 +3,7 @@ import express from "express"
 import {  courseThumbnailUpload } from "../Middlewares/UploadFile.js"
 import multer from "multer"
 // import router from "./examinationRoute"
-import { courseFileUpload, courseVideoUpload ,courseUpload, allCourses,course, updateCourse, updateCourseThumbnail, updateCourseDetails, updateCourseFiles} from "../Controllers/examinationController.js"
+import { courseFileUpload, courseVideoUpload ,courseUpload, allCourses,course, updateCourseThumbnail, updateCourseDetails, updateCourseFiles} from "../Controllers/examinationController.js"
 
 
 export const courseRoute = express.Router()
