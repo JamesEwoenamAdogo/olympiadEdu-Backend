@@ -188,7 +188,7 @@ export const updateCourseThumbnail = async(req,res)=>{
   }
 }
 
-export const updateCourseDetails = async()=>{
+export const updateCourseDetails = async(req,res)=>{
   try{
     const {id}= req.params
 
@@ -206,7 +206,7 @@ export const updateCourseDetails = async()=>{
   }
 }
 
-export const updateCourseFiles = async()=>{
+export const updateCourseFiles = async(req,res)=>{
   try{
     const {id}= req.params
 
