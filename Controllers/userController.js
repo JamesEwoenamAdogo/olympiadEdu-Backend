@@ -103,7 +103,7 @@ export const loginUser = async(req,res)=>{
 }
 export const updateAddInvoiceAddOns = async(req,res)=>{
     try{
-        const {Registered,Invoice,AddOns,Paid,choice,grade}= req.body
+        const {Registered,Invoice,AddOns,Paid,choice,Grade}= req.body
         const userId = req.userId
         const {id} = req.params
         
@@ -126,7 +126,7 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
         //     return res.json({success:false, message:"payment already made for this examination"})
         // }
         
-        const checkExistingInvoice = userDetails.Invoice.find((item)=>{return item.name == Registered && item.grade==grade})
+        const checkExistingInvoice = userDetails.Invoice.find((item)=>{return item.name == Registered && item.grade==Grade})
         
         if(checkExistingInvoice){
             return res.json({success:false,message:"Invoice already added"})
@@ -152,23 +152,23 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
         // const subUpdate = {...currentSub,registered:currentSub.registered+1}
 
         // const updatePaid = await competitionsSchema.findByIdAndUpdate(subCompetition._id,{subTypes:[...otherSub,subUpdate]},{new:true})
-        const course = await courseSchema.find({title:Registered,grade})
-        const assessment = await examinationModel.find({title:Registered,grade})
+        const course = await courseSchema.find({title:Registered,grade:Grade})
+        const assessment = await examinationModel.find({title:Registered,grade:Grade})
         if(choice.assessment&&!choice.course&&assessment.length==0){
             
-            return res.json({success:false, message:`Assessment for ${Registered} grade ${grade} does not exist`})
+            return res.json({success:false, message:`Assessment for ${Registered} grade ${Grade} does not exist`})
         }
         if(choice.course&&!choice.assessment&&course.length==0){
-            return res.json({success:false, message:`Courses for ${Registered} grade ${grade} does not exist`})
+            return res.json({success:false, message:`Courses for ${Registered} grade ${Grade} does not exist`})
         }
         if(choice.course&&choice.assessment&&course.length==0&&assessment.length==0){
-            return res.json({success:false,message:`Courses and assessment for ${Registered} grade ${grade} does not exist`})
+            return res.json({success:false,message:`Courses and assessment for ${Registered} grade ${Grade} does not exist`})
         }
         if(choice.course&&choice.assessment&&course.length==0&&assessment.length!==0){
-            return res.json({success:false,message:`Assessment for ${Registered} grade ${grade} does not exist`})
+            return res.json({success:false,message:`Assessment for ${Registered} grade ${Grade} does not exist`})
         }
         if(choice.course&&choice.assessment&&course.length!==0&&assessment.length==0){
-            return res.json({success:false,message:`Courses for ${Registered} grade ${grade} does not exist`})
+            return res.json({success:false,message:`Courses for ${Registered} grade ${Grade} does not exist`})
         }
 
         
