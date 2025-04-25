@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken"
 import dotenv from "dotenv"
-import { Socket } from "socket.io"
+// import { Socket } from "socket.io"
 dotenv.config()
 
 export const authenticateUser = async(req,res,next)=>{
