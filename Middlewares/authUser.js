@@ -14,7 +14,7 @@ export const authenticateUser = async(req,res,next)=>{
         if(!verifyUser){
             return res.json({success: false, message:"invalid token"})
         }
-
+        console.log(verifyUser)
         req.userId = verifyUser.id
 
         
