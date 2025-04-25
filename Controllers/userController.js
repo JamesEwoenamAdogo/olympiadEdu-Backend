@@ -152,7 +152,26 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
         // const subUpdate = {...currentSub,registered:currentSub.registered+1}
 
         // const updatePaid = await competitionsSchema.findByIdAndUpdate(subCompetition._id,{subTypes:[...otherSub,subUpdate]},{new:true})
+        const course = await courseSchema.find({title:Registered,grade})
+        const assessment = await examinationModel.find({title:Registered,grade})
+        if(choice.assessment&&!choice.course&&assessment.length==0){
+            
+            return res.json({success:false, message:`Assessment for ${Registered} grade ${grade} does not exist`})
+        }
+        if(choice.course&&!choice.assessment&&course.length==0){
+            return res.json({success:false, message:`Courses for ${Registered} grade ${grade} does not exist`})
+        }
+        if(choice.course&&choice.assessment&&course.length==0&&assessment.length==0){
+            return res.json({success:false,message:`Courses and assessment for ${Registered} grade ${grade} does not exist`})
+        }
+        if(choice.course&&choice.assessment&&course.length==0&&assessment.length!==0){
+            return res.json({success:false,message:`Assessment for ${Registered} grade ${grade} does not exist`})
+        }
+        if(choice.course&&choice.assessment&&course.length!==0&&assessment.length==0){
+            return res.json({success:false,message:`Courses for ${Registered} grade ${grade} does not exist`})
+        }
 
+        
         const transactionBody = {name:userDetails.userName,amount:Invoice.Cost,description:Invoice.name,status:"Pending",generatedOn:`${date.getMonth()+1} ${date.getFullYear()}`,paidOn:"--"}
         const transaction = new transactionModel(transactionBody)
         transaction.save()
@@ -172,8 +191,8 @@ export const updateAddPaymentAddOns = async(req,res)=>{
     
 
     const user = await userModel.findById(req.userId)
-    console.log(user)
-    console.log(req.userId)
+    
+   
     const updateUser = await userModel.findByIdAndUpdate(user._id,{Paid:[...user.Paid,Invoice]},{new:true})
     const date = new Date()
     const transactionBody = {name:user.userName,amount:Invoice.Cost,description:Invoice.name,status:"Paid",generatedOn:`${date.getMonth()+1} ${date.getFullYear()}`,paidOn:"--"}
