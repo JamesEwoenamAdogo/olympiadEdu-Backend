@@ -17,7 +17,7 @@ export const authenticateUser = async(req,res,next,socket)=>{
 
         req.userId = verifyUser.id
 
-        socket.user = 
+        
         
         next()
 

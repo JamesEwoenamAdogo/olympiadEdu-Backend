@@ -166,7 +166,7 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
 export const updateAddPaymentAddOns = async(req,res)=>{
    try{
     const {Registered,Invoice,AddOns,Paid,choice,Grade}= req.body
-   
+    
 
     const user = await userModel.findById(req.userId)
     const updateUser = await userModel.findByIdAndUpdate(user._id,{Paid:[...user.Paid,Invoice]},{new:true})
