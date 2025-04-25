@@ -3,7 +3,7 @@ import dotenv from "dotenv"
 import { Socket } from "socket.io"
 dotenv.config()
 
-export const authenticateUser = async(req,res,next,socket)=>{
+export const authenticateUser = async(req,res,next)=>{
     try{
         const token = req.headers.token
         console.log(token)
