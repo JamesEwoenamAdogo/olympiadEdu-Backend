@@ -388,7 +388,7 @@ export const loadPurpose = async(req,res)=>{
 
 export const payAfterInvoice = async(req,res)=>{
     try{
-        const {Invoice}= req.body
+        const {Invoice,choice}= req.body
         const userId = req.userId
         const userDetails = await userModel.findById(userId)
         const invoicePayed = userDetails.Invoice.find((item)=>{return item.name==Invoice.name && item.grade==Invoice.grade})
