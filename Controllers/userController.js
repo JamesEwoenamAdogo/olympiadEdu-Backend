@@ -110,7 +110,7 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
        
         const userDetails = await userModel.findById(userId)
         const allCompetitions = await competitionsSchema.findById(id)
-        const subCompetition = allCompetitions
+        // const subCompetition = allCompetitions
         const date = new Date()
 
         console.log(req.body)
