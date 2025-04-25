@@ -106,11 +106,14 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
         const {Registered,Invoice,AddOns,Paid,choice,grade}= req.body
         const userId = req.userId
         const {id} = req.params
+        
        
         const userDetails = await userModel.findById(userId)
         const allCompetitions = await competitionsSchema.findById(id)
         const subCompetition = allCompetitions
         const date = new Date()
+
+        console.log(req.body)
 
         console.log(userDetails,req.body)
         const registered = userDetails.Registered
