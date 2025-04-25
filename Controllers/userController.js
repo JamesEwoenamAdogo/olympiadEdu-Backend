@@ -397,7 +397,7 @@ export const payAfterInvoice = async(req,res)=>{
         const updated = await userModel.findByIdAndUpdate(req.userId,{Paid:payedItems,Invoice:invoiceAfterPayment}, {new:true})
 
         const date = new Date()
-        const transactionBody = {name:user.userName,amount:Invoice.Cost,description:Invoice.name,status:"Paid",generatedOn:`${date.getMonth()+1} ${date.getFullYear()}`,paidOn:"--"}
+        const transactionBody = {name:userDetails.userName,amount:Invoice.Cost,description:Invoice.name,status:"Paid",generatedOn:`${date.getMonth()+1} ${date.getFullYear()}`,paidOn:"--"}
         const newTransaction = new transactionModel(transactionBody)
         newTransaction.save()
 
