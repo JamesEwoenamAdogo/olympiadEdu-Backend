@@ -391,9 +391,10 @@ export const payAfterInvoice = async(req,res)=>{
         const {Invoice}= req.body
         const userId = req.userId
         const userDetails = await userModel.findById(userId)
-        const invoicePayed = userDetails.Invoice.find((item)=>{return item.name==Invoice.name})
+        const invoicePayed = userDetails.Invoice.find((item)=>{return item.name==Invoice.name && item.grade==Invoice.grade})
+        const invoiceAfterPayment = userDetails.Invoice.filter((item)=>{return !(item.name==Invoice.name && item.grade==Invoice.grade)})
         const payedItems = [...userDetails.Paid,invoicePayed]
-        const updated = await userModel.findByIdAndUpdate(req.userId,{Paid:payedItems}, {new:true})
+        const updated = await userModel.findByIdAndUpdate(req.userId,{Paid:payedItems,Invoice:invoiceAfterPayment}, {new:true})
 
         const date = new Date()
         const transactionBody = {name:user.userName,amount:Invoice.Cost,description:Invoice.name,status:"Paid",generatedOn:`${date.getMonth()+1} ${date.getFullYear()}`,paidOn:"--"}
@@ -403,10 +404,10 @@ export const payAfterInvoice = async(req,res)=>{
         if(choice.assessment && choice.course)
             {
             
-            const course = await courseSchema.find({title:Invoice.name,grade:Grade})
+            const course = await courseSchema.find({title:Invoice.name,grade:Invoice.grade})
             console.log(course)
             const courseRegistered = course[0].registered
-            const assessment = await examinationModel.find({title:Registered,grade:Grade})
+            const assessment = await examinationModel.find({title:Registered,grade:Invoice.grade})
             console.log(assessment)
             const assessmentRegistered = assessment[0].registered
         
@@ -471,7 +472,7 @@ export const payAfterInvoice = async(req,res)=>{
                 }
                 
                 const updateCourse = await courseSchema.findByIdAndUpdate(course[0]._id,{registered:[...courseRegistered,req.userId]},{new:true})
-        
+                // const newInvoice = userDetails.Invoice.filter((item)=>{return item.name!= })
                 return res.json({success:true,message:"success"})
             }
         
