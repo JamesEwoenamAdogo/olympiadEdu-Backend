@@ -336,6 +336,7 @@ export const loadPurpose = async(req,res)=>{
         const id = req.userId
         const userDetail = await userModel.findById(id)
         const allCompetitions = await competitionsSchema.find({})
+        console.log(userDetail)
         
         let userExams = []
         for(let exam of userDetail.purposeOfRegistration){ 
