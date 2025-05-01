@@ -24,7 +24,7 @@ const competitions = new mongoose.Schema({
         type:Number
     },
     type:{
-        type:String
+        type:[String]
     },
     year:{
         type:String
