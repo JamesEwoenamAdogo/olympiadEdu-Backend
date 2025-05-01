@@ -25,6 +25,9 @@ const competitions = new mongoose.Schema({
     },
     type:{
         type:String
+    },
+    year:{
+        type:String
     }
 
 }, {timestamps:true})
