@@ -132,6 +132,8 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
         if(checkExistingInvoice){
             return res.json({success:false,message:"Invoice already added"})
         }
+        const updatedwithoutPaid = await userModel.findByIdAndUpdate(userId,{Registered:[...registered, Registered],Invoice:[...invoice,Invoice]}, {new:true})
+
         // const otherSub = subCompetition.subTypes.filter((item)=>{return !(item.name==Registered)})
         // const currentSub = subCompetition.subTypes.find((item)=>{return item.name==Registered})
         // let paid = []
@@ -155,6 +157,9 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
         // const updatePaid = await competitionsSchema.findByIdAndUpdate(subCompetition._id,{subTypes:[...otherSub,subUpdate]},{new:true})
         const course = await courseSchema.find({title:Registered,grade:Grade})
         const assessment = await examinationModel.find({title:Registered,grade:Grade})
+        
+        if(!choice.assessment&&!choice.course) return res.json({sucess:true,message:"Registration completed"})
+
         if(choice.assessment&&!choice.course&&assessment.length==0){
             
             return res.json({success:false, message:`Assessment for ${Registered} grade ${Grade} does not exist`})
@@ -176,7 +181,6 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
         const transactionBody = {name:userDetails.userName,amount:Invoice.Cost,description:Invoice.name,status:"Pending",generatedOn:`${date.getMonth()+1} ${date.getFullYear()}`,paidOn:"--"}
         const transaction = new transactionModel(transactionBody)
         transaction.save()
-        const updatedwithoutPaid = await userModel.findByIdAndUpdate(userId,{Registered:[...registered, Registered],Invoice:[...invoice,Invoice]}, {new:true})
        
         return res.json({success:true})
 
@@ -201,6 +205,7 @@ export const updateAddPaymentAddOns = async(req,res)=>{
     newTransaction.save()
 
     console.log(req.body)
+    if(!choice.assessment&&!choice.course) return res.json({sucess:true,message:"Registration completed"})
 
     if(choice.assessment && choice.course)
     {
@@ -223,7 +228,7 @@ export const updateAddPaymentAddOns = async(req,res)=>{
     
     const courseRegistered = course[0].registered
     const assessmentRegistered = assessment[0].registered
-    
+
     for(let id of courseRegistered){
         if(id==req.userId){
             return res.json({success:false,message:"User already registered"})
