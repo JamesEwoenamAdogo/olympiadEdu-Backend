@@ -207,11 +207,10 @@ export const updateAddPaymentAddOns = async(req,res)=>{
     
     const course = await courseSchema.find({title:Registered,grade:Grade})
     console.log(course)
-    const courseRegistered = course[0].registered
     const assessment = await examinationModel.find({title:Registered,grade:Grade})
     console.log(assessment)
-    const assessmentRegistered = assessment[0].registered
 
+    
     if(assessment.length==0 && course.length==0){
         return res.json({success:false,message:`Assessment and Course for grade ${Grade} ${Registered} does not exist`})
     }
@@ -221,7 +220,10 @@ export const updateAddPaymentAddOns = async(req,res)=>{
     if(course.length==0){
         return res.json({success:false,message:`Course for grade ${Grade} ${Registered} does not exist`})
     }
-
+    
+    const courseRegistered = course[0].registered
+    const assessmentRegistered = assessment[0].registered
+    
     for(let id of courseRegistered){
         if(id==req.userId){
             return res.json({success:false,message:"User already registered"})

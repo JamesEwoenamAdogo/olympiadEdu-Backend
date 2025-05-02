@@ -11,7 +11,9 @@ userRoute.post("/login", loginUser)
 userRoute.get("/load-purpose",authenticateUser,loadPurpose)
 userRoute.put("/update-user/:id", updateUsers)
 userRoute.put("/update-user-details",authenticateUser,updateAddInvoiceAddOns)
+
 userRoute.post("/update-user-payment-details",authenticateUser,updateAddPaymentAddOns)
+
 userRoute.put("/update-pay-after-invoice",authenticateUser,payAfterInvoice)
 userRoute.post("/send-message",channelImageUpload.single("image"),UpdateMessage)
 userRoute.get("/channel-feed/:channelId",fetchChannelFeed)
