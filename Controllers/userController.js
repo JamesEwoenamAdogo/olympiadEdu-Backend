@@ -106,11 +106,11 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
     try{
         const {Registered,Invoice,AddOns,Paid,choice,Grade}= req.body
         const userId = req.userId
-        const {id} = req.params
+        // const {id} = req.params
         
        
         const userDetails = await userModel.findById(userId)
-        const allCompetitions = await competitionsSchema.findById(id)
+        // const allCompetitions = await competitionsSchema.findById(id)
         // const subCompetition = allCompetitions
         const date = new Date()
 
