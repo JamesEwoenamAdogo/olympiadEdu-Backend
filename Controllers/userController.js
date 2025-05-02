@@ -22,7 +22,8 @@ export const addUser = async(req,res)=>{
         const allCompetitions = await competitionsSchema.find({})
         const exsitingUserByPhoneNumber = await userModel.find({mobileNumber})
         
-        if(existingUser.length==1){
+        
+        if(existingUser.length==1) {
             console.log(existingUser)
             return res.json({success:false,message:"User email already registered"})
         }
@@ -30,15 +31,15 @@ export const addUser = async(req,res)=>{
             return res.json({success:false,message:"Phone Number already registered"})
         }
 
-        let userExams= []
-        for(let exam of purposeOfRegistration){
-            let examinations = allCompetitions.filter((item)=>{return item.name == exam})
-            userExams.push(...examinations)
+        // let userExams= []
+        // for(let exam of purposeOfRegistration){
+        //     let examinations = allCompetitions.filter((item)=>{return item.name == exam})
+        //     userExams.push(...examinations)
 
-        }
+        // }
         const hashedPassword = await bcrypt.hash(password,10)
         const userName = email.split("@")[0]+ Math.ceil(Math.random()*1000000)
-        const newUser= new userModel({firstName,lastName,DOB,email,password:hashedPassword,mobileNumber,Category,educationalLevel,grade,purposeOfRegistration:userExams,userName,gender,School,country})
+        const newUser= new userModel({firstName,lastName,DOB,email,password:hashedPassword,mobileNumber,Category,educationalLevel,grade,purposeOfRegistration,userName,gender,School,country})
 
         newUser.save()
         const token = jwt.sign({id:newUser._id,firstName:newUser.firstName, lastName:newUser.lastName,userName:newUser.userName,Registered:newUser.Registered,Paid:newUser.Paid, Invoice:newUser.Invoice,AddOns:newUser.AddOns},process.env.TOKEN_SECRET, {expiresIn:"1d"})
