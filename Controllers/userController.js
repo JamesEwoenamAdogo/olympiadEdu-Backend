@@ -16,8 +16,8 @@ dotenv.config()
 
 export const addUser = async(req,res)=>{
     try{
-        const {firstName, lastName,DOB,email,password,mobileNumber,Category,educationalLevel,grade,purposeOfRegistration,gender,School,country}= req.body
-        console.log(firstName,lastName,DOB, email,password,mobileNumber,Category,educationalLevel,grade,country,School,gender,purposeOfRegistration)
+        const {firstName, lastName,DOB,email,password,mobileNumber,category,educationalLevel,grade,purposeOfRegistration,gender,School,country}= req.body
+        console.log(firstName,lastName,DOB, email,password,mobileNumber,category,educationalLevel,grade,country,School,gender,purposeOfRegistration)
         const existingUser = await userModel.find({email})
         const allCompetitions = await competitionsSchema.find({})
         const exsitingUserByPhoneNumber = await userModel.find({mobileNumber})
@@ -39,7 +39,7 @@ export const addUser = async(req,res)=>{
         // }
         const hashedPassword = await bcrypt.hash(password,10)
         const userName = email.split("@")[0]+ Math.ceil(Math.random()*1000000)
-        const newUser= new userModel({firstName,lastName,DOB,email,password:hashedPassword,mobileNumber,Category,educationalLevel,grade,purposeOfRegistration,userName,gender,School,country})
+        const newUser= new userModel({firstName,lastName,DOB,email,password:hashedPassword,mobileNumber,Category:category,educationalLevel,grade,purposeOfRegistration,userName,gender,School,country})
 
         newUser.save()
         const token = jwt.sign({id:newUser._id,firstName:newUser.firstName, lastName:newUser.lastName,userName:newUser.userName,Registered:newUser.Registered,Paid:newUser.Paid, Invoice:newUser.Invoice,AddOns:newUser.AddOns},process.env.TOKEN_SECRET, {expiresIn:"1d"})
@@ -91,7 +91,7 @@ export const loginUser = async(req,res)=>{
             if(!comparePassword){
                 return res.json({success:false,message:"Invalid credentials"})
             }
-            const token = jwt.sign({id:checkExisting[0]._id,firstName:checkExisting[0].firstName, lastName:checkExisting[0].lastName,Registered:checkExisting[0].Registered,Paid:checkExisting[0].Paid, Invoice:checkExisting[0].Invoice},process.env.MONGO_SECRET, {expiresIn:"1d"})
+            const token = jwt.sign({id:checkExisting[0]._id,userName:checkExisting[0].userName,firstName:checkExisting[0].firstName, lastName:checkExisting[0].lastName,Registered:checkExisting[0].Registered,Paid:checkExisting[0].Paid, Invoice:checkExisting[0].Invoice},process.env.MONGO_SECRET, {expiresIn:"1d"})
             return res.json({success:true,token,message:"User Logged In successfully",purpose_Of_Registration:checkExisting[0].purposeOfRegistration})
         }
 
