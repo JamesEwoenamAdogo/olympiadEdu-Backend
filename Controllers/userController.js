@@ -157,7 +157,7 @@ export const updateAddInvoiceAddOns = async(req,res)=>{
         // const updatePaid = await competitionsSchema.findByIdAndUpdate(subCompetition._id,{subTypes:[...otherSub,subUpdate]},{new:true})
         const course = await courseSchema.find({title:Registered,grade:Grade})
         const assessment = await examinationModel.find({title:Registered,grade:Grade})
-        
+
         if(!choice.assessment&&!choice.course) return res.json({sucess:true,message:"Registration completed"})
 
         if(choice.assessment&&!choice.course&&assessment.length==0){
@@ -203,6 +203,26 @@ export const updateAddPaymentAddOns = async(req,res)=>{
     const transactionBody = {name:user.userName,amount:Invoice.Cost,description:Invoice.name,status:"Paid",generatedOn:`${date.getMonth()+1} ${date.getFullYear()}`,paidOn:"--"}
     const newTransaction = new transactionModel(transactionBody)
     newTransaction.save()
+
+    
+
+    const competition = await competitionsSchema.findById(req.body.id)
+    const SubTypes = competition.subTypes
+
+    const competitionSubType = competition.subTypes.find((item)=> item.name==Registered)
+    const registered = [...competitionSubType.registered,req.userId]
+
+    const subTypes = SubTypes.map((item)=>{
+        if(item.name==Registered){
+            return {...item,registered}
+        }
+        return item
+    })
+
+    const updateCompetition = await competitionsSchema.findByIdAndUpdate(req.body.id,{subTypes}, {new:true})
+
+
+
 
     console.log(req.body)
     if(!choice.assessment&&!choice.course) return res.json({sucess:true,message:"Registration completed"})
@@ -408,6 +428,24 @@ export const payAfterInvoice = async(req,res)=>{
         const transactionBody = {name:userDetails.userName,amount:Invoice.Cost,description:Invoice.name,status:"Paid",generatedOn:`${date.getMonth()+1} ${date.getFullYear()}`,paidOn:"--"}
         const newTransaction = new transactionModel(transactionBody)
         newTransaction.save()
+
+        
+        const competition = await competitionsSchema.findById(req.body.id)
+        const SubTypes = competition.subTypes
+
+        const competitionSubType = competition.subTypes.find((item)=> item.name==Invoice.name)
+        const registered = [...competitionSubType.registered,req.userId]
+
+        const subTypes = SubTypes.map((item)=>{
+            if(item.name==Invoice.name){
+                return {...item,registered}
+            }
+            return item
+        })
+
+        const updateCompetition = await competitionsSchema.findByIdAndUpdate(req.body.id,{subTypes}, {new:true})
+
+        if(!choice.assessment&&!choice.course) return res.json({sucess:true,message:"Registration completed"})
 
         if(choice.assessment && choice.course)
             {
