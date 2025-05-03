@@ -207,6 +207,7 @@ export const updateAddPaymentAddOns = async(req,res)=>{
     
 
     const competition = await competitionsSchema.findById(req.body.id)
+    console.log(req.body.id)
     const SubTypes = competition.subTypes
 
     const competitionSubType = competition.subTypes.find((item)=> item.name==Registered)
