@@ -42,7 +42,7 @@ export const addUser = async(req,res)=>{
         const newUser= new userModel({firstName,lastName,DOB,email,password:hashedPassword,mobileNumber,Category:category,educationalLevel,grade,purposeOfRegistration,userName,gender,School,country})
 
         newUser.save()
-        const token = jwt.sign({id:newUser._id,firstName:newUser.firstName, lastName:newUser.lastName,userName:newUser.userName,Registered:newUser.Registered,Paid:newUser.Paid, Invoice:newUser.Invoice,AddOns:newUser.AddOns,category:newUser.Category,mobile: newUser.mobileNumber},process.env.TOKEN_SECRET, {expiresIn:"1d"})
+        const token = jwt.sign({id:newUser._id,firstName:newUser.firstName, lastName:newUser.lastName,userName:newUser.userName,Registered:newUser.Registered,Paid:newUser.Paid, Invoice:newUser.Invoice,AddOns:newUser.AddOns,category:newUser.Category,mobile: newUser.mobileNumber, location: newUser.country, joined: newUser.createdAt},process.env.TOKEN_SECRET, {expiresIn:"1d"})
        
         return res.json({success:true, message:"User Created successfully",token,userName,purposeOfRegistration})
 
@@ -77,7 +77,7 @@ export const loginUser = async(req,res)=>{
             if(!comparePassword){
                 return res.json({success:false,message:"Invalid credentials"})
             }
-            const token = jwt.sign({id:checkExisting[0]._id,firstName:checkExisting[0].firstName, lastName:checkExisting[0].lastName},process.env.TOKEN_SECRET, {expiresIn:"30m"})
+            const token = jwt.sign({id:checkExisting[0]._id,userName:checkExisting[0].userName,firstName:checkExisting[0].firstName, lastName:checkExisting[0].lastName,Registered:checkExisting[0].Registered,Paid:checkExisting[0].Paid, Invoice:checkExisting[0].Invoice,category:checkExisting[0].Category, mobile: checkExisting[0].mobileNumber , location:checkExisting[0].country, joined:checkExisting[0].createdAt},process.env.MONGO_SECRET, {expiresIn:"1d"})
             return res.json({success:true,token,message:"User Logged In successfully",purpose_Of_Registration:checkExisting[0].purposeOfRegistration})
         }
 
@@ -91,7 +91,7 @@ export const loginUser = async(req,res)=>{
             if(!comparePassword){
                 return res.json({success:false,message:"Invalid credentials"})
             }
-            const token = jwt.sign({id:checkExisting[0]._id,userName:checkExisting[0].userName,firstName:checkExisting[0].firstName, lastName:checkExisting[0].lastName,Registered:checkExisting[0].Registered,Paid:checkExisting[0].Paid, Invoice:checkExisting[0].Invoice,category:checkExisting[0].Category, mobile: checkExisting[0].mobileNumber},process.env.MONGO_SECRET, {expiresIn:"1d"})
+            const token = jwt.sign({id:checkExisting[0]._id,userName:checkExisting[0].userName,firstName:checkExisting[0].firstName, lastName:checkExisting[0].lastName,Registered:checkExisting[0].Registered,Paid:checkExisting[0].Paid, Invoice:checkExisting[0].Invoice,category:checkExisting[0].Category, mobile: checkExisting[0].mobileNumber, location: checkExisting[0].country, joined: checkExisting[0].createdAt},process.env.MONGO_SECRET, {expiresIn:"1d"})
             return res.json({success:true,token,message:"User Logged In successfully",purpose_Of_Registration:checkExisting[0].purposeOfRegistration})
         }
 
