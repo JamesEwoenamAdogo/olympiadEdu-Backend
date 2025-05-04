@@ -40,8 +40,10 @@ export const addUser = async(req,res)=>{
         const hashedPassword = await bcrypt.hash(password,10)
         const userName = email.split("@")[0]+ Math.ceil(Math.random()*1000000)
         const newUser= new userModel({firstName,lastName,DOB,email,password:hashedPassword,mobileNumber,Category:category,educationalLevel,grade,purposeOfRegistration,userName,gender,School,country})
-
+        
+        console.log(newUser)
         newUser.save()
+        
         const token = jwt.sign({id:newUser._id,firstName:newUser.firstName, lastName:newUser.lastName,userName:newUser.userName,Registered:newUser.Registered,Paid:newUser.Paid, Invoice:newUser.Invoice,AddOns:newUser.AddOns,category:newUser.Category,mobile: newUser.mobileNumber, location: newUser.country, joined: newUser.createdAt},process.env.TOKEN_SECRET, {expiresIn:"1d"})
        
         return res.json({success:true, message:"User Created successfully",token,userName,purposeOfRegistration})
