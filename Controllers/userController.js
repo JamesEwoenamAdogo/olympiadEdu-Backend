@@ -8,6 +8,7 @@ import { transactionModel } from "../Model/transactionModel.js";
 import { courseSchema } from "../Model/CourseModels.js";
 import { examinationModel } from "../Model/Examination.js";
 import { channelFeedModel } from "../Model/ChannelFeed.js";
+import { RegisterId } from "../Middlewares/Utilities.js";
 
 dotenv.config()
 
@@ -210,21 +211,7 @@ export const updateAddPaymentAddOns = async(req,res)=>{
 
     
 
-    const competition = await competitionsSchema.findById(req.body.id)
-    console.log(req.body.id)
-    const SubTypes = competition.subTypes
-
-    const competitionSubType = competition.subTypes.find((item)=> item.name==Registered)
-    const registered = [...competitionSubType.registered,req.userId]
-
-    const subTypes = SubTypes.map((item)=>{
-        if(item.name==Registered){
-            return {...item,registered}
-        }
-        return item
-    })
-
-    const updateCompetition = await competitionsSchema.findByIdAndUpdate(req.body.id,{subTypes}, {new:true})
+   
 
 
 
@@ -266,7 +253,7 @@ export const updateAddPaymentAddOns = async(req,res)=>{
         }
     }
     
-
+    RegisterId(req.body.id,Registered)
     const updateCourse = await courseSchema.findByIdAndUpdate(course[0]._id,{registered:[...courseRegistered,req.userId]})
     const assessmentUpdate = await examinationModel.findByIdAndUpdate(assessment[0]._id,{registered:[...assessmentRegistered,req.userId]},{new:true})
     return res.json({success:true,message:"success"})
@@ -283,6 +270,7 @@ export const updateAddPaymentAddOns = async(req,res)=>{
             }
         }
         
+        RegisterId(req.body.id,Registered)
 
         const assessmentCourse = await examinationModel.findByIdAndUpdate(assessment[0]._id,{registered:[...assessmentRegistered,req.userId]},{new:true})
         return res.json({success:true,message:"success"})
@@ -299,6 +287,7 @@ export const updateAddPaymentAddOns = async(req,res)=>{
                 return res.json({success:false,message:"User already registered"})
             }
         }
+        RegisterId(req.body.id,Registered)
         
         const updateCourse = await courseSchema.findByIdAndUpdate(course[0]._id,{registered:[...courseRegistered,req.userId]},{new:true})
 
@@ -435,20 +424,20 @@ export const payAfterInvoice = async(req,res)=>{
         newTransaction.save()
 
         
-        const competition = await competitionsSchema.findById(req.body.id)
-        const SubTypes = competition.subTypes
+        // const competition = await competitionsSchema.findById(req.body.id)
+        // const SubTypes = competition.subTypes
 
-        const competitionSubType = competition.subTypes.find((item)=> item.name==Invoice.name)
-        const registered = [...competitionSubType.registered,req.userId]
+        // const competitionSubType = competition.subTypes.find((item)=> item.name==Invoice.name)
+        // const registered = [...competitionSubType.registered,req.userId]
 
-        const subTypes = SubTypes.map((item)=>{
-            if(item.name==Invoice.name){
-                return {...item,registered}
-            }
-            return item
-        })
+        // const subTypes = SubTypes.map((item)=>{
+        //     if(item.name==Invoice.name){
+        //         return {...item,registered}
+        //     }
+        //     return item
+        // })
 
-        const updateCompetition = await competitionsSchema.findByIdAndUpdate(req.body.id,{subTypes}, {new:true})
+        // const updateCompetition = await competitionsSchema.findByIdAndUpdate(req.body.id,{subTypes}, {new:true})
 
         if(!choice.assessment&&!choice.course) return res.json({sucess:true,message:"Registration completed"})
 
@@ -484,7 +473,8 @@ export const payAfterInvoice = async(req,res)=>{
                 }
             }
             
-        
+            RegisterId(req.body.id,Invoice.name)
+            
             const updateCourse = await courseSchema.findByIdAndUpdate(course[0]._id,{registered:[...courseRegistered,req.userId]})
             const assessmentUpdate = await examinationModel.findByIdAndUpdate(assessment[0]._id,{registered:[...assessmentRegistered,req.userId]},{new:true})
             return res.json({success:true,message:"success"})
@@ -503,7 +493,8 @@ export const payAfterInvoice = async(req,res)=>{
                     }
                 }
                 
-        
+                RegisterId(req.body.id,Invoice.name)
+                
                 const assessmentCourse = await examinationModel.findByIdAndUpdate(assessment[0]._id,{registered:[...assessmentRegistered,req.userId]},{new:true})
                 return res.json({success:true,message:"success"})
             
@@ -521,6 +512,7 @@ export const payAfterInvoice = async(req,res)=>{
                         return res.json({success:false,message:"User already registered"})
                     }
                 }
+                RegisterId(req.body.id,Invoice.name)
                 
                 const updateCourse = await courseSchema.findByIdAndUpdate(course[0]._id,{registered:[...courseRegistered,req.userId]},{new:true})
                 // const newInvoice = userDetails.Invoice.filter((item)=>{return item.name!= })
