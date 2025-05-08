@@ -1,4 +1,4 @@
-import { competitionsSchema } from "../Model/Competions"
+import { competitionsSchema } from "../Model/Competions.js"
  
 export const RegisterId = async(id,Registered)=>{
     const competition = await competitionsSchema.findById(id)
