@@ -10,7 +10,7 @@ export const RegisterId = async(id,Registered,userId)=>{
 
     const subTypes = SubTypes.map((item)=>{
         if(item.name==Registered){
-            return {...item,replaceOneegistered}
+            return {...item,registered}
         }
         return item
     })
