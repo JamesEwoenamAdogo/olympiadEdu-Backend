@@ -253,7 +253,7 @@ export const updateAddPaymentAddOns = async(req,res)=>{
         }
     }
     
-    RegisterId(req.body.id,Registered)
+    RegisterId(req.body.id,Registered,req.userId)
     const updateCourse = await courseSchema.findByIdAndUpdate(course[0]._id,{registered:[...courseRegistered,req.userId]})
     const assessmentUpdate = await examinationModel.findByIdAndUpdate(assessment[0]._id,{registered:[...assessmentRegistered,req.userId]},{new:true})
     return res.json({success:true,message:"success"})
