@@ -6,7 +6,7 @@ import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 import dotenv from "dotenv"
 import { GroupModel } from "../Model/AdminCommunityModel.js";
-
+import { interestSchema } from "../Model/interestModel.js";
 
 
 export const adminSignUp = async(req,res)=>{
@@ -227,6 +227,30 @@ export const getAllGroups = async(req,res)=>{
         const allGroups = await GroupModel.find({})
         return res.json({success:true, allGroups})
 
+
+
+    }catch(error){
+        console.log(error)
+    }
+}
+
+export const AddInterest = async(req,res)=>{
+    try{
+        // const interestBody = req.body
+        const newInterest = new interestSchema(req.body)
+        newInterest.save()
+        return res.json({message:"success",interest:newInterest})
+
+
+    }catch(error){
+        console.log(error)
+    }
+}
+
+export const fetchAllInterests = async(req,res)=>{
+    try{
+        const allInterest = await interestSchema.find({})
+        return res.json({success:"message",allInterest})
 
 
     }catch(error){
