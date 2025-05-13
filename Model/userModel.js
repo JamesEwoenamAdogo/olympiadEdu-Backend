@@ -38,6 +38,9 @@ const userSchema = new mongoose.Schema({
     gender:{
         type:String
     },
+    PWD:{
+        type:String
+    },
     School:{
         type:String
     },
