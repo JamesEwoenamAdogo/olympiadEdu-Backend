@@ -381,22 +381,22 @@ export const loadPurpose = async(req,res)=>{
     try{
         const id = req.userId
         const userDetail = await userModel.findById(id)
-        const allCompetitions = await competitionsSchema.find({})
+        // const allCompetitions = await competitionsSchema.find({})
         console.log(userDetail)
         
-        let userExams = []
-        for(let exam of userDetail.purposeOfRegistration){ 
+        // let userExams = []
+        // for(let exam of userDetail.purposeOfRegistration){ 
             
-            let examinations = allCompetitions.filter((item)=>{return item.name ==exam.name})
-            userExams.push(...examinations)
+        //     let examinations = allCompetitions.filter((item)=>{return item.name ==exam.name})
+        //     userExams.push(...examinations)
 
-        }
-        console.log(userDetail)
+        // }
+        // console.log(userDetail)
         
-        const updatedPurpose = await userModel.findByIdAndUpdate(id,{purposeOfRegistration:userExams},{new:true})
-        console.log(updatedPurpose)
-        console.log(userExams)
-        return res.json({success:true, purpose_Of_Registration:updatedPurpose.purposeOfRegistration,Invoice:updatedPurpose.Invoice,AddOns:updatedPurpose.AddOns})
+        // const userDetail = await userModel.findByIdAndUpdate(id,{purposeOfRegistration:userDetails},{new:true})
+        // console.log(updatedPurpose)
+        // console.log(userExams)
+        return res.json({success:true, purpose_Of_Registration:userDetail.purposeOfRegistration,Invoice:userDetail.Invoice,Paid:userDetail.Paid,AddOns:userDetail.AddOns})
 
         
     }catch(error){
