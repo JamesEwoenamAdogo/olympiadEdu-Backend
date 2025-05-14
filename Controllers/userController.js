@@ -9,7 +9,8 @@ import { courseSchema } from "../Model/CourseModels.js";
 import { examinationModel } from "../Model/Examination.js";
 import { channelFeedModel } from "../Model/ChannelFeed.js";
 import { RegisterId } from "../Middlewares/Utilities.js";
-
+import { learningResourcesModel } from "../Model/LearningResourceAnalysis.js";
+import { performanceDataModel } from "../Model/PerformanceData.js";
 dotenv.config()
 
 
@@ -383,6 +384,8 @@ export const loadPurpose = async(req,res)=>{
         const userDetail = await userModel.findById(id)
         // const allCompetitions = await competitionsSchema.find({})
         console.log(userDetail)
+        const learningResources = await learningResourcesModel.find({userId:id})
+        const performance = await performanceDataModel.find({userId:id})
         
         // let userExams = []
         // for(let exam of userDetail.purposeOfRegistration){ 
@@ -396,7 +399,7 @@ export const loadPurpose = async(req,res)=>{
         // const userDetail = await userModel.findByIdAndUpdate(id,{purposeOfRegistration:userDetails},{new:true})
         // console.log(updatedPurpose)
         // console.log(userExams)
-        return res.json({success:true, purpose_Of_Registration:userDetail.purposeOfRegistration,Invoice:userDetail.Invoice,Paid:userDetail.Paid,AddOns:userDetail.AddOns})
+        return res.json({success:true, performance,learningResources, category:userDetail.Category, email: userDetail.email, firstName: userDetail.firstName,lastName:userDetail.lastName,phoneNumber:userDetail.mobileNumber, purpose_Of_Registration:userDetail.purposeOfRegistration,Invoice:userDetail.Invoice,Paid:userDetail.Paid,AddOns:userDetail.AddOns,})
 
         
     }catch(error){
