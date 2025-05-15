@@ -323,7 +323,11 @@ export const fetchSingleUser = async(req,res)=>{
     try{
         const {id}= req.params
         const user = await userModel.findById(id)
-        res.json({success:true, user})
+
+        const learningResources = await learningResourcesModel.find({userId:id})
+        const performance = await performanceDataModel.find({userId:id})
+
+        return res.json({success:true, user,learningResources,performance})
 
         
         
