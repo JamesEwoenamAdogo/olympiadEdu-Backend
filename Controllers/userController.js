@@ -11,6 +11,7 @@ import { channelFeedModel } from "../Model/ChannelFeed.js";
 import { RegisterId } from "../Middlewares/Utilities.js";
 import { learningResourcesModel } from "../Model/LearningResourceAnalysis.js";
 import { performanceDataModel } from "../Model/PerformanceData.js";
+import { assessmentAnalysisModel } from "../Model/AssessmentAnalysis.js";
 dotenv.config()
 
 
@@ -327,8 +328,8 @@ export const fetchSingleUser = async(req,res)=>{
         delete user.password
         
 
+        const performance = await assessmentAnalysisModel.find({userId:id})
         const learningResources = await learningResourcesModel.find({userId:id})
-        const performance = await performanceDataModel.find({userId:id})
 
         return res.json({success:true, user,learningResources,performance})
 
