@@ -324,6 +324,9 @@ export const fetchSingleUser = async(req,res)=>{
         const {id}= req.params
         const user = await userModel.findById(id)
 
+        delete user.password
+        
+
         const learningResources = await learningResourcesModel.find({userId:id})
         const performance = await performanceDataModel.find({userId:id})
 
