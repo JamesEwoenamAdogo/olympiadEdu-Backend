@@ -344,6 +344,29 @@ export const fetchSingleUser = async(req,res)=>{
     }
 }
 
+export const findAssessment = async()=>{
+    try{
+        const assessment = await examinationModel.find({title:req.prams.name,grade:req.params.grade})
+
+        return res.json({success:true, assessment})
+
+
+    }catch(error){
+        console.log(error)
+    }
+}
+export const findCourses = async()=>{
+    try{
+        const assessment = await courseSchema.find({title:req.prams.name,grade:req.params.grade})
+
+        return res.json({success:true, assessment})
+
+
+    }catch(error){
+        console.log(error)
+    }
+}
+
 
 export const updateUsers = async(req,res)=>{
     try{
@@ -581,4 +604,6 @@ export const fetchChannelFeed = async(req,res)=>{
         console.log(error)
     }
 }
+
+
 
