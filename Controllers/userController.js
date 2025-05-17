@@ -346,7 +346,7 @@ export const fetchSingleUser = async(req,res)=>{
 
 export const findAssessment = async(req,res)=>{
     try{
-        const assessment = await examinationModel.find({title:req.prams.name,grade:req.params.grade})
+        const assessment = await examinationModel.find({title:req.params.name,grade:req.params.grade})
         if(assessment.length==0){
             return res.json({success:false,message:"No assessments available yet"})
         }
@@ -360,7 +360,7 @@ export const findAssessment = async(req,res)=>{
 }
 export const findCourses = async(req,res)=>{
     try{
-        const course = await courseSchema.find({title:req.prams.name,grade:req.params.grade})
+        const course = await courseSchema.find({title:req.params.name,grade:req.params.grade})
 
         if(course.length==0){
             return res.json({success:false,message:"No course added yet"})
