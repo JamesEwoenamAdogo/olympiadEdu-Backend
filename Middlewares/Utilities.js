@@ -32,7 +32,7 @@ export const sendPasswordResetLink = async(email,token)=>{
         const resetLink = `https://www.giftededu.tech/reset-password/${token}`
         const result = await transporter.sendMail({
         to: email,
-        subject: "Reset Your Password",
+        subject: " Gifted Platform Reset Your Password",
         html: `<p>Click <a href="${resetLink}">here</a> to reset your password</p>`,
         });
         return result
