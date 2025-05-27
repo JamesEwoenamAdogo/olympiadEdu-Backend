@@ -8,7 +8,7 @@ import { transactionModel } from "../Model/transactionModel.js";
 import { courseSchema } from "../Model/CourseModels.js";
 import { examinationModel } from "../Model/Examination.js";
 import { channelFeedModel } from "../Model/ChannelFeed.js";
-import { RegisterId } from "../Middlewares/Utilities.js";
+import { RegisterId, sendPasswordResetLink } from "../Middlewares/Utilities.js";
 import { learningResourcesModel } from "../Model/LearningResourceAnalysis.js";
 import { performanceDataModel } from "../Model/PerformanceData.js";
 import { assessmentAnalysisModel } from "../Model/AssessmentAnalysis.js";
@@ -360,7 +360,7 @@ export const findAssessment = async(req,res)=>{
 }
 export const findCourses = async(req,res)=>{
     try{
-        const course = await courseSchema.find({title:req.params.name,grade:req.params.grade})
+        const course = await courseSchema.find({title:req.params.name, grade:req.params.grade})
 
         if(course.length==0){
             return res.json({success:false,message:"No course added yet"})
@@ -612,5 +612,45 @@ export const fetchChannelFeed = async(req,res)=>{
     }
 }
 
+export const forgotPassword = async(req,res)=>{
+    try{
+        const {email}= req.body
+        const userDetails= await userModel.find({email})
+        if(userDetails.length==0){
+            return res.json({success:false,message:"User email not existing"})
+        }
+        const userId = userDetails[0]._id
+        const token = jwt.sign({id:userId},process.env.TOKEN_SECRET,{expiresIn:"1h"})
+        const result = await sendPasswordResetLink(email,token)
+        if(result.accepted.length==1){
+            return res.json({success:true,message:"A password reset link has been sent to your email"})
+        }
+        return res.json({success:false,message:"An error occured"})
 
 
+
+
+
+    }catch(error){
+        console.log(error)
+    }
+}
+
+export const ResetPassword= async(req,res)=>{
+    try{
+        const {id,newPassword}= req.body
+
+        const hashedNewPassword = await bcrypt.hash(newPassword,10)
+
+        const update = await userModel.findByIdAndUpdate(id,{password:hashedNewPassword},{new:true})
+
+         return res.json({success:true,message:"Password Change successful",update})
+
+
+
+
+
+    }catch(error){
+        console.log(error)
+    }
+}
