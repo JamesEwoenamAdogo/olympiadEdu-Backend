@@ -8,7 +8,7 @@ const quizReviewSchema = new mongoose.Schema({
      type:String
     },
     review:{
-        type:Object
+        type:[Object]
     }
 },{timestamps:true})
 
