@@ -2,7 +2,7 @@ import { performanceDataModel } from "../Model/PerformanceData.js";
 import { learningResourcesModel } from "../Model/LearningResourceAnalysis.js";
 import { subjectDistributionModel } from "../Model/SubjectDistribution.js";
 import { assessmentAnalysisModel } from "../Model/AssessmentAnalysis.js";
-
+import { quizReviewModel } from "../Model/QuizReview.js";
 
 export const assessAnalyticsController = async(req,res)=>{
     try{
@@ -104,3 +104,30 @@ export const SubjectDistributionController = async(req,res)=>{
     }
 }
 
+
+export const QuizReview = async(req,res)=>{
+    try{
+        const newReview = await new quizReviewModel(req.body)
+        newReview.save()
+        return res.json({success:true, message:"success"})
+
+
+
+
+    }catch(error){
+        console.log(error)
+    }
+}
+
+export const fetchQuizReviews= async(req,res)=>{
+
+    try{
+        const id = req.params.id
+        const quizReview = await quizReviewModel.find({quizId:id,userId:req.body.userId})
+        return res.json({success:true,message:"success",quizReview})
+
+
+    }catch(error){
+        console.log(error)
+    }
+}
