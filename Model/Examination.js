@@ -22,6 +22,9 @@ const examinationSchema = new mongoose.Schema({
     questions:{
         type:[Object]
     },
+    featured:{
+        type:Boolean
+    },
     registered:{
         type:[String],
         default:[""]

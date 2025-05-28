@@ -654,3 +654,14 @@ export const ResetPassword= async(req,res)=>{
         console.log(error)
     }
 }
+
+export const FeaturedExams = async(req,res)=>{
+    try{
+        const featured = await examinationModel.find({featured:true})
+        return res.json({success:true,featuredQuizzes:featured})
+
+
+    }catch(error){
+        console.log(error)
+    }
+}

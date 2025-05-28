@@ -1,5 +1,5 @@
 import express from "express"
-import { addUser, loginUser, updateUsers,updateAddInvoiceAddOns,loadPurpose, updateAddPaymentAddOns,UpdateMessage, fetchChannelFeed, payAfterInvoice,fetchSingleUser, findAssessment, findCourses, forgotPassword, ResetPassword} from "../Controllers/userController.js"
+import { addUser, loginUser, updateUsers,updateAddInvoiceAddOns,loadPurpose, updateAddPaymentAddOns,UpdateMessage, fetchChannelFeed, payAfterInvoice,fetchSingleUser, findAssessment, findCourses, forgotPassword, ResetPassword, FeaturedExams} from "../Controllers/userController.js"
 import { authenticateUser } from "../Middlewares/authUser.js"
 import { channelImageUpload } from "../Middlewares/UploadFile.js"
 
@@ -18,6 +18,7 @@ userRoute.put("/update-pay-after-invoice",authenticateUser,payAfterInvoice)
 userRoute.post("/send-message",channelImageUpload.single("image"),UpdateMessage)
 userRoute.get("/channel-feed/:channelId",fetchChannelFeed)
 userRoute.get("/user-details/:id",fetchSingleUser)
+userRoute.get("/featured-exams",FeaturedExams)
 
 userRoute.get("/assessment/:name/:grade",findAssessment)
 userRoute.get("/course/:name/:grade",findCourses)
