@@ -7,6 +7,12 @@ const quizReviewSchema = new mongoose.Schema({
     userId:{
      type:String
     },
+    score:{
+        type:Number
+    },
+    date:{
+      type:String
+    },
     review:{
         type:[Object]
     }

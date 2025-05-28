@@ -107,6 +107,11 @@ export const SubjectDistributionController = async(req,res)=>{
 
 export const QuizReview = async(req,res)=>{
     try{
+        const existing = await quizReviewModel.find({quizId:req.body.quizId})
+        if(existing.length==1){
+            const update = await quizReviewModel.findByIdAndUpdate(existing[0]._id,req.body,{new:true})
+            return res.json({success:true,update})
+        }
         const newReview = await new quizReviewModel(req.body)
         newReview.save()
         return res.json({success:true, message:"success"})
