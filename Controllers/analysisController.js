@@ -6,8 +6,7 @@ import { quizReviewModel } from "../Model/QuizReview.js";
 
 export const assessAnalyticsController = async(req,res)=>{
     try{
-        const {userId,scoreData}= req.body
-        const details = scoreData
+        const {userId,details}= req.body
         const existing = await assessmentAnalysisModel.find({userId})
         if(existing.length==1){
             const updatedDetails = existing[0].details.filter((item)=>{return item.title!==details.title})
