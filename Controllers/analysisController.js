@@ -3,7 +3,7 @@ import { learningResourcesModel } from "../Model/LearningResourceAnalysis.js";
 import { subjectDistributionModel } from "../Model/SubjectDistribution.js";
 import { assessmentAnalysisModel } from "../Model/AssessmentAnalysis.js";
 import { quizReviewModel } from "../Model/QuizReview.js";
-
+import { courseReviewModel } from "../Model/CourseReview.js";
 export const assessAnalyticsController = async(req,res)=>{
     try{
         const {userId,details}= req.body
@@ -107,7 +107,7 @@ export const SubjectDistributionController = async(req,res)=>{
 
 export const QuizReview = async(req,res)=>{
     try{
-        const existing = await quizReviewModel.find({quizId:req.body.quizId})
+        const existing = await quizReviewModel.find({userId:req.body.userId,quizId:req.body.quizId})
         if(existing.length==1){
             const update = await quizReviewModel.findByIdAndUpdate(existing[0]._id,req.body,{new:true})
             return res.json({success:true,update})
@@ -130,6 +130,38 @@ export const fetchQuizReviews= async(req,res)=>{
         const {userId,quizId} = req.params
         const quizReview = await quizReviewModel.find({userId, quizId})
         return res.json({success:true,message:"success",quizReview})
+
+
+    }catch(error){
+        console.log(error)
+    }
+}
+
+export const CourseReview = async(req,res)=>{
+    try{
+        const existing = await courseReviewModel.find({userId:req.body.userId,courseId:req.body.courseId})
+        if(existing.length==1){
+            const update = await courseReviewModel.findByIdAndUpdate(existing[0]._id,req.body,{new:true})
+            return res.json({success:true,update})
+        }
+        const newReview = await new courseReviewModel(req.body)
+        newReview.save()
+        return res.json({success:true, message:"success"})
+
+
+
+
+    }catch(error){
+        console.log(error)
+    }
+}
+
+export const fetchCourseReviews= async(req,res)=>{
+
+    try{
+        const {userId,courseId} = req.params
+        const courseReview = await courseReviewModel.find({userId, courseId})
+        return res.json({success:true,message:"success",courseId})
 
 
     }catch(error){

@@ -1,7 +1,7 @@
 import express from "express";
 import { addExamination, allExam ,course,getOneExam,updateOneExam} from "../Controllers/examinationController.js";
 import upload from "../Middlewares/UploadFile.js";
-import { fetchQuizReviews, QuizReview } from "../Controllers/analysisController.js";
+import { CourseReview, fetchCourseReviews, fetchQuizReviews, QuizReview } from "../Controllers/analysisController.js";
 
 const router = express.Router();
 
@@ -22,5 +22,8 @@ router.put("/update-exams/:id",upload.upload.single("image"), updateOneExam)
 
 router.post("/quiz-review",QuizReview)
 router.get("/fetch-quiz-review/:userId/:quizId",fetchQuizReviews)
+
+router.post("/course-review",CourseReview)
+router.get("/fetch-course-review/:userId/:courseId",fetchCourseReviews)
 
 export default  router;
