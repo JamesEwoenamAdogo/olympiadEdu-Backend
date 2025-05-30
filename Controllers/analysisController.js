@@ -161,7 +161,7 @@ export const fetchCourseReviews= async(req,res)=>{
     try{
         const {userId,courseId} = req.params
         const courseReview = await courseReviewModel.find({userId, courseId})
-        return res.json({success:true,message:"success",courseId})
+        return res.json({success:true,message:"success",courseReview})
 
 
     }catch(error){
