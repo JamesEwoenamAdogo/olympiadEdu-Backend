@@ -21,6 +21,6 @@ router.get("/all-exams/:id", getOneExam)
 router.put("/update-exams/:id",upload.upload.single("image"), updateOneExam)
 
 router.post("/quiz-review",QuizReview)
-router.get("/fetch-quiz-review/:id",fetchQuizReviews)
+router.get("/fetch-quiz-review/:userId/:quizId",fetchQuizReviews)
 
 export default  router;

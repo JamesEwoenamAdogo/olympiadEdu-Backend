@@ -127,8 +127,8 @@ export const QuizReview = async(req,res)=>{
 export const fetchQuizReviews= async(req,res)=>{
 
     try{
-        const id = req.params.id
-        const quizReview = await quizReviewModel.find({quizId:id,userId:req.body.userId})
+        const {userId,quizId} = req.params
+        const quizReview = await quizReviewModel.find({quizId,userId})
         return res.json({success:true,message:"success",quizReview})
 
 
