@@ -667,13 +667,14 @@ export const FeaturedExams = async(req,res)=>{
         console.log(error)
     }
 }
-export const uploadProfileImage = async(req,req)=>{
+export const uploadProfileImage = async(req,res)=>{
     try{
         const {userId}= req.params
         const existingUser = await profileImageModel.findById(userId)
         if(!existingUser){
             const newUpload = new profileImageModel({userId,image:req.file?req.file:null})
             newUpload.save()
+            return res.json({success:true})
         }
         
 
