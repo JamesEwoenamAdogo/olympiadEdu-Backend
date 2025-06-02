@@ -42,6 +42,16 @@ const channelFeedImage = new CloudinaryStorage({
     };
   },
 });
+const profileImage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: async (req, file) => {
+    return {
+      folder: "profile_image", // Cloudinary folder
+      format: "png", // Convert all images to PNG
+      public_id: `${file.originalname.split(".")[0]}-${Date.now()}`, // Unique ID
+    };
+  },
+});
 
 const courseStorage = new CloudinaryStorage({
   cloudinary: cloudinary,
@@ -56,6 +66,7 @@ const courseStorage = new CloudinaryStorage({
 const upload = multer({ storage });
 const communityThumbnailUpload = multer({ storage:communityThumbnailStorage });
 
+export const profileImageupload = multer({ storage:profileImage });
 export const courseUpload = multer({storage:courseStorage})
 export const courseThumbnailUpload = multer({storage:courseThumbnailStorage})
 export const channelImageUpload = multer({storage:channelFeedImage})

@@ -12,6 +12,8 @@ import { RegisterId, sendPasswordResetLink } from "../Middlewares/Utilities.js";
 import { learningResourcesModel } from "../Model/LearningResourceAnalysis.js";
 import { performanceDataModel } from "../Model/PerformanceData.js";
 import { assessmentAnalysisModel } from "../Model/AssessmentAnalysis.js";
+import { profileImageModel } from "../Model/ProfileImages.js";
+
 dotenv.config()
 
 
@@ -659,6 +661,22 @@ export const FeaturedExams = async(req,res)=>{
     try{
         const featured = await examinationModel.find({featured:true})
         return res.json({success:true,featuredQuizzes:featured})
+
+
+    }catch(error){
+        console.log(error)
+    }
+}
+export const uploadProfileImage = async(req,req)=>{
+    try{
+        const {userId}= req.params
+        const existingUser = await profileImageModel.findById(userId)
+        if(!existingUser){
+            const newUpload = new profileImageModel({userId,image:req.file?req.file:null})
+            newUpload.save()
+        }
+        
+
 
 
     }catch(error){
