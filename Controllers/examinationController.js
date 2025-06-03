@@ -11,7 +11,8 @@ export const addExamination = async (req, res) => {
       const parsedQuestions = questions;
   
       // Get uploaded quiz image URL
-      const quizImageUrl = req.files.image ? req.files.image[0].path : "";
+      
+      const quizImageUrl = req.files?.image ? req.files.image[0]?.path : "";
   
       // Process question images
       const processedQuestions = parsedQuestions.map((item, index) => {
@@ -36,7 +37,7 @@ export const addExamination = async (req, res) => {
       await newQuiz.save();
       return res.json({ success: true, message: "Quiz created successfully" });
     } catch (error) {
-      console.error(error);
+      console.error(error.message);
       return res.status(500).json({ success: false, message: "Error creating quiz" ,error:error.message});
     }
   };
