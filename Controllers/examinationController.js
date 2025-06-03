@@ -37,7 +37,7 @@ export const addExamination = async (req, res) => {
       return res.json({ success: true, message: "Quiz created successfully" });
     } catch (error) {
       console.error(error);
-      return res.status(500).json({ success: false, message: "Error creating quiz" ,error});
+      return res.status(500).json({ success: false, message: "Error creating quiz" ,error:error.message});
     }
   };
   
