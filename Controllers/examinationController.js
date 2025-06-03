@@ -16,8 +16,8 @@ export const addExamination = async (req, res) => {
   
       // Process question images
       const processedQuestions = parsedQuestions.map((item, index) => {
-        if (req.files.questionImages && req.files.questionImages[index]) {
-          item.image = req.files.questionImages[index].path; // Cloudinary URL
+        if (req.files?.questionImages && req.files?.questionImages[index]) {
+          item.image = req.files.questionImages[index]?.path; // Cloudinary URL
         }
         return item;
       });
