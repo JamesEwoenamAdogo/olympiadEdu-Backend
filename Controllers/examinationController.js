@@ -8,7 +8,7 @@ import { uploadToGCS } from "../utils/googleCloudConfig.js";
 export const addExamination = async (req, res) => {
     try {
       const { title, description, time, numberOfQuestions, questions,grade ,featured} = req.body;
-      const parsedQuestions = JSON.parse(questions);
+      const parsedQuestions = questions;
   
       // Get uploaded quiz image URL
       const quizImageUrl = req.files.image ? req.files.image[0].path : "";
