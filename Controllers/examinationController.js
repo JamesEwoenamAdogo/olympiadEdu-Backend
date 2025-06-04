@@ -252,3 +252,47 @@ export const updateCourseFilesAfterDelete = async(req,res)=>{
     console.log(error)
   }
 }
+
+export const updateQuestion = async(req,res)=>{
+  try{
+    const {id, questionIndex}=req.params
+    const details = await examinationModel.findById(id)
+    if(!req.file){
+      const updatedQuestion = details.questions.map((item,index)=>questionIndex==index?req.body:item)
+      const updateQuestions = await examinationModel.findByIdAndUpdate(id,{questions:updatedQuestion},{new:true})
+      return res.json({success:true,updateQuestions})
+    }
+     const updatedQuestion = details.questions.map((item,index)=>questionIndex==index?{...req.body,image:req.file.path}:item)
+     const updateQuestions = await examinationModel.findByIdAndUpdate(id,{questions:updatedQuestion},{new:true})
+     return res.json({success:true,updateQuestions})
+    
+
+
+  }catch(error){
+    console.log(error)
+  }
+}
+
+export const deleteExam = async(req,res)=>{
+  try{
+    const {id}= req.params
+    const deletExam = await examinationModel.findByIdAndDelete(id)
+    return res.json({success:true})
+
+
+  }catch(error){
+    console.log(error)
+  }
+}
+
+export const addQuestion = async(req,res)=>{
+  try{
+    const {id}= req.params
+    const examination = await examinationModel.findBy(id)
+    const update = [...examination.questions,{...req.body,image:req.file?req.file.path:null}]
+    const updateQuestions = await examinationModel.findByIdAndUpdate(id,{questions:update},{new:true})
+    return res.json({success:true,update:updateQuestions})
+  }catch(error){
+    console.log(error)
+  }
+}
