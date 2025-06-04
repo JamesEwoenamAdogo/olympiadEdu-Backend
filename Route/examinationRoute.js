@@ -20,7 +20,7 @@ router.get("/all-exams", allExam);
 router.get("/all-exams/:id", getOneExam)
 router.put("/update-exams/:id",upload.upload.single("image"), updateOneExam)
 router.put("/update-question/:id/:questionIndex",upload.upload.single("image"),updateQuestion)
-router.put("/delete-exam/:id", deleteExam)
+router.delete("/delete-exam/:id", deleteExam)
 router.put("/add-question/:id",upload.upload.single("image"), addQuestion)
 
 router.post("/quiz-review",QuizReview)
