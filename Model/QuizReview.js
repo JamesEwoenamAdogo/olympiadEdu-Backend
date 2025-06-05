@@ -31,6 +31,9 @@ const quizReviewSchema = new mongoose.Schema({
     year:{
         type:String
     },
+    attemptsMade:{
+        type:Number
+    },
     review:{
         type:[Object]
     }

@@ -33,7 +33,9 @@ export const addExamination = async (req, res) => {
         image: quizImageUrl,
         featured,
         publish,
-        attemptsAllowed
+        attemptsAllowed,
+        allowReview
+      
       });
   
       await newQuiz.save();
