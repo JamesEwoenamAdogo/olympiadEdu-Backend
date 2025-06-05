@@ -7,7 +7,7 @@ import { uploadToGCS } from "../utils/googleCloudConfig.js";
 
 export const addExamination = async (req, res) => {
     try {
-      const { title, description, time, numberOfQuestions, questions,grade ,featured} = req.body;
+      const { title, description, time, numberOfQuestions, questions,grade ,featured,publish,attemptsAllowed} = req.body;
       const parsedQuestions = JSON.parse(questions);
   
       // Get uploaded quiz image URL
@@ -31,7 +31,9 @@ export const addExamination = async (req, res) => {
         numberOfQuestions,
         questions: processedQuestions,
         image: quizImageUrl,
-        featured
+        featured,
+        publish,
+        attemptsAllowed
       });
   
       await newQuiz.save();
@@ -45,7 +47,7 @@ export const addExamination = async (req, res) => {
 
 export const allExam = async(req,res)=>{
     try{
-        const allExaminations = await examinationModel.find({})
+        const allExaminations = await examinationModel.find({publish:true})
         if(allExaminations){
             return res.json({message:"success",allExaminations})
         }

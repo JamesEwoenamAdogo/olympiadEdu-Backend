@@ -16,6 +16,12 @@ const examinationSchema = new mongoose.Schema({
     numberOfQuestions:{
         type:Number
     },
+    attemptsAllowed:{
+        type:Number
+    },
+    publish:{
+        type:Boolean
+    },
     image:{
         type:String
     },

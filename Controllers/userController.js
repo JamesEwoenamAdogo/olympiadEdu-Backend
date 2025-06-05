@@ -659,7 +659,7 @@ export const ResetPassword= async(req,res)=>{
 
 export const FeaturedExams = async(req,res)=>{
     try{
-        const featured = await examinationModel.find({featured:true})
+        const featured = await examinationModel.find({featured:true,publish:true})
         return res.json({success:true,featuredQuizzes:featured})
 
 
