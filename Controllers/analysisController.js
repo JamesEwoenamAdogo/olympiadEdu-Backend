@@ -110,16 +110,14 @@ export const QuizReview = async(req,res)=>{
     try{
         const existing = await quizReviewModel.find({userId:req.body.userId,quizId:req.body.quizId})
         const userDetails = await userModel.findById(req.body.userId)
-        req.body.grade= userDetails.grade
-        req.body.school= userDetails.School
-        req.body.fullname= `${userDetails.firstName} ${userDetails.lastName}`
-        console.log(req.body)
+      
+        console.log()
 
         if(existing.length==1){
             const update = await quizReviewModel.findByIdAndUpdate(existing[0]._id,{...req.body,grade:userDetails.grade,school:userDetails.School,fullName:`${userDetails.firstName} ${userDetails.lastName}`},{new:true})
             return res.json({success:true,update})
         }
-        const newReview = await new quizReviewModel(req.body)
+        const newReview = await new quizReviewModel({...req.body,grade:userDetails.grade,school:userDetails.School,fullName:`${userDetails.firstName} ${userDetails.lastName}`})
         newReview.save()
         return res.json({success:true, message:"success"})
 
