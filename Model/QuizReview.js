@@ -13,7 +13,7 @@ const quizReviewSchema = new mongoose.Schema({
     date:{
       type:String
     },
-    userName:{
+    fullName:{
         type:String
     },
     school:{
@@ -21,6 +21,9 @@ const quizReviewSchema = new mongoose.Schema({
     },
     grade:{
         type:String
+    },
+    correctAnswers:{
+        type:Number
     },
     numberOfQuestions:{
         type:Number

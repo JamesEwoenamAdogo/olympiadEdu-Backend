@@ -1,5 +1,5 @@
 import express from "express"
-import { assessAnalyticsController,PerformanceDataController,SubjectDistributionController,LearningResourceAnalysisController, allAssessment, allLearningResourceAnalytics } from "../Controllers/analysisController.js"
+import { assessAnalyticsController,PerformanceDataController,SubjectDistributionController,LearningResourceAnalysisController, allAssessment, allLearningResourceAnalytics, fetchQuizResults } from "../Controllers/analysisController.js"
 
 export const analyticsRoutes = express.Router()
 
@@ -10,6 +10,8 @@ analyticsRoutes.post("/performance-analytics",PerformanceDataController)
 
 
 analyticsRoutes.post("/subject-distribution-analytics",SubjectDistributionController)
+
+analyticsRoutes.get("/fetch-results/:quizId/:year",fetchQuizResults)
 
 
 analyticsRoutes.post("/learning-resource-analytics",LearningResourceAnalysisController)

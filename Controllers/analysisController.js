@@ -176,3 +176,17 @@ export const fetchCourseReviews= async(req,res)=>{
         console.log(error)
     }
 }
+
+export const fetchQuizResults= async(req,res)=>{
+    try{
+        const {quizId,year}=req.params
+        const results = await quizReviewModel.find({quizId,year})
+        return res.json({success:true,results})
+
+
+    }catch(error){
+        console.log(error)
+    }
+
+
+}
