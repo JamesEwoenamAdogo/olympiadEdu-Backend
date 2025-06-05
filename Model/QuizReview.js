@@ -25,6 +25,9 @@ const quizReviewSchema = new mongoose.Schema({
     numberOfQuestions:{
         type:Number
     },
+    year:{
+        type:String
+    },
     review:{
         type:[Object]
     }
