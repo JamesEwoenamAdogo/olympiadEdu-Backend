@@ -59,6 +59,21 @@ export const allExam = async(req,res)=>{
     }
 }
 
+export const allExamAdmin = async(req,res)=>{
+    try{
+        const allExaminations = await examinationModel.find({})
+        const examNames = allExaminations.map((item)=>{return {_id:item._id,title:item.title}})
+        if(allExaminations){
+            return res.json({message:"success",allExaminations:examNames})
+        }
+
+
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({message:"error"})
+    }
+}
+
 export const getOneExam = async(req,res)=>{
   try{
     const {id} = req.params

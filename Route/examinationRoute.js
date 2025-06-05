@@ -1,5 +1,5 @@
 import express from "express";
-import { addExamination, addQuestion, allExam ,course,deleteExam,getOneExam,updateOneExam, updateQuestion} from "../Controllers/examinationController.js";
+import { addExamination, addQuestion, allExam ,allExamAdmin,course,deleteExam,getOneExam,updateOneExam, updateQuestion} from "../Controllers/examinationController.js";
 import upload from "../Middlewares/UploadFile.js";
 import { CourseReview, fetchCourseReviews, fetchQuizReviews, QuizReview } from "../Controllers/analysisController.js";
 
@@ -16,6 +16,7 @@ router.post(
 );
 
 router.get("/all-exams", allExam);
+router.get("/all-exam-admin", allExamAdmin);
 
 router.get("/all-exams/:id", getOneExam)
 router.put("/update-exams/:id",upload.upload.single("image"), updateOneExam)
