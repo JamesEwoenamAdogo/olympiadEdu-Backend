@@ -32,7 +32,8 @@ const quizReviewSchema = new mongoose.Schema({
         type:String
     },
     attemptsMade:{
-        type:Number
+        type:Number,
+        default:0
     },
     review:{
         type:[Object]
