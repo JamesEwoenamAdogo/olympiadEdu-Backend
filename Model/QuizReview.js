@@ -13,6 +13,18 @@ const quizReviewSchema = new mongoose.Schema({
     date:{
       type:String
     },
+    userName:{
+        type:String
+    },
+    school:{
+        type:String
+    },
+    grade:{
+        type:String
+    },
+    numberOfQuestions:{
+        type:Number
+    },
     review:{
         type:[Object]
     }

@@ -4,6 +4,7 @@ import { subjectDistributionModel } from "../Model/SubjectDistribution.js";
 import { assessmentAnalysisModel } from "../Model/AssessmentAnalysis.js";
 import { quizReviewModel } from "../Model/QuizReview.js";
 import { courseReviewModel } from "../Model/CourseReview.js";
+import { userModel } from "../Model/userModel.js";
 export const assessAnalyticsController = async(req,res)=>{
     try{
         const {userId,details}= req.body
@@ -108,6 +109,11 @@ export const SubjectDistributionController = async(req,res)=>{
 export const QuizReview = async(req,res)=>{
     try{
         const existing = await quizReviewModel.find({userId:req.body.userId,quizId:req.body.quizId})
+        const userDetails = await userModel.findById(req.body.userId)
+        req.body.grade= userDetails.grade
+        req.body.school= userDetails.School
+        req.body.fullname= `${userDetails.firstName} ${userDetails.lastName}`
+
         if(existing.length==1){
             const update = await quizReviewModel.findByIdAndUpdate(existing[0]._id,req.body,{new:true})
             return res.json({success:true,update})
