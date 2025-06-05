@@ -16,7 +16,7 @@ router.post(
 );
 
 router.get("/all-exams", allExam);
-router.get("/all-exam-admin", allExamAdmin);
+router.get("/all-exams-admin", allExamAdmin);
 
 router.get("/all-exams/:id", getOneExam)
 router.put("/update-exams/:id",upload.upload.single("image"), updateOneExam)
