@@ -113,6 +113,7 @@ export const QuizReview = async(req,res)=>{
         req.body.grade= userDetails.grade
         req.body.school= userDetails.School
         req.body.fullname= `${userDetails.firstName} ${userDetails.lastName}`
+        console.log(req.body)
 
         if(existing.length==1){
             const update = await quizReviewModel.findByIdAndUpdate(existing[0]._id,req.body,{new:true})
