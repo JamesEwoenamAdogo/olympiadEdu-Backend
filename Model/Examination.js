@@ -25,7 +25,7 @@ const examinationSchema = new mongoose.Schema({
     image:{
         type:String
     },
-    allowReview:{
+    allowQuizReview:{
         type:Boolean
     },
     questions:{

@@ -34,7 +34,7 @@ export const addExamination = async (req, res) => {
         featured,
         publish,
         attemptsAllowed,
-        allowReview
+        allowQuizReview
       
       });
   
