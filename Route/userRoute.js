@@ -1,5 +1,5 @@
 import express from "express"
-import { addUser, loginUser, updateUsers,updateAddInvoiceAddOns,loadPurpose, updateAddPaymentAddOns,UpdateMessage, fetchChannelFeed, payAfterInvoice,fetchSingleUser, findAssessment, findCourses, forgotPassword, ResetPassword, FeaturedExams, uploadProfileImage} from "../Controllers/userController.js"
+import { addUser, loginUser, updateUsers,updateAddInvoiceAddOns,loadPurpose, updateAddPaymentAddOns,UpdateMessage, fetchChannelFeed, payAfterInvoice,fetchSingleUser, findAssessment, findCourses, forgotPassword, ResetPassword, FeaturedExams, uploadProfileImage, sendFeedBack} from "../Controllers/userController.js"
 import { authenticateUser } from "../Middlewares/authUser.js"
 import { channelImageUpload } from "../Middlewares/UploadFile.js"
 import { profileImageupload } from "../Middlewares/UploadFile.js"
@@ -27,6 +27,7 @@ userRoute.get("/assessment/:name/:grade",findAssessment)
 userRoute.get("/course/:name/:grade",findCourses)
 userRoute.post("/send-password-reset-link",forgotPassword)
 userRoute.post("/reset-password",ResetPassword)
+userRoute.post("/send-feedBack",sendFeedBack)
 
 
 

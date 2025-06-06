@@ -13,6 +13,7 @@ import { learningResourcesModel } from "../Model/LearningResourceAnalysis.js";
 import { performanceDataModel } from "../Model/PerformanceData.js";
 import { assessmentAnalysisModel } from "../Model/AssessmentAnalysis.js";
 import { profileImageModel } from "../Model/ProfileImages.js";
+import { feedBackModel } from "../Model/FeedBackModel.js";
 
 dotenv.config()
 
@@ -680,6 +681,18 @@ export const uploadProfileImage = async(req,res)=>{
 
 
 
+    }catch(error){
+        console.log(error)
+    }
+}
+
+export const sendFeedBack = async(req,res)=>{
+    try{
+        const feedBack = new feedBackModel(req.body)
+        feedBack.save()
+        return res.data.json({success:true})
+
+        
     }catch(error){
         console.log(error)
     }
