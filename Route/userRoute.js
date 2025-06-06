@@ -27,7 +27,7 @@ userRoute.get("/assessment/:name/:grade",findAssessment)
 userRoute.get("/course/:name/:grade",findCourses)
 userRoute.post("/send-password-reset-link",forgotPassword)
 userRoute.post("/reset-password",ResetPassword)
-userRoute.post("/send-feedBack",sendFeedBack)
+userRoute.post("/send-feedback",sendFeedBack)
 
 
 
