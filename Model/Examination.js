@@ -34,6 +34,12 @@ const examinationSchema = new mongoose.Schema({
     featured:{
         type:Boolean
     },
+    displayScores:{
+        type:Boolean
+    },
+    showFeedBackForm:{
+        type:Boolean
+    },
     registered:{
         type:[String],
         default:[""]
