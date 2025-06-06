@@ -118,7 +118,7 @@ export const QuizReview = async(req,res)=>{
             const update = await quizReviewModel.findByIdAndUpdate(existing[0]._id,{...req.body,grade:userDetails.grade,school:userDetails.School,fullName:`${userDetails.firstName} ${userDetails.lastName}`,attemptsMade},{new:true})
             return res.json({success:true,update})
         }
-        const newReview = await new quizReviewModel({...req.body,grade:userDetails.grade,school:userDetails.School,fullName:`${userDetails.firstName} ${userDetails.lastName}`,attemptsMade:1})
+        const newReview = new quizReviewModel({...req.body,grade:userDetails.grade,school:userDetails.School,fullName:`${userDetails.firstName} ${userDetails.lastName}`,attemptsMade:1})
         newReview.save()
         return res.json({success:true, message:"success"})
 
