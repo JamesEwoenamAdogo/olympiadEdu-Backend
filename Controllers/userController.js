@@ -22,8 +22,8 @@ dotenv.config()
 
 export const addUser = async(req,res)=>{
     try{
-        const {firstName, lastName,DOB,email,password,mobileNumber,category,educationalLevel,grade,purposeOfRegistration,gender,School,country,PWD}= req.body
-        console.log(firstName,lastName,DOB, email,password,mobileNumber,category,educationalLevel,grade,country,School,gender,purposeOfRegistration,PWD)
+        const {firstName, lastName,dob,email,password,mobileNumber,category,educationalLevel,grade,purposeOfRegistration,gender,School,country,PWD}= req.body
+        console.log(firstName,lastName,dob, email,password,mobileNumber,category,educationalLevel,grade,country,School,gender,purposeOfRegistration,PWD)
         const existingUser = await userModel.find({email})
         const allCompetitions = await competitionsSchema.find({})
         const exsitingUserByPhoneNumber = await userModel.find({mobileNumber})
@@ -45,7 +45,7 @@ export const addUser = async(req,res)=>{
         // }
         const hashedPassword = await bcrypt.hash(password,10)
         const userName = email.split("@")[0]+ Math.ceil(Math.random()*1000000)
-        const newUser= new userModel({firstName,lastName,DOB,email,password:hashedPassword,mobileNumber,Category:category,educationalLevel,grade,purposeOfRegistration,userName,gender,School,country,PWD})
+        const newUser= new userModel({firstName,lastName,DOB:dob,email,password:hashedPassword,mobileNumber,Category:category,educationalLevel,grade,purposeOfRegistration,userName,gender,School,country,PWD})
         
         console.log(newUser)
         newUser.save()
