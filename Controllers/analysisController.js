@@ -200,7 +200,7 @@ export const fetchQUizHistory= async(req,res)=>{
         const examIds = exams.map((item)=>{ return { id:item._id,title:item.title}})
         const allowedReviews = []
         for(let item of examIds){
-            const review = quizReviewModel.find({userId,quizId:item.id})
+            const review = await quizReviewModel.find({userId,quizId:item.id})
             if(review.length==1){
                 allowedReviews.push({...review[0],title:item.title})
                 
