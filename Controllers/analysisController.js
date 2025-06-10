@@ -5,6 +5,7 @@ import { assessmentAnalysisModel } from "../Model/AssessmentAnalysis.js";
 import { quizReviewModel } from "../Model/QuizReview.js";
 import { courseReviewModel } from "../Model/CourseReview.js";
 import { userModel } from "../Model/userModel.js";
+import { examinationModel } from "../Model/Examination.js";
 export const assessAnalyticsController = async(req,res)=>{
     try{
         const {userId,details}= req.body
@@ -189,4 +190,26 @@ export const fetchQuizResults= async(req,res)=>{
     }
 
 
+}
+
+export const fetchQUizHistory= async(req,res)=>{
+
+    try{
+        const {userId}= req.params
+        const exams = await examinationModel.find({allowQuizReview:true})
+        const examIds = exams.map((item)=>{ return { id:item._id,title:item.title}})
+        const allowedReviews = []
+        for(let item of examIds){
+            const review = quizReviewModel.find({userId,quizId:item.id})
+            if(review.length==1){
+                allowedReviews.push({...review[0],title:item.title})
+                
+            }
+        }
+        const quizReviews = allowedReviews.map((item)=>{return {title:item.title,score:`${(item.correctAnswers/item.numberOfQuestions)*100}`,quizId:item.quizId}})
+        return res.json({success:true,review:quizReviews})
+
+    }catch(error){
+        console.log(error)
+    }
 }
