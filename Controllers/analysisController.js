@@ -206,7 +206,7 @@ export const fetchQUizHistory= async(req,res)=>{
                 
             }
         }
-        const quizReviews = allowedReviews.map((item)=>{return {title:item.title,score:`${(item.correctAnswers/item.numberOfQuestions)*100}`,quizId:item.quizId}})
+        const quizReviews = allowedReviews.map((item)=>{return {title:item.title,score:item.score,quizId:item.quizId,totalQuestions:item.numberOfQuestions}})
         return res.json({success:true,review:quizReviews})
 
     }catch(error){
