@@ -26,6 +26,9 @@ const competitions = new mongoose.Schema({
     type:{
         type:[String]
     },
+    registerLink:{
+        type:String
+    },
     year:{
         type:String
     }
