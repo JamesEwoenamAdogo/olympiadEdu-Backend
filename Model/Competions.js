@@ -17,9 +17,9 @@ const competitions = new mongoose.Schema({
     subTypes:{
         type:[Object]
     },
-    cost:{
-        type:Number
-    },
+    // cost:{
+    //     type:Number
+    // },
     addOnsCost:{
         type:Number
     },
