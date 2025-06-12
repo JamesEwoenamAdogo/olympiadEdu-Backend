@@ -703,7 +703,7 @@ export const RegisterProgram = async(req,res)=>{
         const {program,userId,grade,year,assessment,course,cost,status,}= req.body
         const user = await userModel.findById(userId)
         const fullName = `${user.firstName} ${user.lastName}`
-        const existing = await programsRegistration.find({fullName,program,year})
+        const existing = await programsRegistration.find({fullName,program,year,grade})
         if(existing.length==0){
             const register = new programsRegistration({program,year,grade,assessment,course,fullName,cost: parseInt(cost),status})
             register.save()
