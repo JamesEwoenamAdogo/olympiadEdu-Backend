@@ -38,10 +38,10 @@ const competitions = new mongoose.Schema({
         type:String
     },
     materialCost:{
-        type:String,
+        type:Number,
     },
     assessmentCost:{
-        type:String
+        type:Number
     }
 
 }, {timestamps:true})
