@@ -14,7 +14,7 @@ import { performanceDataModel } from "../Model/PerformanceData.js";
 import { assessmentAnalysisModel } from "../Model/AssessmentAnalysis.js";
 import { profileImageModel } from "../Model/ProfileImages.js";
 import { feedBackModel } from "../Model/FeedBackModel.js";
-
+import { programsRegistration } from "../Model/ProgramRegistration.js";
 dotenv.config()
 
 
@@ -696,6 +696,38 @@ export const sendFeedBack = async(req,res)=>{
     }catch(error){
         console.log(error)
     }
+}
+
+export const RegisterProgram = async(req,res)=>{
+    try{
+        const {program,userId,grade,year,assessment,course,cost,status,}= req.body
+        const user = await userModel.findById(userId)
+        const fullName = `${user.firstName} ${user.lastName}`
+        const existing = await programsRegistration.find({fullName,program,year})
+        if(existing.length==0){
+            const register = new programsRegistration({program,year,grade,assessment,course,fullName,cost: parseInt(cost),status})
+            register.save()
+        }
+        else if(existing[0].status== status){
+            return res.json({success:true,message:`User has already ${status=="paid"?"paid":"added to invoice"}`})
+        }
+        else if(existing[0].status=="paid" && status=="pending"){
+            return res.json({success:true,message:"user has already paid for this program"})
+        }
+        else{
+            const update= programsRegistration.findByIdAndUpdate(existing[0]._id,{status:"paid"},{new:true})
+            return res.json({success:true,message:"Payment successful"})
+        }
+    
+
+
+
+
+    }catch(error){
+        console.log(error)
+    }
+
+
 }
 
 
