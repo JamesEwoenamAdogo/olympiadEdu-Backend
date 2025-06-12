@@ -26,7 +26,11 @@ const competitions = new mongoose.Schema({
     type:{
         type:[String]
     },
-    registerLink:{
+    link:{
+        type:String,
+        default:""
+    },
+    customizableButton:{
         type:String,
         default:""
     },
