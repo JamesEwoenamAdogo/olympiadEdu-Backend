@@ -36,6 +36,12 @@ const competitions = new mongoose.Schema({
     },
     year:{
         type:String
+    },
+    materialCost:{
+        type:String,
+    },
+    assessmentCost:{
+        type:String
     }
 
 }, {timestamps:true})
