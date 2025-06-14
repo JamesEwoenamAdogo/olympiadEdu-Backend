@@ -707,6 +707,7 @@ export const RegisterProgram = async(req,res)=>{
         if(existing.length==0){
             const register = await new programsRegistration({program,year,grade,assessment,course,fullName,cost: parseInt(cost),status})
             register.save()
+            return res.json({success:true})
         }
         else if(existing[0].status== status){
             return res.json({success:true,message:`User has already ${status=="paid"?"paid":"added to invoice"}`})
