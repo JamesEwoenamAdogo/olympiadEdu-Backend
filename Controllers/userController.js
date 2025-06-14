@@ -730,5 +730,27 @@ export const RegisterProgram = async(req,res)=>{
 
 }
 
+export const verifyRegistration = async(req,res)=>{
+
+    try{
+        const {userId,program}= req.params
+        const user = await userModel.findById(userId)
+        const fullName = `${user.firstName} ${user.lastName}`
+        const registered= await programsRegistration.find({fullName,program,status:"paid"})
+        if(registered.length==1){
+            return res.json({success:true,registered:true,registrationDetails:registered[0]})
+        }
+        return res.json({success:true,registered:false})
+
+
+
+    }catch(error){
+        console.log(error)
+    }
+
+
+
+}
+
 
 

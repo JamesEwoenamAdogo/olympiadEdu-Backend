@@ -214,3 +214,4 @@ export const fetchQUizHistory= async(req,res)=>{
         console.log(error)
     }
 }
+
