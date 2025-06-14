@@ -30,7 +30,7 @@ userRoute.post("/reset-password",ResetPassword)
 userRoute.post("/send-feedback",sendFeedBack)
 
 
-userRoute.post("/register-program",authenticateUser, RegisterProgram)
+userRoute.post("/register-program", RegisterProgram)
 userRoute.get("/verify-registration/:userId/:program",verifyRegistration)
 
 
