@@ -203,7 +203,7 @@ export const fetchQUizHistory= async(req,res)=>{
             const review = await quizReviewModel.find({userId,quizId:item.id})
             console.log(review)
             if(review.length==1){
-                allowedReviews.push({...review[0],title:item.title})
+                allowedReviews.push({...review[0],title:item.title,quizId:item.id})
                 
             }
         }
