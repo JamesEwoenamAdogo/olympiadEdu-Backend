@@ -1,5 +1,5 @@
 import express from "express"
-import { paidForUsers, registeredForUsers,addCompetition,AllCompetitions,deleteCompetition,updateCompetition,findOneCompetion, LoginUser, adminSignUp, fetchTransactions, createGroup, getAllGroups, AddInterest, fetchAllInterests } from "../Controllers/adminController.js"
+import { paidForUsers, registeredForUsers,addCompetition,AllCompetitions,deleteCompetition,updateCompetition,findOneCompetion, LoginUser, adminSignUp, fetchTransactions, createGroup, getAllGroups, AddInterest, fetchAllInterests, deleteCourse } from "../Controllers/adminController.js"
 import { authenticateUser } from "../Middlewares/authUser.js"
 import { fetchUsers } from "../Controllers/userController.js"
 import UploadFile from "../Middlewares/UploadFile.js"
@@ -25,3 +25,4 @@ adminRoutes.get("/all-groups",getAllGroups)
 
 adminRoutes.post("/add-interest",AddInterest)
 adminRoutes.get("/all-interest", fetchAllInterests)
+adminRoutes.delete("/delete-course/:courseId",deleteCourse)

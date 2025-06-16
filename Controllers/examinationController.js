@@ -308,6 +308,8 @@ export const deleteExam = async(req,res)=>{
   }
 }
 
+
+
 export const addQuestion = async(req,res)=>{
   try{
     const {id}= req.params
@@ -319,3 +321,4 @@ export const addQuestion = async(req,res)=>{
     console.log(error)
   }
 }
+

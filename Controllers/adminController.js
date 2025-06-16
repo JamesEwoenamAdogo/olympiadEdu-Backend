@@ -7,6 +7,7 @@ import jwt from "jsonwebtoken"
 import dotenv from "dotenv"
 import { GroupModel } from "../Model/AdminCommunityModel.js";
 import { interestSchema } from "../Model/interestModel.js";
+import { courseSchema } from "../Model/CourseModels.js";
 
 
 export const adminSignUp = async(req,res)=>{
@@ -251,6 +252,18 @@ export const fetchAllInterests = async(req,res)=>{
     try{
         const allInterest = await interestSchema.find({})
         return res.json({success:"message",allInterest})
+
+
+    }catch(error){
+        console.log(error)
+    }
+}
+
+export const deleteCourse = async(req,res) =>{
+    try{
+     const {courseId}= req.params
+     const deleteCourse = await courseSchema.findByIdAndDelete(courseId)
+     return res.json({success:true})
 
 
     }catch(error){
