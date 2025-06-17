@@ -25,15 +25,15 @@ export const addUser = async(req,res)=>{
         const {firstName, lastName,dob,email,password,mobileNumber,category,educationalLevel,grade,purposeOfRegistration,gender,School,country,PWD}= req.body
         console.log(firstName,lastName,dob, email,password,mobileNumber,category,educationalLevel,grade,country,School,gender,purposeOfRegistration,PWD)
         const existingUser = await userModel.find({email})
-        const allCompetitions = await competitionsSchema.find({})
+        // const allCompetitions = await competitionsSchema.find({})
         const exsitingUserByPhoneNumber = await userModel.find({mobileNumber})
         
         
-        if(existingUser.length==1) {
+        if(existingUser.length!==0 || existingUser.length>0) {
             console.log(existingUser)
             return res.json({success:false,message:"User email already registered"})
         }
-        if(exsitingUserByPhoneNumber.length==1){
+        if(exsitingUserByPhoneNumber.length!==0 || exsitingUserByPhoneNumber.length>0){
             return res.json({success:false,message:"Phone Number already registered"})
         }
 
