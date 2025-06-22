@@ -188,7 +188,7 @@ export const courseInfoUpload= async(req,res)=>{
 export const courseDetailsUpload= async(req,res)=>{
   try{
     const {courseId}= req.params
-    const {title,image,files,videos,description} =req.body
+    const {title,videos,description} =req.body
 
     const files = req.files["files"] ? await Promise.all(req.files["files"].map(uploadToGCS)) : [];
     const image = req.files["image"] ? await uploadToGCS(req.files["thumbnail"][0]) : null;
