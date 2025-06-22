@@ -9,6 +9,10 @@ import { GroupModel } from "../Model/AdminCommunityModel.js";
 import { interestSchema } from "../Model/interestModel.js";
 import { courseSchema } from "../Model/CourseModels.js";
 
+import { courseInfoModel } from "../Model/CourseInfo.js";
+
+
+
 
 export const adminSignUp = async(req,res)=>{
     try{
@@ -262,7 +266,7 @@ export const fetchAllInterests = async(req,res)=>{
 export const deleteCourse = async(req,res) =>{
     try{
      const {courseId}= req.params
-     const deleteCourse = await courseSchema.findByIdAndDelete(courseId)
+     const deleteCourse = await courseInfoModel.findByIdAndDelete(courseId)
      return res.json({success:true})
 
 
