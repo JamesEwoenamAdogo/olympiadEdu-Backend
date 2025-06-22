@@ -1,5 +1,5 @@
 import express from "express"
-import upload from "../Middlewares/UploadFile.js"
+// import upload from "../Middlewares/UploadFile.js"
 import {  courseThumbnailUpload } from "../Middlewares/UploadFile.js"
 import multer from "multer"
 // import router from "./examinationRoute"
