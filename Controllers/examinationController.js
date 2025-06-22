@@ -190,7 +190,7 @@ export const courseDetailsUpload= async(req,res)=>{
     const {courseId}= req.params
     const {title,image,files,videos,description} =req.body
     const newDetails = new courseDetailsModel({title,image,files,videos,description,courseId})
-    newDetails.save()
+    await newDetails.save()
     return res.json({success:true})
 
 
