@@ -14,7 +14,7 @@ const courseDetails = new mongoose.Schema({
         type:[String]
     },
     Videos:{
-        type:String
+        type:[String]
     },
     description:{
         type:String
