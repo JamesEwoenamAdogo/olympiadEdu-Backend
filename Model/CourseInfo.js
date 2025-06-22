@@ -23,6 +23,9 @@ const courseInfo = new mongoose.Schema({
     program:{
         type:[String]
     }
+    duration:{
+        type:String
+    }
 },{timestamps:true})
 
 
