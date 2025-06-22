@@ -174,6 +174,7 @@ export const courseUpload = async (req, res) => {
 export const courseInfoUpload= async(req,res)=>{
   try{
     const {title,grade,description,featured,program,category}= req.body
+  
 
     const newCourseInfo = new courseInfoModel({title,grade,description,featured,thumbnail:req.file.path,program,category})
     const coursedetails = await newCourseInfo.save()
@@ -190,8 +191,9 @@ export const courseDetailsUpload= async(req,res)=>{
     const {courseId}= req.params
     const {title,description} =req.body
     const Videos = JSON.parse(req.body.Videos)
-    
+
     console.log(req.body)
+    console.log(Videos)
 
     const files = req.files["files"] ? await Promise.all(req.files["files"].map(uploadToGCS)) : [];
     const image = req.files["image"] ? await uploadToGCS(req.files["image"][0]) : null;
