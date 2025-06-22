@@ -7,9 +7,9 @@ import { courseFileUpload,courseUpload, allCourses,course, updateCourseThumbnail
 
 
 export const courseRoute = express.Router()
-// const upload = multer({
-//     storage: multer.memoryStorage(),
-//   });
+const upload = multer({
+    storage: multer.memoryStorage(),
+  });
 // courseRoute.post("/upload/video",upload.array("video"),courseVideoUpload)
 courseRoute.post("/upload/file",upload.fields([{name:"thumbnail"},{name:"files"}]),courseFileUpload)
 courseRoute.get("/all-courses",allCourses)
@@ -21,7 +21,7 @@ courseRoute.put("/update-course-files/:id", upload.fields([{name:"thumbnail"},{n
 
 courseRoute.get("/fetch-course-details/:courseId",fetchCourseDetails)
 courseRoute.post("/upload-course-details/:courseId",courseDetailsUpload)
-courseRoute.post("/upload-course-info",upload.single("thumbnail"),courseInfoUpload)
+courseRoute.post("/upload-course-info",courseThumbnailUpload.single("thumbnail"),courseInfoUpload)
 courseRoute.put("/update-course-details/:id", updateCourseDetails)
 
 
