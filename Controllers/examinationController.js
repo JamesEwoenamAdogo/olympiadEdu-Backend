@@ -193,7 +193,7 @@ export const courseDetailsUpload= async(req,res)=>{
     const Videos = JSON.parse(req.body.Videos)
 
     console.log(req.body)
-    console.log(Videos)
+    
 
     const files = req.files["files"] ? await Promise.all(req.files["files"].map(uploadToGCS)) : [];
     const image = req.files["image"] ? await uploadToGCS(req.files["image"][0]) : null;
@@ -206,7 +206,7 @@ export const courseDetailsUpload= async(req,res)=>{
 
   }catch(error){
     console.log(error)
-    return res.json({success:false,message:"error"})
+    return res.json({success:false,error})
   }
 }
 export const fetchCourseDetails = async(req,res)=>{
