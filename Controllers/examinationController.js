@@ -188,13 +188,14 @@ export const courseInfoUpload= async(req,res)=>{
 export const courseDetailsUpload= async(req,res)=>{
   try{
     const {courseId}= req.params
-    const {title,videos,description} =req.body
+    const {title,description} =req.body
+    const Videos = JSON.parse(req.body.Videos)
 
     const files = req.files["files"] ? await Promise.all(req.files["files"].map(uploadToGCS)) : [];
     const image = req.files["image"] ? await uploadToGCS(req.files["image"][0]) : null;
 
 
-    const newDetails = new courseDetailsModel({title,image,files,videos,description,courseId})
+    const newDetails = new courseDetailsModel({title,image,files,Videos,description,courseId})
     await newDetails.save()
     return res.json({success:true})
 
