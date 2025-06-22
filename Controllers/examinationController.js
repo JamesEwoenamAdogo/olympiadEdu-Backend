@@ -1,5 +1,7 @@
 import { courseSchema } from "../Model/CourseModels.js";
+import { courseInfoModel } from "../Model/CourseInfo.js";
 import { examinationModel } from "../Model/Examination.js";
+import { courseDetailsModel } from "../Model/CourseDetails.js";
 import cloudinary from "../utils/cloudinaryConfig.js";
 import { uploadToGCS } from "../utils/googleCloudConfig.js";
 
@@ -169,10 +171,51 @@ export const courseUpload = async (req, res) => {
   }
 };
 
+export const courseInfoUpload= async(req,res)=>{
+  try{
+    const {title,grade,description,featured,program,category}= req.body
+
+    const newCourseInfo = new courseInfoModel({title,grade,description,featured,thumbnail:req.file.path,program,category})
+    const coursedetails = newCourseInfo.save()
+    return res.json({success:true,id:coursedetails._id})
+
+
+  }catch(error){
+    console.log(error)
+    return res.json({success:false,message:"error"})
+  }
+}
+export const courseDetailsUpload= async(req,res)=>{
+  try{
+    const {courseId}= req.params
+    const {title,image,files,videos,description} =req.body
+    const newDetails = new courseDetailsModel({title,image,files,videos,description,courseId})
+    newDetails.save()
+    return res.json({success:true})
+
+
+  }catch(error){
+    console.log(error)
+    return res.json({success:false,message:"error"})
+  }
+}
+export const fetchCourseDetails = async(req,res)=>{
+  try{
+    const {courseId}= req.params
+    const course = await courseDetailsModel.find({courseId})
+    return res.json({success:true,course})
+
+
+
+  }catch(error){
+    consle.log(error)
+    return res.json({success:false})
+  }
+}
 
 export const allCourses = async(req,res)=>{
   try{
-    const courses = await courseSchema.find({})
+    const courses = await courseInfoModel.find({})
     return res.json({successs:true, courses})
 
 
