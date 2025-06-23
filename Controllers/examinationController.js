@@ -209,6 +209,7 @@ export const courseDetailsUpload= async(req,res)=>{
     return res.json({success:false,error})
   }
 }
+
 export const fetchCourseDetails = async(req,res)=>{
   try{
     const {courseId}= req.params
@@ -222,6 +223,24 @@ export const fetchCourseDetails = async(req,res)=>{
     return res.json({success:false})
   }
 }
+
+export const updateCourseDetails = async(req,res)=>{
+  try{
+    const {id}= req.params
+    const files = req.files["files"] ? await Promise.all(req.files["files"].map(uploadToGCS)) : [];
+    const image = req.files["image"] ? await uploadToGCS(req.files["image"][0]) : null;
+    
+    const course = await courseDetailsModel.findByIdAndUpdate(id,{...req.body,image,files},{new:true})
+    return res.json({success:true,course})
+
+
+
+  }catch(error){
+    consle.log(error)
+    return res.json({success:false})
+  }
+}
+
 
 export const allCourses = async(req,res)=>{
   try{
@@ -266,23 +285,23 @@ export const updateCourseThumbnail = async(req,res)=>{
   }
 }
 
-export const updateCourseDetails = async(req,res)=>{
-  try{
-    const {id}= req.params
+// export const updateCourseDetails = async(req,res)=>{
+//   try{
+//     const {id}= req.params
 
-    if(Object.keys(req.body)!==0){
-      console.log(req.body)
-      const courseDetails = await courseSchema.findByIdAndUpdate(id,req.body,{new:true})
-      return res.json({success:true, courseDetails})
-    }
-
-
+//     if(Object.keys(req.body)!==0){
+//       console.log(req.body)
+//       const courseDetails = await courseSchema.findByIdAndUpdate(id,req.body,{new:true})
+//       return res.json({success:true, courseDetails})
+//     }
 
 
-  }catch(error){
-    console.log(error)
-  }
-}
+
+
+//   }catch(error){
+//     console.log(error)
+//   }
+// }
 
 export const updateCourseFiles = async(req,res)=>{
   try{

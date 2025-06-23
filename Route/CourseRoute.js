@@ -22,7 +22,7 @@ courseRoute.put("/update-course-files/:id", upload.fields([{name:"thumbnail"},{n
 courseRoute.get("/fetch-course-details/:courseId",fetchCourseDetails)
 courseRoute.post("/upload-course-details/:courseId",upload.fields([{name:"image"},{name:"files"}]),courseDetailsUpload)
 courseRoute.post("/upload-course-info",courseThumbnailUpload.single("thumbnail"),courseInfoUpload)
-courseRoute.put("/update-course-details/:id", updateCourseDetails)
+courseRoute.put("/update-course-details/:id",upload.fields([{name:"image"},{name:"files"}]), updateCourseDetails)
 
 
 
