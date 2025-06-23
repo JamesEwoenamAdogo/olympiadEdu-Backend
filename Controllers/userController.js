@@ -753,5 +753,19 @@ export const verifyRegistration = async(req,res)=>{
 
 }
 
+export const fetchRegisteredPrograms = async(req,res)=>{
+    try{
+        const {fullName,status,year}= req.params
+        const registered = await programsRegistration.find({fullName,status,year})
+
+        return res.json({success:true,registered})
+
+
+
+    }catch(error){
+        console.log(error)
+    }
+}
+
 
 
