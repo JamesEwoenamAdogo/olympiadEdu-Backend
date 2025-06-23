@@ -83,7 +83,7 @@ export const loginUser = async(req,res)=>{
                 return res.json({success:false,message:"User not found"})
 
             }
-            const comparePassword = bcrypt.compare(checkExisting[0].password,req.body.password)
+            const comparePassword = await bcrypt.compare(checkExisting[0].password,req.body.password)
             if(!comparePassword){
                 return res.json({success:false,message:"Invalid credentials"})
             }
@@ -97,7 +97,7 @@ export const loginUser = async(req,res)=>{
                 return res.json({success:false,message:"User not found"})
 
             }
-            const comparePassword = bcrypt.compare(checkExisting[0].password,req.body.password)
+            const comparePassword = await bcrypt.compare(checkExisting[0].password,req.body.password)
             if(!comparePassword){
                 return res.json({success:false,message:"Invalid credentials"})
             }
