@@ -755,8 +755,8 @@ export const verifyRegistration = async(req,res)=>{
 
 export const fetchRegisteredPrograms = async(req,res)=>{
     try{
-        const {fullName,status,year}= req.params
-        const registered = await programsRegistration.find({fullName,status,year})
+        const {fullName,status}= req.params
+        const registered = await programsRegistration.find({fullName,status})
 
         return res.json({success:true,registered})
 

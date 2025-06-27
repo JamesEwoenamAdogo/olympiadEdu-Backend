@@ -32,7 +32,7 @@ userRoute.post("/send-feedback",sendFeedBack)
 
 userRoute.post("/register-program", RegisterProgram)
 userRoute.get("/verify-registration/:userId/:program",verifyRegistration)
-userRoute.get("/fetch-registered-programs/:fullName/:status/:year",fetchRegisteredPrograms,)
+userRoute.get("/fetch-registered-programs/:fullName/:status",fetchRegisteredPrograms,)
 
 
 
