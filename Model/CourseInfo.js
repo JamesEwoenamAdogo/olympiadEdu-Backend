@@ -26,6 +26,7 @@ const courseInfo = new mongoose.Schema({
     duration:{
         type:String
     }
+    // progress
 },{timestamps:true})
 
 

@@ -20,7 +20,7 @@ adminRoutes.put("/update-competition/:id" ,updateCompetition)
 // adminRoutes.get("/all-competition", authenticateUser,AllCompetitions)
 adminRoutes.get("/competition/:id",authenticateUser,findOneCompetion)
 adminRoutes.get("/all-transactions", fetchTransactions)
-adminRoutes.post("/create-group", UploadFile.communityThumbnailUpload.single("image"), authenticateUser,createGroup)
+adminRoutes.post("/create-group", UploadFile.communityThumbnailUpload.single("image"),createGroup)
 adminRoutes.get("/all-groups",getAllGroups)
 
 adminRoutes.post("/add-interest",AddInterest)
