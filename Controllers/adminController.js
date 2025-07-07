@@ -242,7 +242,8 @@ export const getAllGroups = async(req,res)=>{
 export const updateGroup = async(req,res)=>{
     try{
         const {id} = req.params
-        const update = await GroupModel.findByIdAndUpdate(id,{...req.body, image:req.file?req.file.path:null},{new:true})
+        const existing = await GroupModel.findById(id)
+        const update = await GroupModel.findByIdAndUpdate(id,{...req.body, image:req.file?req.file.path:existing.image},{new:true})
         return res.json({success:true, update})
 
 
