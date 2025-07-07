@@ -239,6 +239,18 @@ export const getAllGroups = async(req,res)=>{
     }
 }
 
+export const updateGroup = async(req,res)=>{
+    try{
+        const {id} = req.params
+        const update = await GroupModel.findByIdAndUpdate(id,{...req.body, image:req.file?req.file.path:null},{new:true})
+        return res.json({success:true, update})
+
+
+    }catch(error){
+        console.log(error)
+    }
+}
+
 export const AddInterest = async(req,res)=>{
     try{
         // const interestBody = req.body
