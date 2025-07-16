@@ -1,6 +1,9 @@
 import mongoose from "mongoose"
 
 const feedbackSchema = new mongoose.Schema({
+    quiz:{
+        type:String
+    },
     feedback:{
         type:String
     }
