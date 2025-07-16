@@ -690,7 +690,7 @@ export const sendFeedBack = async(req,res)=>{
     try{
         const feedBack = new feedBackModel(req.body)
         feedBack.save()
-        return res.data.json({success:true})
+        return res.json({success:true})
 
         
     }catch(error){
