@@ -698,6 +698,17 @@ export const sendFeedBack = async(req,res)=>{
     }
 }
 
+export const fetchFeedback= async(req,res)=>{
+    try{
+        const allFeedBack = await feedBackModel.find({})
+        return res.json({success:true, allFeedBack})
+
+
+    }catch(error){
+        console.log(error)
+    }
+}
+
 export const RegisterProgram = async(req,res)=>{
     try{
         const {program,userId,grade,year,assessment,course,cost,status,}= req.body
