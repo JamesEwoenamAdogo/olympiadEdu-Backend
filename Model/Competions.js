@@ -37,6 +37,9 @@ const competitions = new mongoose.Schema({
     year:{
         type:String
     },
+    competitionCost:{
+        type:Number
+    },
     materialCost:{
         type:Number,
     },

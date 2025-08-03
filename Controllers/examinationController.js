@@ -224,6 +224,33 @@ export const fetchCourseDetails = async(req,res)=>{
   }
 }
 
+export const fetchCourseInfo = async(req,res)=>{
+  try{
+    const {id}= req.params
+    const courseInfo = await courseInfoModel.findById(id)
+    return res.json({success:true,courseInfo})
+
+
+  }catch(error){
+    console.log(error)
+  }
+}
+
+export const updateCourseInfo = async(req,res)=>{
+  try{
+    const {id}= req.params
+    const update = req.body
+
+    const newUpdate= await courseInfoModel.findByIdAndUpdate(id,{...update,thumbnail:req.file.path},{new:true})
+    return res.json({success:true,message:"update successful",newUpdate})
+
+
+
+  }catch(error){
+    console.log(error)
+  }
+}
+
 export const updateCourseDetails = async(req,res)=>{
   try{
     const {id}= req.params
