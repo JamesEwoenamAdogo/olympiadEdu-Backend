@@ -240,8 +240,13 @@ export const updateCourseInfo = async(req,res)=>{
   try{
     const {id}= req.params
     const update = req.body
+    if(req.body["thumbanil"]){
+      const newUpdate= await courseInfoModel.findByIdAndUpdate(id,{thumbnail:req.file.path},{new:true})
+      return res.json({success:true,message:"update successful",newUpdate})
 
-    const newUpdate= await courseInfoModel.findByIdAndUpdate(id,{...update,thumbnail:req.file.path},{new:true})
+      
+    }
+    const newUpdate= await courseInfoModel.findByIdAndUpdate(id,update,{new:true})
     return res.json({success:true,message:"update successful",newUpdate})
 
 
