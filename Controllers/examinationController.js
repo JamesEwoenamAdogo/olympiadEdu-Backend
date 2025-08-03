@@ -255,6 +255,46 @@ export const updateCourseInfo = async(req,res)=>{
     console.log(error)
   }
 }
+export const deleteCourseModule = async(req,res)=>{
+  try{
+    const {id}= req.params
+    await courseDetailsModel.findByIdAndDelete(id)
+    return res.json({success:true,message:"module deleted successfully"})
+
+
+
+  }catch(error){
+    console.log(error)
+  }
+}
+export const updateCourseModule = async(req,res)=>{
+  try{
+    const {id}= req.params
+    if(req.body["files"]){
+      const files = req.files["files"] ? await Promise.all(req.files["files"].map(uploadToGCS)) : [];
+    
+      const update = await courseDetailsModel.findByIdAndUpdate(id,{files},{new:true})
+      return res.json({success:true,update})
+    }
+    if(req.body["image"]){
+      const image = req.files["image"] ? await uploadToGCS(req.files["image"][0]) : null;
+
+      const update = await courseDetailsModel.findByIdAndUpdate(id,{image},{new:true})
+
+      return res.json({success:true,update})
+
+
+    }
+    const update = await courseDetailsModel.findByIdAndUpdate(id,req.body,{new:true})
+    return res.json({success:true,update})
+
+
+
+
+  }catch(error){
+    console.log(error)
+  }
+}
 
 export const updateCourseDetails = async(req,res)=>{
   try{
