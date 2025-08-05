@@ -28,6 +28,9 @@ const courseInfo = new mongoose.Schema({
     },
     publish:{
         type:Boolean
+    },
+    cost:{
+        type:String
     }
     // progress
 },{timestamps:true})
