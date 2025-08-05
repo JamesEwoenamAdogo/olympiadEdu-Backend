@@ -173,7 +173,7 @@ export const courseUpload = async (req, res) => {
 
 export const courseInfoUpload= async(req,res)=>{
   try{
-    const {title,grade,description,featured,program,category,duration}= req.body
+    const {title,grade,description,featured,program,category,duration,cost}= req.body
   
 
     const newCourseInfo = new courseInfoModel({title,grade,description,featured,thumbnail:req.file.path,program,category,duration})
