@@ -6,7 +6,7 @@ const courseInfo = new mongoose.Schema({
         type:String
     },
     grade:{
-        type:String
+        type:[String]
     },
     description:{
         type:String
