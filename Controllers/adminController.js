@@ -294,7 +294,7 @@ export const addTimedChallenge = async(req,res)=>{
     try{
      const newTimedChallenge = new timedChallengeModel(req.body)
      newTimedChallenge.save()
-     return res.json({succes:true,message:"timed challenge added successfully"})
+     return res.json({success:true,message:"timed challenge added successfully"})
 
 
 
