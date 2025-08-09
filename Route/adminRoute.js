@@ -1,5 +1,5 @@
 import express from "express"
-import { paidForUsers, registeredForUsers,addCompetition,AllCompetitions,deleteCompetition,updateCompetition,findOneCompetion, LoginUser, adminSignUp, fetchTransactions, createGroup, getAllGroups, AddInterest, fetchAllInterests, deleteCourse, updateGroup, addTimedChallenge, fetchTimedChallengQuestions, editQuestions, deleteQuestions, deleteTimedChallenge, addFlashCard, fetchFlashCard, editFlashCardItems, deleteFlashCards } from "../Controllers/adminController.js"
+import { paidForUsers, registeredForUsers,addCompetition,AllCompetitions,deleteCompetition,updateCompetition,findOneCompetion, LoginUser, adminSignUp, fetchTransactions, createGroup, getAllGroups, AddInterest, fetchAllInterests, deleteCourse, updateGroup, addTimedChallenge, fetchTimedChallengQuestions, editQuestions, deleteQuestions, deleteTimedChallenge, addFlashCard, fetchFlashCard, editFlashCardItems, deleteFlashCards, deleteFlashCardsItems } from "../Controllers/adminController.js"
 import { authenticateUser } from "../Middlewares/authUser.js"
 import { fetchUsers } from "../Controllers/userController.js"
 import UploadFile from "../Middlewares/UploadFile.js"
@@ -38,5 +38,5 @@ adminRoutes.delete("/delete-timed-challenge/:id",deleteTimedChallenge)
 adminRoutes.post("/add-flashcard",addFlashCard)
 adminRoutes.get("/flash-card/:id",fetchFlashCard)
 adminRoutes.put("/edit-flash-card-item/:id",editFlashCardItems)
-adminRoutes.delete("/delete-flash-card-item/:id",deleteFlashCards)
-adminRoutes.delete("/delet-flash-card/:id",deleteFlashCards)
+adminRoutes.delete("/delete-flash-card-item/:id",deleteFlashCardsItems)
+adminRoutes.delete("/delete-flash-card/:id",deleteFlashCards)
