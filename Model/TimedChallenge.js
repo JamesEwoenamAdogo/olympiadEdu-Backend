@@ -4,7 +4,7 @@ const TimedChallenge = new mongoose.Schema({
     courseId:{
         type:String
     },
-    questions:{
+    question:{
         type:String
     },
     option:{
