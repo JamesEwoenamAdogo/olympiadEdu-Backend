@@ -370,7 +370,7 @@ export const addFlashCard = async(req,res)=>{
     try{
      const newTimedChallenge = new flashCardsModel(req.body)
      newTimedChallenge.save()
-     return res.json({succes:true,message:"flashCard added successfully"})
+     return res.json({success:true,message:"flashCard added successfully"})
 
 
 
