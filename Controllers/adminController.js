@@ -319,6 +319,15 @@ export const fetchTimedChallengQuestions = async(req,res)=>{
 export const editQuestions = async(req,res)=>{
     try{
         const {id}= req.params
+        if (req.body.time) {
+            await timedChallengeModel.updateMany(
+                { courseId: id }, // filter
+                { $set: { time: req.body.time } } // update
+            );
+
+           return res.json({success:true, message:"time updated successfully"})
+        }
+
         const update= await timedChallengeModel.findByIdAndUpdate(id,req.body, {new:true})
         return res.json({success:true,update})
 
