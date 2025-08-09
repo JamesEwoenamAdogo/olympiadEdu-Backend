@@ -9,8 +9,10 @@ import { GroupModel } from "../Model/AdminCommunityModel.js";
 import { interestSchema } from "../Model/interestModel.js";
 import { courseSchema } from "../Model/CourseModels.js";
 
+import { timedChallengeModel } from "../Model/TimedChallenge.js";
 import { courseInfoModel } from "../Model/CourseInfo.js";
 
+import { flashCardsModel } from "../Model/FlashCards.js";
 
 
 
@@ -285,5 +287,157 @@ export const deleteCourse = async(req,res) =>{
 
     }catch(error){
         console.log(error)
+    }
+}
+
+export const addTimedChallenge = async(req,res)=>{
+    try{
+     const newTimedChallenge = new timedChallengeModel(req.body)
+     newTimedChallenge.save()
+     return res.json({succes:true,message:"timed challenge added successfully"})
+
+
+
+    }catch(error){
+        console.log(error)
+        return res.json({success:false,message:error})
+    }
+}
+export const fetchTimedChallengQuestions = async(req,res)=>{
+    try{
+        const {id}= req.params
+        const allQuestions = await timedChallengeModel.find({courseId:id})
+        return res.json({success:true,allQuestions})
+
+
+
+    }catch(error){
+        console.log(error)
+        return res.json({success:false,message:error})
+    }
+}
+export const editQuestions = async(req,res)=>{
+    try{
+        const {id}= req.params
+        const update= await timedChallengeModel.findByIdAndUpdate(id,req.body, {new:true})
+        return res.json({success:true,update})
+
+
+
+    }catch(error){
+        console.log(error)
+        return res.json({success:false})
+    }
+
+}
+
+export const deleteQuestions = async(req,res)=>{
+
+    try{
+        const {id} =req.params
+        const removeQuestions = await timedChallengeModel.findByIdAndDelete(id)
+        return res.json({succes:true,message:"Question deleted successfully"})
+
+
+
+    }catch(error){
+
+        console.log(error)
+        return res.json({success:true,message:error})
+    }
+}
+
+export const deleteTimedChallenge= async(req,res)=>{
+    try{
+        const {id}= req.params
+        const removetimeChallenge = await timedChallengeModel.find({courseId:id})
+        const questionIds = removetimeChallenge.map((item)=>item._id)
+
+        for(let id of questionIds){
+            await timedChallengeModel.findByIdAndDelete(id)
+        }
+        return res.json({success:true,message:"timed challenge deleted succesfully"})
+
+
+
+    }catch(error){
+        console.log(error)
+        return res.json({success:false,message:"TImed challenge deleted successfully"})
+    }
+}
+
+export const addFlashCard = async(req,res)=>{
+    try{
+     const newTimedChallenge = new flashCardsModel(req.body)
+     newTimedChallenge.save()
+     return res.json({succes:true,message:"timed challenge added successfully"})
+
+
+
+    }catch(error){
+        console.log(error)
+        return res.json({success:false,message:error})
+    }
+}
+export const fetchFlashCard = async(req,res)=>{
+    try{
+        const {id}= req.params
+        const allQuestions = await flashCardsModel.find({courseId:id})
+        return res.json({success:true,allQuestions})
+
+
+
+    }catch(error){
+        console.log(error)
+        return res.json({success:false,message:error})
+    }
+}
+export const editFlashCardItems = async(req,res)=>{
+    try{
+        const {id}= req.params
+        const update= await flashCardsModel.findByIdAndUpdate(id,req.body, {new:true})
+        return res.json({success:true,update})
+
+
+
+    }catch(error){
+        console.log(error)
+        return res.json({success:false})
+    }
+
+}
+
+export const deleteFlashCardsItems = async(req,res)=>{
+
+    try{
+        const {id} =req.params
+        const removeQuestions = await flashCardsModel.findByIdAndDelete(id)
+        return res.json({succes:true,message:"Question deleted successfully"})
+
+
+
+    }catch(error){
+
+        console.log(error)
+        return res.json({success:true,message:error})
+    }
+}
+
+export const deleteFlashCards= async(req,res)=>{
+    try{
+        const {id}= req.params
+        const removetimeChallenge = await flashCardsModel.find({courseId:id})
+        const questionIds = removetimeChallenge.map((item)=>item._id)
+
+        for(let id of questionIds){
+            await flashCardsModel.findByIdAndDelete(id)
+        }
+        return res.json({success:true,message:"timed challenge deleted succesfully"})
+
+
+
+    }catch(error){
+        console.log(error)
+        return res.json({success:false,message:"TImed challenge deleted successfully"})
     }
 }

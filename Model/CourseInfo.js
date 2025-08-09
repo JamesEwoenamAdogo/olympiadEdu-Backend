@@ -31,6 +31,22 @@ const courseInfo = new mongoose.Schema({
     },
     cost:{
         type:String
+    },
+    instructor:{
+        type:String
+
+    },
+    tags:{
+        type:[String]
+    },
+    features:{
+        type:String
+    },
+    type:{
+        type:String
+    },
+    level:{
+        type:String
     }
     // progress
 },{timestamps:true})

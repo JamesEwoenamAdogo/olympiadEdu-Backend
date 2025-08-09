@@ -43,6 +43,24 @@ const examinationSchema = new mongoose.Schema({
     registered:{
         type:[String],
         default:[""]
+    },
+    cost:{
+        type:String
+    },
+    type:{
+        type:String
+    },
+    features:{
+        type:[String]
+    },
+    tags:{
+        type:[String]
+    },
+    level:{
+        type:String
+    },
+    instructor:{
+        type:String
     }
 }, {timestamps:true})
 
