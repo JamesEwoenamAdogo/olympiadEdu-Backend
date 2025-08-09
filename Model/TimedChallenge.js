@@ -5,14 +5,14 @@ const TimedChallenge = new mongoose.Schema({
         type:String
     },
     questions:{
-        type:[Object]
+        type:String
     },
-    // option:{
-    //     type:[]
-    // },
-    // correct:{
-    //     type:Number
-    // },
+    option:{
+        type:[String]
+    },
+    correct:{
+        type:Number
+    },
     time:{
         type:Number
     }
