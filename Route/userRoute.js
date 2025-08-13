@@ -1,5 +1,5 @@
 import express from "express"
-import { addUser, loginUser, updateUsers,updateAddInvoiceAddOns,loadPurpose, updateAddPaymentAddOns,UpdateMessage, fetchChannelFeed, payAfterInvoice,fetchSingleUser, findAssessment, findCourses, forgotPassword, ResetPassword, FeaturedExams, uploadProfileImage, sendFeedBack,RegisterProgram, verifyRegistration,fetchRegisteredPrograms, fetchFeedback} from "../Controllers/userController.js"
+import { addUser, loginUser, updateUsers,updateAddInvoiceAddOns,loadPurpose, updateAddPaymentAddOns,UpdateMessage, fetchChannelFeed, payAfterInvoice,fetchSingleUser, findAssessment, findCourses, forgotPassword, ResetPassword, FeaturedExams, uploadProfileImage, sendFeedBack,RegisterProgram, verifyRegistration,fetchRegisteredPrograms, fetchFeedback, updateCourseProgress, fetchCourseProgress} from "../Controllers/userController.js"
 import { authenticateUser } from "../Middlewares/authUser.js"
 import { channelImageUpload } from "../Middlewares/UploadFile.js"
 import { profileImageupload } from "../Middlewares/UploadFile.js"
@@ -34,6 +34,9 @@ userRoute.get("/all-feedback",fetchFeedback)
 userRoute.post("/register-program", RegisterProgram)
 userRoute.get("/verify-registration/:userId/:program",verifyRegistration)
 userRoute.get("/fetch-registered-programs/:fullName/:status",fetchRegisteredPrograms,)
+
+userRoute.post("/update-course-progress/:id",updateCourseProgress)
+userRoute.post("/fetch-course-progress",fetchCourseProgress)
 
 
 

@@ -15,6 +15,7 @@ import { assessmentAnalysisModel } from "../Model/AssessmentAnalysis.js";
 import { profileImageModel } from "../Model/ProfileImages.js";
 import { feedBackModel } from "../Model/FeedBackModel.js";
 import { programsRegistration } from "../Model/ProgramRegistration.js";
+import { courseProgressModel } from "../Model/courseProgress.js";
 dotenv.config()
 
 
@@ -777,6 +778,45 @@ export const fetchRegisteredPrograms = async(req,res)=>{
         console.log(error)
     }
 }
+
+export const updateCourseProgress= async(req,res)=>{
+    try{
+        const {id}= req.params
+        const progress = await courseProgressModel.find({userId:id,courseId,moduleId})
+        if(progress.length==1){
+            const update = await courseProgressModel.findByIdAndUpdate(progress._id,{completed:req.body.completed},{new:true})
+            return res.json({success:true,update})
+        }
+        const newProgress = new courseProgressModel({userId:id,courseId,moduleId,completed})
+        newProgress.save()
+        return res.json({success:true,message:"progress updated"})
+
+
+
+    }catch(error){
+        console.log(error)
+        res.json({success:false})
+    }
+}
+
+export const fetchCourseProgress = async(req,res)=>{
+    try{
+        const {courseId,userId} = req.body
+
+        const fetchProgress = await courseProgressModel.find({userId,courseId})
+
+        const moduleStatus = fetchProgress.map((item)=>{return {moduleId:item.moduleId,completed:item.completed,}})
+
+        return res.json({success:true,moduleStatus})
+
+
+
+    }catch(error){
+        console.log(error)
+    }
+}
+
+
 
 
 
