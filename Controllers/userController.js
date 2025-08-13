@@ -782,9 +782,10 @@ export const fetchRegisteredPrograms = async(req,res)=>{
 export const updateCourseProgress= async(req,res)=>{
     try{
         const {id}= req.params
+        const {courseId,moduleId,completed} = req.body
         const progress = await courseProgressModel.find({userId:id,courseId,moduleId})
         if(progress.length==1){
-            const update = await courseProgressModel.findByIdAndUpdate(progress._id,{completed:req.body.completed},{new:true})
+            const update = await courseProgressModel.findByIdAndUpdate(progress._id,{completed},{new:true})
             return res.json({success:true,update})
         }
         const newProgress = new courseProgressModel({userId:id,courseId,moduleId,completed})
