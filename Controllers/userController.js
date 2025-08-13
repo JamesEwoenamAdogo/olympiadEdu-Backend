@@ -795,7 +795,7 @@ export const updateCourseProgress= async(req,res)=>{
 
     }catch(error){
         console.log(error)
-        res.json({success:false})
+        res.json({success:false,error})
     }
 }
 
