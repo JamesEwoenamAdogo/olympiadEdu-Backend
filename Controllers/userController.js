@@ -16,6 +16,9 @@ import { profileImageModel } from "../Model/ProfileImages.js";
 import { feedBackModel } from "../Model/FeedBackModel.js";
 import { programsRegistration } from "../Model/ProgramRegistration.js";
 import { courseProgressModel } from "../Model/courseProgress.js";
+import { profileImageModel } from "../Model/ProfileImages.js";
+import { profileImage } from "../Model/userProfileImage.js";
+import { coverImageModel } from "../Model/coverImage.js";
 dotenv.config()
 
 
@@ -817,7 +820,51 @@ export const fetchCourseProgress = async(req,res)=>{
     }
 }
 
+export const updateProfileImage= async(req,res)=>{
+    try{
+        const {id}=req.params
+        // const {image} = req.body
+        
+        const checkExisting = await profileImage.find({userId:id})
+        if(checkExisting.length==1){
+            const update = await profileImage.findByIdAndUpdate(id,{image:req.file.path},{new:true})
+            return res.json({success:true,message:"Image update successfully",update})
+        }
+        const newImage = new profileImage({userId:id,image:req.file.path})
+        newImage.save()
+        return res.json({success:true,message:"Image upload successful"})
 
+
+
+
+
+    }catch(error){
+        console.log(error)
+    }
+}
+
+export const updateCoverImage= async(req,res)=>{
+    try{
+        const {id}=req.params
+        // const {image} = req.body
+        
+        const checkExisting = await coverImageModel.find({userId:id})
+        if(checkExisting.length==1){
+            const update = await coverImageModel.findByIdAndUpdate(id,{image:req.file.path},{new:true})
+            return res.json({success:true,message:"Image update successfully",update})
+        }
+        const newImage = new coverImageModel({userId:id,image:req.file.path})
+        newImage.save()
+        return res.json({success:true,message:"Image upload successful"})
+
+
+
+
+
+    }catch(error){
+        console.log(error)
+    }
+}
 
 
 
