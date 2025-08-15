@@ -9,7 +9,7 @@ import { uploadToGCS } from "../utils/googleCloudConfig.js";
 
 export const addExamination = async (req, res) => {
     try {
-      const { title, description, time, numberOfQuestions, questions,grade ,featured,publish,attemptsAllowed,allowQuizReview,displayScores,showFeedBackForm} = req.body;
+      const { title, description, time, numberOfQuestions, questions,grade ,featured,publish,attemptsAllowed,allowQuizReview,displayScores,shuffleQuestions,showFeedBackForm} = req.body;
       const parsedQuestions = JSON.parse(questions);
   
       // Get uploaded quiz image URL
@@ -38,7 +38,8 @@ export const addExamination = async (req, res) => {
         attemptsAllowed,
         allowQuizReview,
         displayScores,
-        showFeedBackForm
+        showFeedBackForm,
+        shuffleQuestions
 
 
       

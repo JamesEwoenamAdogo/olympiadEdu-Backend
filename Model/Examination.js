@@ -61,6 +61,9 @@ const examinationSchema = new mongoose.Schema({
     },
     instructor:{
         type:String
+    },
+    shuffleQuestions:{
+        type:Boolean
     }
 }, {timestamps:true})
 
