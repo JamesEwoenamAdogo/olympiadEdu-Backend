@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
 
-const proflieImage = new mongoose.Schema({
+const userprofileImage = new mongoose.Schema({
     userId:{
         type:String
     },
@@ -10,4 +10,4 @@ const proflieImage = new mongoose.Schema({
 },{timestamps:true})
 
 
-export const profileImage = mongoose.model("profileImage",profileImage)
+export const profileImage = mongoose.model("profileImage",userprofileImage)
