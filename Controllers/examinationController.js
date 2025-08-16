@@ -328,6 +328,18 @@ export const allCourses = async(req,res)=>{
   }
 }
 
+export const allCoursesInfo = async(req,res)=>{
+  try{
+    const courses = await courseInfoModel.find({})
+    return res.json({successs:true, courses})
+
+
+
+  }catch(error){
+    console.log(error)
+  }
+}
+
 export const course = async(req,res)=>{
   try{
     const {id} = req.params
