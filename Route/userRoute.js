@@ -1,5 +1,5 @@
 import express from "express"
-import { addUser, loginUser, updateUsers,updateAddInvoiceAddOns,loadPurpose, updateAddPaymentAddOns,UpdateMessage, fetchChannelFeed, payAfterInvoice,fetchSingleUser, findAssessment, findCourses, forgotPassword, ResetPassword, FeaturedExams, uploadProfileImage, sendFeedBack,RegisterProgram, verifyRegistration,fetchRegisteredPrograms, fetchFeedback, updateCourseProgress, fetchCourseProgress, updateProfileImage} from "../Controllers/userController.js"
+import { addUser, loginUser, updateUsers,updateAddInvoiceAddOns,loadPurpose, updateAddPaymentAddOns,UpdateMessage, fetchChannelFeed, payAfterInvoice,fetchSingleUser, findAssessment, findCourses, forgotPassword, ResetPassword, FeaturedExams, uploadProfileImage, sendFeedBack,RegisterProgram, verifyRegistration,fetchRegisteredPrograms, fetchFeedback, updateCourseProgress, fetchCourseProgress, updateProfileImage, updateCoverImage} from "../Controllers/userController.js"
 import { authenticateUser } from "../Middlewares/authUser.js"
 import { channelImageUpload } from "../Middlewares/UploadFile.js"
 import { profileImageupload } from "../Middlewares/UploadFile.js"
