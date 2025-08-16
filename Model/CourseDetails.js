@@ -21,6 +21,9 @@ const courseDetails = new mongoose.Schema({
     },
     duration:{
         type:String
+    },
+    additionalResources:{
+        type:[String]
     }
 
 },{timestamps:true})
