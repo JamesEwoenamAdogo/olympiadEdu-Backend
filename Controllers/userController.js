@@ -16,7 +16,8 @@ import { profileImageModel } from "../Model/ProfileImages.js";
 import { feedBackModel } from "../Model/FeedBackModel.js";
 import { programsRegistration } from "../Model/ProgramRegistration.js";
 import { courseProgressModel } from "../Model/courseProgress.js";
-import { profileImageModel } from "../Model/ProfileImages.js";
+
+// import { profileImageModel } from "../Model/ProfileImages.js";
 import { profileImage } from "../Model/userProfileImage.js";
 import { coverImageModel } from "../Model/coverImage.js";
 dotenv.config()
