@@ -13,6 +13,9 @@ const leaderBoard = new mongoose.Schema({
     },
     score:{
         type:String
+    },
+    timeTaken:{
+        type:String
     }
 },{timestamps:true})
 
