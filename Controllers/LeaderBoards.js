@@ -1,4 +1,4 @@
-import { challengeLeaderBoard } from "../Model/ChallengeLeaderBoard";
+import { challengeLeaderBoard } from "../Model/ChallengeLeaderBoard.js";
 
 export const addScore = async(req,res)=>{
     try{
