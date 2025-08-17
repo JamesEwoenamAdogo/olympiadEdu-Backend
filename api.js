@@ -10,6 +10,7 @@ import { adminRoutes } from "./Route/adminRoute.js"
 import examRoute from "./Route/examinationRoute.js"
 import { courseRoute } from "./Route/CourseRoute.js"
 import { analyticsRoutes } from "./Route/analyticsRoute.js"
+import { leaderBoard } from "./Route/leaderBoardRoute.js"
 
 dotenv.config()
 
@@ -59,3 +60,4 @@ app.use("/api/v1", adminRoutes)
 app.use("/api/v1", examRoute)
 app.use("/api/v1", courseRoute)
 app.use("/api/v1", analyticsRoutes)
+app.use("/api/v1",leaderBoard)
