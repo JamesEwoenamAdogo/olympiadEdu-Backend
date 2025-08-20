@@ -40,7 +40,7 @@ const courseInfo = new mongoose.Schema({
         type:[String]
     },
     features:{
-        type:String
+        type:[String]
     },
     type:{
         type:String
