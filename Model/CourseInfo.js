@@ -12,7 +12,7 @@ const courseInfo = new mongoose.Schema({
         type:String
     },
     category:{
-        type:String
+        type:[String]
     },
     featured:{
         type:String
