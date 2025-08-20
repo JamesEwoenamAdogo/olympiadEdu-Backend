@@ -25,8 +25,8 @@ export const sendPasswordResetLink = async(email,token)=>{
         const transporter = nodeMailer.createTransport({
             service:"Gmail",
             auth:{
-                user:"jamesadogo8@gmail.com",
-                pass:"gmpg iwlm wamt ukdl"
+                user:"giftededtech@gmail.com",
+                pass:"wyvq oing fwlu apri"
             }
         })
         const resetLink = `https://www.giftededu.tech/reset-password/${token}`

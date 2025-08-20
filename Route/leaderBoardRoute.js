@@ -7,4 +7,4 @@ leaderBoard.post("/add-score",addScore)
 
 leaderBoard.get("/fetch-all-scores", fetchLeaderBoard)
 
-leaderBoard.get("/fetch-user-score",fecthUserScore)
+leaderBoard.get("/fetch-user-score/:id",fecthUserScore)
