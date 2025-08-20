@@ -45,7 +45,16 @@ const competitions = new mongoose.Schema({
     },
     assessmentCost:{
         type:Number
+    },
+
+    courses:{
+        type:[String]
+    },
+
+    Assessments:{
+        type:[String]
     }
+    
 
 }, {timestamps:true})
 
