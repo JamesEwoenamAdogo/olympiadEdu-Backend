@@ -828,9 +828,9 @@ export const updateProfileImage= async(req,res)=>{
         
         const checkExisting = await profileImage.find({userId:id})
         if(checkExisting.length==1){
-            const update = await profileImage.findByIdAndUpdate(id,{image:req.file.path},{new:true})
+            const update = await profileImage.findByIdAndUpdate(checkExisting[0]._id,{image:req.file.path},{new:true})
             const newImage = await profileImage.findById(checkExisting[0]._id)
-            return res.json({success:true,message:"Image update successfully",newImage:newImage.image})
+            return res.json({success:true,message:"Image updated successfully",newImage:newImage.image})
         }
         const newImage = new profileImage({userId:id,image:req.file.path})
         newImage.save()
@@ -845,29 +845,43 @@ export const updateProfileImage= async(req,res)=>{
         
     }
 }
+export const updateCoverImage = async (req, res) => {
+  try {
+    const { id } = req.params;
 
-export const updateCoverImage= async(req,res)=>{
-    try{
-        const {id}=req.params
-        // const {image} = req.body
-        
-        const checkExisting = await coverImageModel.find({userId:id})
-        if(checkExisting.length==1){
-            const update = await coverImageModel.findByIdAndUpdate(checkExisting[0]._id,{image:req.file.path},{new:true})
-            return res.json({success:true,message:"Image update successfully",update})
-        }
-        const newImage = new coverImageModel({userId:id,image:req.file.path})
-        newImage.save()
-        return res.json({success:true,message:"Image upload successful"})
+    // check if user already has a cover image
+    const checkExisting = await coverImageModel.findOne({ userId: id });
 
+    if (checkExisting) {
+      // update existing image
+      const update = await coverImageModel.findByIdAndUpdate(
+        checkExisting._id,
+        { image: req.file.path },
+        { new: true }
+      );
 
-
-
-
-    }catch(error){
-        console.log(error)
+      return res.json({
+        success: true,
+        message: "Image updated successfully",
+        update,
+      });
     }
-}
+
+    // create new image
+    const newImage = new coverImageModel({ userId: id, image: req.file.path });
+    await newImage.save();
+
+    return res.json({
+      success: true,
+      message: "Image upload successful",
+      newImage,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
 
 
 export const fetchProfilePicture = async(req,res)=>{
