@@ -870,4 +870,21 @@ export const updateCoverImage= async(req,res)=>{
 }
 
 
+export const fetchProfilePicture = async(req,res)=>{
 
+    try{
+        const {id}= req.params
+        const profilePicture = await profileImage.find({userId:id})
+        if(profilePicture.length==0){
+            return res.json({success:true, message:"No image found"})
+        }
+        return res.json({success:true,profileImage:profilePicture[0].image})
+
+
+
+        
+    }catch(error){
+        console.log(error)
+        return res.json({success:false, error})
+    }
+}
