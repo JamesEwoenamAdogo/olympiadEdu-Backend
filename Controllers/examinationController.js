@@ -186,7 +186,7 @@ export const courseInfoUpload= async(req,res)=>{
     const {title,grade,description,featured,program,category,duration,cost,tags,features, instructor,level}= req.body
   
 
-    const newCourseInfo = new courseInfoModel({title,grade,description,publish:featured,thumbnail:req.file.path,program:JSON.parse(program),category:JSON.parse(category),duration,cost,tags:JSON.parse(tags),features:JSON.parse(features),instructor,level})
+    const newCourseInfo = new courseInfoModel({title,grade:JSON.parse(grade),description,publish:featured,thumbnail:req.file.path,program:JSON.parse(program),category:JSON.parse(category),duration,cost,tags:JSON.parse(tags),features:JSON.parse(features),instructor,level})
     const coursedetails = await newCourseInfo.save()
 
     for(let program of JSON.parse(program)){
