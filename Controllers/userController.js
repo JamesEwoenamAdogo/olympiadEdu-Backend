@@ -853,7 +853,7 @@ export const updateCoverImage= async(req,res)=>{
         
         const checkExisting = await coverImageModel.find({userId:id})
         if(checkExisting.length==1){
-            const update = await coverImageModel.findByIdAndUpdate(id,{image:req.file.path},{new:true})
+            const update = await coverImageModel.findByIdAndUpdate(checkExisting[0]._id,{image:req.file.path},{new:true})
             return res.json({success:true,message:"Image update successfully",update})
         }
         const newImage = new coverImageModel({userId:id,image:req.file.path})
