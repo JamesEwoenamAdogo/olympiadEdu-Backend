@@ -4,13 +4,15 @@ import { examinationModel } from "../Model/Examination.js";
 import { courseDetailsModel } from "../Model/CourseDetails.js";
 import cloudinary from "../utils/cloudinaryConfig.js";
 import { uploadToGCS } from "../utils/googleCloudConfig.js";
+import { competitionsSchema } from "../Model/Competions.js";
 
 
 
 export const addExamination = async (req, res) => {
     try {
-      const { title, description, time, numberOfQuestions, questions,grade ,featured,publish,attemptsAllowed,allowQuizReview,displayScores,shuffleQuestions,showFeedBackForm} = req.body;
+      const { title, description, time, programs,tags,features, numberOfQuestions, questions,grade ,featured,publish,attemptsAllowed,allowQuizReview,displayScores,shuffleQuestions,showFeedBackForm} = req.body;
       const parsedQuestions = JSON.parse(questions);
+      
   
       // Get uploaded quiz image URL
       
@@ -29,7 +31,7 @@ export const addExamination = async (req, res) => {
         title,
         description,
         time,
-        grade,
+        grade:JSON.parse(grade),
         numberOfQuestions,
         questions: processedQuestions,
         image: quizImageUrl,
@@ -39,13 +41,20 @@ export const addExamination = async (req, res) => {
         allowQuizReview,
         displayScores,
         showFeedBackForm,
-        shuffleQuestions
-
-
+        shuffleQuestions,
+        tags:JSON.parse(tags),
+        features:JSON.parse(features),
+        programs:JSON.parse(programs),
+        
       
       });
   
-      await newQuiz.save();
+      const quizDetails = await newQuiz.save();
+      for(let program of JSON.parse(program)){
+        const existingProgram = await competitionsSchema.find({name:program})
+        const updateCompetition = await competitionsSchema.findByIdAndUpdate(existingProgram[0]._id,{Assessments:[...existingProgram[0].Assessments,quizDetails._id]},{new:true})
+      }
+
       return res.json({ success: true, message: "Quiz created successfully" });
     } catch (error) {
       console.error(error.message);
@@ -174,11 +183,17 @@ export const courseUpload = async (req, res) => {
 
 export const courseInfoUpload= async(req,res)=>{
   try{
-    const {title,grade,description,featured,program,category,duration,cost,tags,features, instuctor,level}= req.body
+    const {title,grade,description,featured,program,category,duration,cost,tags,features, instructor,level}= req.body
   
 
-    const newCourseInfo = new courseInfoModel({title,grade,description,publish:featured,thumbnail:req.file.path,program:JSON.parse(program),category:JSON.parse(category),duration,cost,tags:JSON.parse(tags),features:JSON.parse(features),instuctor,level})
+    const newCourseInfo = new courseInfoModel({title,grade,description,publish:featured,thumbnail:req.file.path,program:JSON.parse(program),category:JSON.parse(category),duration,cost,tags:JSON.parse(tags),features:JSON.parse(features),instructor,level})
     const coursedetails = await newCourseInfo.save()
+
+    for(let program of JSON.parse(program)){
+      const existingProgram = await competitionsSchema.find({name:program})
+      const updateProgramCourse = await competitionsSchema.findByIdAndUpdate(existingProgram[0]._id,{courses:[...existingProgram[0].courses,coursedetails._id]},{new:true})
+
+    }
     return res.json({success:true,id:coursedetails._id})
 
 
