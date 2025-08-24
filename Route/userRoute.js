@@ -22,6 +22,7 @@ userRoute.post("/send-message",channelImageUpload.single("image"),UpdateMessage)
 // userRoute.post("/upload-picture/:userId",profileImageupload.single("image"),uploadProfileImage)
 userRoute.post("/update-profile-picture/:id",profileImageupload.single("image"),updateProfileImage)
 userRoute.post("/update-cover-picture/:id",coverImageupload.single("coverImage"),updateCoverImage)
+
 userRoute.get("/channel-feed/:channelId",fetchChannelFeed)
 userRoute.get("/user-details/:id",fetchSingleUser)
 userRoute.get("/featured-exams",FeaturedExams)

@@ -829,7 +829,8 @@ export const updateProfileImage= async(req,res)=>{
         const checkExisting = await profileImage.find({userId:id})
         if(checkExisting.length==1){
             const update = await profileImage.findByIdAndUpdate(id,{image:req.file.path},{new:true})
-            return res.json({success:true,message:"Image update successfully",update})
+            const newImage = await profileImage.findById(checkExisting[0]._id)
+            return res.json({success:true,message:"Image update successfully",newImage:newImage.image})
         }
         const newImage = new profileImage({userId:id,image:req.file.path})
         newImage.save()
