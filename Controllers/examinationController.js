@@ -17,14 +17,24 @@ export const addExamination = async (req, res) => {
       // Get uploaded quiz image URL
       
       const quizImageUrl = req.files?.image ? req.files.image[0]?.path : "";
+
   
       // Process question images
+      // const processedQuestions = parsedQuestions.map((item, index) => {
+      //   if (req.files?.questionImages && req.files?.questionImages[index]) {
+      //     item.image = req.files.questionImages[index]?.path; // Cloudinary URL
+      //   }
+      //   return item;
+      // });
       const processedQuestions = parsedQuestions.map((item, index) => {
-        if (req.files?.questionImages && req.files?.questionImages[index]) {
-          item.image = req.files.questionImages[index]?.path; // Cloudinary URL
-        }
-        return item;
+      const fieldName = `questionImages[${index}]`;
+      const file = req.files.find(f => f.fieldname === fieldName);
+      if (file) {
+        item.image = file.path;
+      }
+      return item;
       });
+
   
       // Save to MongoDB
       const newQuiz = new examinationModel({

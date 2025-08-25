@@ -6,12 +6,13 @@ import { CourseReview, fetchCourseReviews, fetchQuizReviews, QuizReview } from "
 const router = express.Router();
 
 // Handle multiple file uploads
+const fields = [
+  { name: "image", maxCount: 1 },
+  ...Array.from({ length: 40 }, (_, i) => ({ name: `questionImages[${i}]`, maxCount: 1 }))
+];
 router.post(
   "/add-exam",
-  upload.upload.fields([
-    { name: "image", maxCount: 1 }, // Main quiz image
-    { name: "questionImages", maxCount: 20 }, // Multiple question images
-  ]),
+  upload.upload.any(),
   addExamination
 );
 
