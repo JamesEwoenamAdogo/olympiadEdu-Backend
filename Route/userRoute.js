@@ -4,6 +4,8 @@ import { authenticateUser } from "../Middlewares/authUser.js"
 import { channelImageUpload } from "../Middlewares/UploadFile.js"
 import { profileImageupload } from "../Middlewares/UploadFile.js"
 import { coverImageupload } from "../Middlewares/UploadFile.js"
+import upload from "../Middlewares/authUser.js"
+import { uploadExcel } from "../Controllers/bulkUpload.js"
 
 
 export const userRoute = express.Router()
@@ -42,6 +44,12 @@ userRoute.get("/fetch-registered-programs/:fullName/:status",fetchRegisteredProg
 
 userRoute.post("/update-course-progress/:id",updateCourseProgress)
 userRoute.post("/fetch-course-progress",fetchCourseProgress)
+
+userRoute.post("/upload-excel", upload.single("file"), uploadExcel);
+
+
+
+
 
 
 

@@ -84,3 +84,7 @@ export const courseThumbnailUpload = multer({storage:courseThumbnailStorage})
 export const channelImageUpload = multer({storage:channelFeedImage})
 
 export default {upload,communityThumbnailUpload};
+
+
+
+

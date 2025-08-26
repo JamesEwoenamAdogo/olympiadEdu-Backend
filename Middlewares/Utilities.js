@@ -45,3 +45,4 @@ export const sendPasswordResetLink = async(email,token)=>{
         console.log(error)
     }
 }
+

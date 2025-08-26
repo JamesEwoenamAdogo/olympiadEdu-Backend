@@ -12,7 +12,10 @@ const fields = [
 ];
 router.post(
   "/add-exam",
-  upload.upload.any(),
+  upload.upload.fields([
+    { name: "image", maxCount: 1 }, // Main quiz image
+    { name: "questionImages", maxCount: 40 }, // Multiple question images
+  ]),
   addExamination
 );
 
