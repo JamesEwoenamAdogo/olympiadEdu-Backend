@@ -31,9 +31,14 @@ export const uploadExcel = async (req, res) => {
     // const insertedDocs = await MyModel.insertMany(sheetData);
     // console.log(sheetData)
     for(let data of sheetData){
-        const findUser = await userModel.find({email:data.email})
-        const existing = await userModel.findByIdAndUpdate(findUser[0]._id,{dob:data.DateOfBirth,School:data.School},{new:true})
-        // newUser.save()
+        let firstName = data.FullName.split(" ")[0]
+        let lastName = data.FullName.split(" ")[1]
+        let dob = data.DateOfBirth
+        let School = data.School
+        let email = data.email
+        let mobileNumber = data.mobileNumber
+        const newUser = new userModel({firstName,lastName,dob,School,email,mobileNumber})
+        newUser.save()
 
     }
 

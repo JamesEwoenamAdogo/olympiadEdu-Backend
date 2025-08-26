@@ -21,10 +21,18 @@ export const addExamination = async (req, res) => {
   
       // Process question images
       const processedQuestions = parsedQuestions.map((item, index) => {
-        if (req.files?.questionImages && req.files?.questionImages[index]) {
-          item.image = req.files.questionImages[index]?.path; // Cloudinary URL
+        let questionImagesCount=0
+        if(!item.hasImage){
+          return item
         }
-        return item;
+        while(questionImagesCount<=req.files?.questionImages.length){
+
+          if (req.files?.questionImages && req.files?.questionImages[questionImagesCount]) {
+            item.image = req.files.questionImages[questionImagesCount]?.path; // Cloudinary URL
+          }
+          questionImagesCount+=1
+          return item;
+        }
       });
   
       // Save to MongoDB
