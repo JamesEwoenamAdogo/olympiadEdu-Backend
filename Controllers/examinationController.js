@@ -494,7 +494,7 @@ export const deleteExam = async(req,res)=>{
 export const addQuestion = async(req,res)=>{
   try{
     const {id}= req.params
-    const examination = await examinationModel.findBy(id)
+    const examination = await examinationModel.findById(id)
     const update = [...examination.questions,{...req.body,image:req.file?req.file.path:null}]
     const updateQuestions = await examinationModel.findByIdAndUpdate(id,{questions:update},{new:true})
     return res.json({success:true,update:updateQuestions})
