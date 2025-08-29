@@ -1,4 +1,5 @@
 import { userModel } from "../Model/userModel.js";
+import { examinationModel } from "../Model/Examination.js";
 
 
 import XLSX from "xlsx";
@@ -56,3 +57,47 @@ export const uploadExcel = async (req, res) => {
     res.status(500).json({ success: false, message: "Error processing file", error });
   }
 };
+
+export const examinationGradeChange = async (req, res) => {
+  try {
+    const allExams = await examinationModel.find({});
+    
+    for (let exam of allExams) {
+      let newGrade = [];
+
+      if (typeof exam.grade === "string") {
+        if (exam.grade.includes("-")) {
+          // Handle range: "1-3"
+          const [start, end] = exam.grade.split("-").map(n => parseInt(n.trim()));
+          for (let i = start; i <= end; i++) {
+            newGrade.push(i);
+          }
+        } else if (exam.grade.includes(",")) {
+          // Handle comma-separated: "1,3,5"
+          newGrade = exam.grade.split(",").map(n => parseInt(n.trim()));
+        } else {
+          // Handle single value: "3"
+          newGrade = [parseInt(exam.grade.trim())];
+        }
+      } else if (Array.isArray(exam.grade)) {
+        // Already array, ensure integers
+        newGrade = exam.grade.map(n => parseInt(n));
+      }
+
+      if (newGrade.length > 0) {
+        await examinationModel.findByIdAndUpdate(
+          exam._id,
+          { grade: newGrade },
+          { new: true }
+        );
+      }
+    }
+
+    return res.json({ success: true, message: "Grades updated successfully" });
+
+  } catch (error) {
+    console.error("Update error:", error);
+    return res.status(500).json({ success: false, message: "Error processing grades", error });
+  }
+};
+

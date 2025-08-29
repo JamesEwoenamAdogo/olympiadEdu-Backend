@@ -92,7 +92,7 @@ export const loginUser = async(req,res)=>{
             if(!comparePassword){
                 return res.json({success:false,message:"Invalid credentials"})
             }
-            const token = jwt.sign({id:checkExisting[0]._id,userName:checkExisting[0].userName,firstName:checkExisting[0].firstName, lastName:checkExisting[0].lastName,Registered:checkExisting[0].Registered,Paid:checkExisting[0].Paid, Invoice:checkExisting[0].Invoice,category:checkExisting[0].Category, mobile: checkExisting[0].mobileNumber , location:checkExisting[0].country, joined:checkExisting[0].createdAt},process.env.TOKEN_SECRET, {expiresIn:"1d"})
+            const token = jwt.sign({id:checkExisting[0]._id,grade:checkExisting[0].grade,userName:checkExisting[0].userName,firstName:checkExisting[0].firstName, lastName:checkExisting[0].lastName,Registered:checkExisting[0].Registered,Paid:checkExisting[0].Paid, Invoice:checkExisting[0].Invoice,category:checkExisting[0].Category, mobile: checkExisting[0].mobileNumber , location:checkExisting[0].country, joined:checkExisting[0].createdAt},process.env.TOKEN_SECRET, {expiresIn:"1d"})
             return res.json({success:true,token,message:"User Logged In successfully",purpose_Of_Registration:checkExisting[0].purposeOfRegistration})
         }
 
@@ -106,7 +106,7 @@ export const loginUser = async(req,res)=>{
             if(!comparePassword){
                 return res.json({success:false,message:"Invalid credentials"})
             }
-            const token = jwt.sign({id:checkExisting[0]._id,userName:checkExisting[0].userName,firstName:checkExisting[0].firstName, lastName:checkExisting[0].lastName,Registered:checkExisting[0].Registered,Paid:checkExisting[0].Paid, Invoice:checkExisting[0].Invoice,category:checkExisting[0].Category, mobile: checkExisting[0].mobileNumber, location: checkExisting[0].country, joined: checkExisting[0].createdAt,grade:checkExisting[0].grade},process.env.MONGO_SECRET, {expiresIn:"1d"})
+            const token = jwt.sign({id:checkExisting[0]._id,grade:checkExisting[0].grade ,userName:checkExisting[0].userName,firstName:checkExisting[0].firstName, lastName:checkExisting[0].lastName,Registered:checkExisting[0].Registered,Paid:checkExisting[0].Paid, Invoice:checkExisting[0].Invoice,category:checkExisting[0].Category, mobile: checkExisting[0].mobileNumber, location: checkExisting[0].country, joined: checkExisting[0].createdAt,grade:checkExisting[0].grade},process.env.MONGO_SECRET, {expiresIn:"1d"})
             return res.json({success:true,token,message:"User Logged In successfully",purpose_Of_Registration:checkExisting[0].purposeOfRegistration})
         }
 

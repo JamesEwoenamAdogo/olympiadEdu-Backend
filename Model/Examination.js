@@ -8,7 +8,7 @@ const examinationSchema = new mongoose.Schema({
         type:String
     },
     grade:{
-        type: [String]
+        type: [Number]
     },
     time:{
         type:Number
