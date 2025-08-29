@@ -5,7 +5,7 @@ import { channelImageUpload } from "../Middlewares/UploadFile.js"
 import { profileImageupload } from "../Middlewares/UploadFile.js"
 import { coverImageupload } from "../Middlewares/UploadFile.js"
 import upload from "../Middlewares/authUser.js"
-import { examinationGradeChange, uploadExcel } from "../Controllers/bulkUpload.js"
+import { examinationGradeChange, GenerateUsers, uploadExcel } from "../Controllers/bulkUpload.js"
 
 
 export const userRoute = express.Router()
@@ -46,6 +46,7 @@ userRoute.post("/update-course-progress/:id",updateCourseProgress)
 userRoute.post("/fetch-course-progress",fetchCourseProgress)
 
 userRoute.post("/upload-excel", upload.single("file"), uploadExcel);
+userRoute.post("/generate-users", upload.single("file"), GenerateUsers);
 userRoute.get("/exam-grade-change",  examinationGradeChange);
 
 

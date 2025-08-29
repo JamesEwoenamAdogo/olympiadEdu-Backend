@@ -80,43 +80,62 @@ export const addUser = async(req,res)=>{
 
 
 
-export const loginUser = async(req,res)=>{
-    try{
-        if(req.body['email']){
-            const checkExisting = await userModel.find({email:req.body.email})
-            if(checkExisting.length==0){
-                return res.json({success:false,message:"User not found"})
+export const loginUser = async (req, res) => {
+  try {
+    const { email, userName, password } = req.body;
 
-            }
-            const comparePassword = await bcrypt.compare(req.body.password,checkExisting[0].password)
-            if(!comparePassword){
-                return res.json({success:false,message:"Invalid credentials"})
-            }
-            const token = jwt.sign({id:checkExisting[0]._id,grade:checkExisting[0].grade,userName:checkExisting[0].userName,firstName:checkExisting[0].firstName, lastName:checkExisting[0].lastName,Registered:checkExisting[0].Registered,Paid:checkExisting[0].Paid, Invoice:checkExisting[0].Invoice,category:checkExisting[0].Category, mobile: checkExisting[0].mobileNumber , location:checkExisting[0].country, joined:checkExisting[0].createdAt},process.env.TOKEN_SECRET, {expiresIn:"1d"})
-            return res.json({success:true,token,message:"User Logged In successfully",purpose_Of_Registration:checkExisting[0].purposeOfRegistration})
-        }
-
-        if(req.body['userName']){
-            const checkExisting = await userModel.find({userName:req.body.userName})
-            if(!checkExisting.length==0){
-                return res.json({success:false,message:"User not found"})
-
-            }
-            const comparePassword = await bcrypt.compare(req.body.password, checkExisting[0].password)
-            if(!comparePassword){
-                return res.json({success:false,message:"Invalid credentials"})
-            }
-            const token = jwt.sign({id:checkExisting[0]._id,grade:checkExisting[0].grade ,userName:checkExisting[0].userName,firstName:checkExisting[0].firstName, lastName:checkExisting[0].lastName,Registered:checkExisting[0].Registered,Paid:checkExisting[0].Paid, Invoice:checkExisting[0].Invoice,category:checkExisting[0].Category, mobile: checkExisting[0].mobileNumber, location: checkExisting[0].country, joined: checkExisting[0].createdAt,grade:checkExisting[0].grade},process.env.MONGO_SECRET, {expiresIn:"1d"})
-            return res.json({success:true,token,message:"User Logged In successfully",purpose_Of_Registration:checkExisting[0].purposeOfRegistration})
-        }
-
-
-
-    }catch(error){
-        console.log(error)
-        return res.status(500).json({success:false})
+    // Find user by either email or username
+    let checkExisting = [];
+    if (email) {
+      checkExisting = await userModel.find({ email });
+    } else if (userName) {
+      checkExisting = await userModel.find({ userName });
     }
-}
+
+    if (checkExisting.length === 0) {
+      return res.json({ success: false, message: "User not found" });
+    }
+
+    const user = checkExisting[0];
+
+    // Compare password
+    const comparePassword = await bcrypt.compare(password, user.password);
+    if (!comparePassword) {
+      return res.json({ success: false, message: "Invalid credentials" });
+    }
+
+    // Prepare JWT payload
+    const payload = {
+      id: user._id,
+      grade: user.grade,
+      userName: user.userName,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      Registered: user.Registered,
+      Paid: user.Paid,
+      Invoice: user.Invoice,
+      category: user.Category,
+      mobile: user.mobileNumber,
+      location: user.country,
+      joined: user.createdAt,
+    };
+
+    // Sign token
+    const token = jwt.sign(payload, process.env.TOKEN_SECRET, { expiresIn: "1d" });
+
+    return res.json({
+      success: true,
+      token,
+      message: "User Logged In successfully",
+      purpose_Of_Registration: user.purposeOfRegistration,
+    });
+
+  } catch (error) {
+    console.error("Login error:", error);
+    return res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
 export const updateAddInvoiceAddOns = async(req,res)=>{
     try{
         const {Registered,Invoice,AddOns,Paid,choice,Grade}= req.body

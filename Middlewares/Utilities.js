@@ -46,3 +46,30 @@ export const sendPasswordResetLink = async(email,token)=>{
     }
 }
 
+
+export const sendPasswordandUserName = async(email,password,userName)=>{
+    try{
+        const transporter = nodeMailer.createTransport({
+            service:"Gmail",
+            auth:{
+                user:"giftededtech@gmail.com",
+                pass:"wyvq oing fwlu apri"
+            }
+        })
+        // const resetLink = `https://www.giftededu.tech/reset-password/${token}`
+        const result = await transporter.sendMail({
+        to: email,
+        subject: " Gifted Platform Sign Up",
+        html: `<p> Your Gifted username is ${userName} and your password is ${password} Kindly login and change your password`,
+        });
+        return result
+
+        
+
+
+
+    }catch(error){
+        console.log(error)
+    }
+}
+
