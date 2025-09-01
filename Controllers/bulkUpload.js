@@ -131,7 +131,6 @@ export const examinationGradeChange = async (req, res) => {
   }
 };
 
-
 export const uploadExcel = async (req, res) => {
   try {
     if (!req.file) {
@@ -141,40 +140,66 @@ export const uploadExcel = async (req, res) => {
     // Read uploaded file
     const filePath = path.join(__dirname, "../uploads", req.file.filename);
     const workbook = XLSX.readFile(filePath);
-    const sheetName = workbook.SheetNames[1]; // first sheet
-    const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], {raw:false});
 
-    // sheetData is now an array of objects
-    // Example: [{ name: "John", age: 22 }, { name: "Jane", age: 30 }]
+    // Go through ALL sheets
+    // for (let sheetName of workbook.SheetNames) {
+      const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets['GH-STEM'], { raw: false });
 
-    // Insert into MongoDB
-    // const insertedDocs = await MyModel.insertMany(sheetData);
-    // console.log(sheetData)
-    for(let data of sheetData){
-        let firstName = data.Name.split(" ")[0]
-        let lastName = data.Name.split(" ")[1]
-        // let dob = data.DateOfBirth
-        let School = data.School
-        let email = data.Email
-        let grade= data.Grade
-        let mobileNumber = data.mobileNumber
-        const newUser = new userModel({firstName,lastName,School,email,mobileNumber,grade})
-        newUser.save()
+      const exportData = [];
 
-    }
 
-    // Clean up file after processing
-    fs.unlinkSync(filePath);
+      for (let data of sheetData) {
+        // adjust keys based on your sheet structure
+        let firstName = data.Name?.split(" ")[0] || "";
+        let lastName = data.Name?.split(" ")[1] || "";
+        let random = Math.ceil(Math.random()*100000)
 
-    return res.status(200).json({
-      success: true,
-      message: "Excel data uploaded successfully",
-    //   count: insertedDocs.length,
-    //   data: insertedDocs,
-    });
+        let userName = `${firstName}${lastName}${random}`
+        let password = userName.split("").reverse().join("")
+        let hashedPassword = await bcrypt.hash(password,10)
+
+        const existing = await userModel.find({email:data.Email})
+
+        
+        // await sendPasswordandUserName(data.Email, password, userName);
+
+        const update = await userModel.findById(existing[0]._id,{userName,password:hashedPassword},{new:true})
+         // Add to export list
+          exportData.push({
+            Email: data.Email,
+            Username: userName,
+            Password: password, // ⚠️ plaintext password for export
+          });
+        }
+        // Create new Excel file with exportData
+        const newWorkbook = XLSX.utils.book_new();
+        const newWorksheet = XLSX.utils.json_to_sheet(exportData);
+        XLSX.utils.book_append_sheet(newWorkbook, newWorksheet, "Credentials");
+
+        const exportFilePath = path.join(
+          __dirname,
+          "../uploads",
+          `GH-STEM_${Date.now()}.xlsx`
+        );
+        XLSX.writeFile(newWorkbook, exportFilePath);
+
+        // Clean up uploaded file
+        fs.unlinkSync(filePath);
+
+        return res.status(200).json({
+          success: true,
+          message: "Excel processed and credentials exported successfully",
+          exportFile: exportFilePath, // path of the new file
+        });
+
+        
+
+        
+      
+
+     
   } catch (error) {
     console.error("Upload error:", error);
     res.status(500).json({ success: false, message: "Error processing file", error });
   }
 };
-

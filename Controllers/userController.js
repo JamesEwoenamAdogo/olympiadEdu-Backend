@@ -57,7 +57,7 @@ export const addUser = async(req,res)=>{
 
         const date = new Date().toISOString().split("T")[0]
         
-        const token = jwt.sign({id:newUser._id,firstName:newUser.firstName, lastName:newUser.lastName,userName:newUser.userName,Registered:newUser.Registered,Paid:newUser.Paid, Invoice:newUser.Invoice,AddOns:newUser.AddOns,category:newUser.Category,mobile: newUser.mobileNumber, location: newUser.country, joined: date},process.env.TOKEN_SECRET, {expiresIn:"1d"})
+        const token = jwt.sign({id:newUser._id,grade:newUser.grade ,firstName:newUser.firstName, lastName:newUser.lastName,userName:newUser.userName,Registered:newUser.Registered,Paid:newUser.Paid, Invoice:newUser.Invoice,AddOns:newUser.AddOns,category:newUser.Category,mobile: newUser.mobileNumber, location: newUser.country, joined: date},process.env.TOKEN_SECRET, {expiresIn:"1d"})
        
         return res.json({success:true, message:"User Created successfully",token,userName,purposeOfRegistration})
 
