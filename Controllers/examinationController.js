@@ -9,68 +9,65 @@ import { competitionsSchema } from "../Model/Competions.js";
 
 
 export const addExamination = async (req, res) => {
-    try {
-      const { title, description, time, programs,tags,features, numberOfQuestions, questions,grade ,featured,publish,attemptsAllowed,allowQuizReview,displayScores,shuffleQuestions,showFeedBackForm} = req.body;
-      const parsedQuestions = JSON.parse(questions);
-      
-  
-      // Get uploaded quiz image URL
-      
-      const quizImageUrl = req.files?.image ? req.files.image[0]?.path : "";
-      
-  
-      // Process question images
-      const processedQuestions = parsedQuestions.map((item, index) => {
-        let questionImagesCount=0
-        if(!item.hasImage){
-          return item
-        }
-        while(questionImagesCount<=req.files?.questionImages.length){
+  try {
+    const { title, description, time, programs,tags,features, numberOfQuestions, questions,grade ,featured,publish,attemptsAllowed,allowQuizReview,displayScores,shuffleQuestions,showFeedBackForm} = req.body;
+    const parsedQuestions = JSON.parse(questions);
+    
 
-          if (req.files?.questionImages && req.files?.questionImages[questionImagesCount]) {
-            item.image = req.files.questionImages[questionImagesCount]?.path; // Cloudinary URL
-          }
-          questionImagesCount+=1
-          return item;
-        }
-      });
-  
-      // Save to MongoDB
-      const newQuiz = new examinationModel({
-        title,
-        description,
-        time,
-        grade:JSON.parse(grade),
-        numberOfQuestions,
-        questions: processedQuestions,
-        image: quizImageUrl,
-        featured,
-        publish,
-        attemptsAllowed,
-        allowQuizReview,
-        displayScores,
-        showFeedBackForm,
-        shuffleQuestions,
-        tags:JSON.parse(tags),
-        features:JSON.parse(features),
-        programs:JSON.parse(programs),
-        
-      
-      });
-  
-      const quizDetails = await newQuiz.save();
-      for(let program of JSON.parse(programs)){
-        const existingProgram = await competitionsSchema.find({name:program})
-        const updateCompetition = await competitionsSchema.findByIdAndUpdate(existingProgram[0]._id,{Assessments:[...existingProgram[0].Assessments,quizDetails._id]},{new:true})
+    // Get uploaded quiz image URL
+    
+    const quizImageUrl = req.files?.image ? req.files.image[0]?.path : "";
+    
+
+    // Process question images
+    let questionImageIndex = 0;
+    const processedQuestions = parsedQuestions.map((item) => {
+      if (!item.hasImage) {
+        return item;
       }
+      if (req.files?.questionImages && req.files.questionImages[questionImageIndex]) {
+        item.image = req.files.questionImages[questionImageIndex].path; // Cloudinary URL
+        questionImageIndex += 1;
+      }
+      return item;
+    });
 
-      return res.json({ success: true, message: "Quiz created successfully" });
-    } catch (error) {
-      console.error(error.message);
-      return res.status(500).json({ success: false, message: "Error creating quiz" ,error:error.message});
+    // Save to MongoDB
+    const newQuiz = new examinationModel({
+      title,
+      description,
+      time,
+      grade:JSON.parse(grade),
+      numberOfQuestions,
+      questions: processedQuestions,
+      image: quizImageUrl,
+      featured,
+      publish,
+      attemptsAllowed,
+      allowQuizReview,
+      displayScores,
+      showFeedBackForm,
+      shuffleQuestions,
+      tags:JSON.parse(tags),
+      features:JSON.parse(features),
+      programs:JSON.parse(programs),
+      
+    
+    });
+
+    const quizDetails = await newQuiz.save();
+    for(let program of JSON.parse(programs)){
+      const existingProgram = await competitionsSchema.find({name:program})
+      const updateCompetition = await competitionsSchema.findByIdAndUpdate(existingProgram[0]._id,{Assessments:[...existingProgram[0].Assessments,quizDetails._id]},{new:true})
     }
-  };
-  
+
+    return res.json({ success: true, message: "Quiz created successfully" });
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ success: false, message: "Error creating quiz" ,error:error.message});
+  }
+};
+
 
 export const allExam = async(req,res)=>{
     try{
