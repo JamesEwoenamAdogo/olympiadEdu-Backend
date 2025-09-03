@@ -30,6 +30,7 @@ export const addExamination = async (req, res) => {
           if (req.files?.questionImages && req.files?.questionImages[questionImagesCount]) {
             item.image = req.files.questionImages[questionImagesCount]?.path; // Cloudinary URL
           }
+          questionImagesCount+=1
           return item;
         }
       });

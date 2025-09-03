@@ -203,3 +203,8 @@ export const uploadExcel = async (req, res) => {
     res.status(500).json({ success: false, message: "Error processing file", error });
   }
 };
+
+
+export const updateGrade = async(req,res)=>{
+  
+}
