@@ -216,7 +216,7 @@ export const courseDetailsUpload= async(req,res)=>{
     console.log(req.body)
     
     // Safely parse Videos with fallback to empty array
-    const Videos = req.body.Videos ? JSON.parse(req.body.Videos) : [];
+    const Videos = req.body?.Videos ? JSON.parse(req.body?.Videos) : [];
     
     // Safely parse resources with fallback to empty array
     const additionalResources = resources ? JSON.parse(resources) : [];
@@ -357,6 +357,17 @@ export const allCourses = async(req,res)=>{
 }
 
 export const allCoursesInfo = async(req,res)=>{
+  try{
+    const courses = await courseInfoModel.find({publish:true})
+    return res.json({successs:true, courses})
+
+
+
+  }catch(error){
+    console.log(error)
+  }
+}
+export const allCoursesAdminInfo = async(req,res)=>{
   try{
     const courses = await courseInfoModel.find({})
     return res.json({successs:true, courses})
