@@ -191,12 +191,12 @@ export const courseInfoUpload= async(req,res)=>{
   try{
     const {title,grade,description,featured,program,category,duration,cost,tags,features, instructor,level}= req.body
   
-
+   console.log(req.body)
     const newCourseInfo = new courseInfoModel({title,grade:JSON.parse(grade),description,publish:featured,thumbnail:req.file.path,program:JSON.parse(program),category:JSON.parse(category),duration,cost,tags:JSON.parse(tags),features:JSON.parse(features),instructor,level})
     const coursedetails = await newCourseInfo.save()
 
-    for(let program of JSON.parse(program)){
-      const existingProgram = await competitionsSchema.find({name:program})
+    for(let item of JSON.parse(program)){
+      const existingProgram = await competitionsSchema.find({name:item})
       const updateProgramCourse = await competitionsSchema.findByIdAndUpdate(existingProgram[0]._id,{courses:[...existingProgram[0].courses,coursedetails._id]},{new:true})
 
     }
