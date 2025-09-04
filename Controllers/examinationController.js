@@ -208,19 +208,26 @@ export const courseInfoUpload= async(req,res)=>{
     return res.json({success:false,message:"error"})
   }
 }
+
 export const courseDetailsUpload= async(req,res)=>{
   try{
     const {courseId}= req.params
-    const {title,description,Resources} =req.body
-    const Videos = JSON.parse(req.body.Videos)
-    const additionalResources = JSON.parse(Resources)
+    const {title,description,resources} =req.body
+    console.log(req.body)
+    
+    // Safely parse Videos with fallback to empty array
+    const Videos = req.body.Videos ? JSON.parse(req.body.Videos) : [];
+    
+    // Safely parse resources with fallback to empty array
+    const additionalResources = resources ? JSON.parse(resources) : [];
 
     console.log(req.body)
     
-
-    const files = req.files["files"] ? await Promise.all(req.files["files"].map(uploadToGCS)) : [];
-    const image = req.files["image"] ? await uploadToGCS(req.files["image"][0]) : null;
-
+    // Safely handle files upload with proper checks
+    const files = (req.files && req.files["files"]) ? await Promise.all(req.files["files"].map(uploadToGCS)) : [];
+    
+    // Safely handle image upload with proper checks
+    const image = (req.files && req.files["image"] && req.files["image"][0]) ? await uploadToGCS(req.files["image"][0]) : null;
 
     const newDetails = new courseDetailsModel({title,image,files,Videos,description,courseId,additionalResources})
     await newDetails.save()
