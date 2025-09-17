@@ -153,8 +153,11 @@ export const findOneCompetion = async(req,res)=>{
 
 export const updateCompetition = async (req,res)=>{
     try{
-        const {id}= req.params
+        const id= req.body._id
         const updateBody = req.body 
+        delete updateBody._id
+        console.log(id)
+        console.log(req.body)
         // const existingCompetition = await competitionsSchema.findById(id)
         // const updatedSubTypes = existingCompetition.subTypes.push(updateBody)
 
