@@ -109,7 +109,8 @@ export const paidForUsers = async(req, res)=>{
 export const addCompetition = async(req,res)=>{
     try{
         const competition = req.body
-        const newUser = new competitionsSchema(competition)
+        const grade = JSON.parse(req.body.grade)
+        const newUser = new competitionsSchema({...competition, grade})
         newUser.save()
         return res.json({success:true,message:"Added successfully"})
 

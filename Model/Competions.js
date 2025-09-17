@@ -5,6 +5,9 @@ const competitions = new mongoose.Schema({
         type:String,
         
     },
+    grade:{
+        type:[String]
+    },
     startDate:{
         type:String
     },
