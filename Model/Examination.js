@@ -71,6 +71,24 @@ const examinationSchema = new mongoose.Schema({
     },
     shuffleQuestions:{
         type:Boolean
+    },
+    contest:{
+        type:Boolean
+    },
+    bonusTimeLimit:{
+        type:String
+    },
+    pointsPerQuestion:{
+        type:String
+    },
+    estimatedTime:{
+        type:String
+    },
+    contestType:{
+        type:String
+    },
+    endTime:{
+        type:String
     }
 }, {timestamps:true})
 
