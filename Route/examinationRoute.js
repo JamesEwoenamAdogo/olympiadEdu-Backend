@@ -1,5 +1,5 @@
 import express from "express";
-import { addExamination, addQuestion, allExam ,allExamAdmin,course,deleteExam,getOneExam,updateOneExam, updateQuestion, all, fetchContest} from "../Controllers/examinationController.js";
+import { addExamination, addQuestion, allExam ,allExamAdmin,course,deleteExam,getOneExam,updateOneExam, updateQuestion, fetchContest} from "../Controllers/examinationController.js";
 import upload from "../Middlewares/UploadFile.js";
 import { CourseReview, fetchCourseReviews, fetchQuizReviews, QuizReview } from "../Controllers/analysisController.js";
 
