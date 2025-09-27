@@ -143,30 +143,37 @@ export const uploadExcel = async (req, res) => {
 
     // Go through ALL sheets
     // for (let sheetName of workbook.SheetNames) {
-      const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets['GH-STEM'], { raw: false });
+      const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets['MEST'], { raw: false });
 
       const exportData = [];
 
 
       for (let data of sheetData) {
         // adjust keys based on your sheet structure
-        let firstName = data.Name?.split(" ")[0] || "";
-        let lastName = data.Name?.split(" ")[1] || "";
+        let firstName = data.Fullname?.split(" ")[0] || "";
+        let lastName = data.Fullname?.split(" ")[1] || "";
         let random = Math.ceil(Math.random()*100000)
 
         let userName = `${firstName}${lastName}${random}`
         let password = userName.split("").reverse().join("")
         let hashedPassword = await bcrypt.hash(password,10)
+        let school = data.School
+        let gender = data.Gender
+        let DOB = data.DOB
+        let PWD = data.PWD
 
-        const existing = await userModel.find({email:data.Email})
+        // const existing = await userModel.find({email:data.Email})
+
+        const newUser = new userModel({firstName,lastName,password:hashedPassword,School:school,PWD,DOB,gender})
+        newUser.save()
 
         
         // await sendPasswordandUserName(data.Email, password, userName);
 
-        const update = await userModel.findById(existing[0]._id,{userName,password:hashedPassword},{new:true})
+        // const update = await userModel.findById(existing[0]._id,{userName,password:hashedPassword},{new:true})
          // Add to export list
           exportData.push({
-            Email: data.Email,
+            // Email: data.Email,
             Username: userName,
             Password: password, // ⚠️ plaintext password for export
           });

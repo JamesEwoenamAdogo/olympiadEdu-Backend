@@ -410,6 +410,23 @@ export const updateCourseThumbnail = async(req,res)=>{
   }
 }
 
+
+
+export const fetchContest = async(req,res)=>{
+  try{
+    const allContest = await examinationModel.find({contest:true})
+
+    return res.json({success:true, allContest})
+
+
+
+
+  }catch(error){
+    console.log(error)
+    return res.json({success:false})
+  }
+}
+
 // export const updateCourseDetails = async(req,res)=>{
 //   try{
 //     const {id}= req.params

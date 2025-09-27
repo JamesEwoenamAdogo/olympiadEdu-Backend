@@ -44,6 +44,9 @@ const examinationSchema = new mongoose.Schema({
     showFeedBackForm:{
         type:Boolean
     },
+    contest:{
+        type:Boolean
+    },
     registered:{
         type:[String],
         default:[""]
