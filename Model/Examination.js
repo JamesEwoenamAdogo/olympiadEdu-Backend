@@ -87,6 +87,9 @@ const examinationSchema = new mongoose.Schema({
     contestType:{
         type:String
     },
+    difficulty:{
+        type:String
+    },
     endTime:{
         type:String
     }
