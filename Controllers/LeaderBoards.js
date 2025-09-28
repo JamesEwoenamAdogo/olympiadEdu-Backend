@@ -41,3 +41,21 @@ export const fecthUserScore= async(req,res)=>{
         console.log(error)
     }
 }
+
+
+export const fetchContestLeaderBoard = async(req,res)=>{
+    try{
+        const {contestId} = req.params
+        const leaderboard = await challengeLeaderBoard.find({courseId:contestId})
+
+        return res.json({success:true,leaderboard})
+
+
+
+
+
+    }catch(error){
+        console.log(error)
+        return res.json({success:false})
+    }
+}
