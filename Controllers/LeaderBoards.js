@@ -26,13 +26,15 @@ export const addScore = async(req,res)=>{
 
         const rank = score.find((item)=>item.userId == userId)
 
+        console.log(rank)
+
         return res.json({success:true,rank:rank.rank})
             
             // return res.json({success:true,update})
         }
 
         const newScore = new challengeLeaderBoard(req.body)
-        
+
         newScore.save()
 
 
