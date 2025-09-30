@@ -4,7 +4,7 @@ export const addScore = async(req,res)=>{
     try{
         const {userId}= req.body
 
-        const existing = await challengeLeaderBoard.find({userId})
+        const existing = await challengeLeaderBoard.find({userId,courseId:req.body.courseId})
 
         const userScore = await challengeLeaderBoard.find({})
         if(existing.length==1){
