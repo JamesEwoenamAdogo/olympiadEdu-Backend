@@ -95,7 +95,7 @@ export const allExam = async(req,res)=>{
 export const allExamAdmin = async(req,res)=>{
     try{
         const allExaminations = await examinationModel.find({})
-        const examNames = allExaminations.map((item)=>{return {_id:item._id,title:item.title}})
+        const examNames = allExaminations.map((item)=>{return {_id:item._id,title:item.title, contest: item.contest || ""}})
         if(allExaminations){
             return res.json({message:"success",allExaminations:examNames})
         }
