@@ -3,19 +3,16 @@ import { challengeLeaderBoard } from "../Model/ChallengeLeaderBoard.js";
 export const addScore = async(req,res)=>{
     try{
         const {userId}= req.body
+
         const existing = await challengeLeaderBoard.find({userId})
-        if(existing.length==1){
-            const update = await challengeLeaderBoard.findByIdAndUpdate(existing[0]._id,req.body,{new:true})
-            return res.json({success:true,update})
-        }
-        const newScore = new challengeLeaderBoard(req.body)
-        newScore.save()
 
         const userScore = await challengeLeaderBoard.find({})
+        if(existing.length==1){
+            const update = await challengeLeaderBoard.findByIdAndUpdate(existing[0]._id,req.body,{new:true})
 
-        const sortedRankings = userScore.sort((a,b)=>{
+            const sortedRankings = userScore.sort((a,b)=>{
             if(a.score!==b.score){
-                return b.score-a.score
+                return b.score - a.score
             }
             return parseInt(a.time.replace(":", ""))- parseInt(b.time.replace(":", " "))
         })
@@ -27,7 +24,33 @@ export const addScore = async(req,res)=>{
             }
         })
 
-        const rank = score.find((item)=>item.userId==userId)
+        const rank = score.find((item)=>item.userId == userId)
+
+        return res.json({success:true,rank:rank.rank})
+            
+            // return res.json({success:true,update})
+        }
+
+        const newScore = new challengeLeaderBoard(req.body)
+        
+        newScore.save()
+
+
+        const sortedRankings = userScore.sort((a,b)=>{
+            if(a.score!==b.score){
+                return b.score - a.score
+            }
+            return parseInt(a.time.replace(":", ""))- parseInt(b.time.replace(":", " "))
+        })
+
+        const score = sortedRankings.map((item,index)=>{
+            return {
+                ...item,
+                rank: index+1
+            }
+        })
+
+        const rank = score.find((item)=>item.userId == userId)
 
         return res.json({success:true,rank:rank.rank})
 
