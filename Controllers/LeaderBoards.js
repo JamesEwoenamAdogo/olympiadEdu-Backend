@@ -24,7 +24,7 @@ export const addScore = async(req,res)=>{
             }
         })
 
-        const rank = score.find((item)=>item.userId == userId)
+        const rank = score.find((item)=>item._doc.userId == userId)
 
         console.log(rank)
 
@@ -52,7 +52,7 @@ export const addScore = async(req,res)=>{
             }
         })
 
-        const rank = score.find((item)=>item.userId == userId)
+        const rank = score.find((item)=>item._doc.userId == userId)
 
         return res.json({success:true,rank:rank.rank})
 
