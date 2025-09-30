@@ -1,20 +1,28 @@
 import { challengeLeaderBoard } from "../Model/ChallengeLeaderBoard.js";
 
+const formatTime = (timeInSeconds) => {
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = timeInSeconds % 60;
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  };
+
 export const addScore = async(req,res)=>{
     try{
         const {userId}= req.body
 
         const existing = await challengeLeaderBoard.find({userId,courseId:req.body.courseId})
 
-        const userScore = await challengeLeaderBoard.find({})
+        const userScore = await challengeLeaderBoard.find({courseId:req.body.courseId})
         if(existing.length==1){
             const update = await challengeLeaderBoard.findByIdAndUpdate(existing[0]._id,req.body,{new:true})
+
+            console.log(userScore)
 
             const sortedRankings = userScore.sort((a,b)=>{
             if(a.score!==b.score){
                 return b.score - a.score
             }
-            return parseInt(a.time.replace(":", ""))- parseInt(b.time.replace(":", " "))
+            return parseInt(formatTime(a.timeTaken.replace(":", "")))- parseInt(formatTime(b.timeTaken.replace(":", " ")))
         })
 
         const score = sortedRankings.map((item,index)=>{
@@ -42,7 +50,7 @@ export const addScore = async(req,res)=>{
             if(a.score!==b.score){
                 return b.score - a.score
             }
-            return parseInt(a.time.replace(":", ""))- parseInt(b.time.replace(":", " "))
+            return parseInt(formatTime(a.timeTaken.replace(":", "")))- parseInt(formatTime(b.timeTaken.replace(":", " ")))
         })
 
         const score = sortedRankings.map((item,index)=>{
