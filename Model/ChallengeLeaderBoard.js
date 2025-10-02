@@ -18,6 +18,9 @@ const leaderBoard = new mongoose.Schema({
         type:Number,
         default:0
     },
+    grade:{
+        type:String
+    },
     achievement:{
         type:Object
     },
