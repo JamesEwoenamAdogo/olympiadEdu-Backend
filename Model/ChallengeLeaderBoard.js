@@ -18,7 +18,9 @@ const leaderBoard = new mongoose.Schema({
         type:Number,
         default:0
     },
-
+    attributes:{
+        type:String
+    },
     timeTaken:{
         type:String
     }
