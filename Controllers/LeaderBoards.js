@@ -13,8 +13,10 @@ export const addScore = async(req,res)=>{
         const existing = await challengeLeaderBoard.find({userId,courseId:req.body.courseId})
 
         const userScore = await challengeLeaderBoard.find({courseId:req.body.courseId})
+
         if(existing.length==1){
-            const update = await challengeLeaderBoard.findByIdAndUpdate(existing[0]._id,req.body,{new:true})
+            const attemptsMade = existing.attemptsMade+1
+            const update = await challengeLeaderBoard.findByIdAndUpdate(existing[0]._id,{...req.body,attemptsMade},{new:true})
 
             console.log(userScore)
 
@@ -40,8 +42,9 @@ export const addScore = async(req,res)=>{
             
             // return res.json({success:true,update})
         }
+        const attemptsMade =1
 
-        const newScore = new challengeLeaderBoard(req.body)
+        const newScore = new challengeLeaderBoard({...req.body, attemptsMade})
 
         newScore.save()
 

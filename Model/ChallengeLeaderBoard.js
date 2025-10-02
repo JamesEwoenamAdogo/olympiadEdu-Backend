@@ -14,6 +14,11 @@ const leaderBoard = new mongoose.Schema({
     score:{
         type:String
     },
+    attemptsMade:{
+        type:Number,
+        default:0
+    },
+
     timeTaken:{
         type:String
     }
