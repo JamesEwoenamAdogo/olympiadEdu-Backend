@@ -19,7 +19,7 @@ const leaderBoard = new mongoose.Schema({
         default:0
     },
     achievement:{
-        type:String
+        type:Object
     },
     timeTaken:{
         type:String
