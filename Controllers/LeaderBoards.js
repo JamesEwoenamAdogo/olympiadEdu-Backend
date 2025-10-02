@@ -12,12 +12,13 @@ export const addScore = async(req,res)=>{
 
         const existing = await challengeLeaderBoard.find({userId,courseId:req.body.courseId})
 
-        const userScore = await challengeLeaderBoard.find({courseId:req.body.courseId})
-
+        
         if(existing.length==1){
-            const attemptsMade = existing.attemptsMade+1
+            const attemptsMade = existing[0].attemptsMade+1
             const update = await challengeLeaderBoard.findByIdAndUpdate(existing[0]._id,{...req.body,attemptsMade},{new:true})
 
+            const userScore = await challengeLeaderBoard.find({courseId:req.body.courseId})
+            
             console.log(userScore)
 
             const sortedRankings = userScore.sort((a,b)=>{
@@ -48,6 +49,8 @@ export const addScore = async(req,res)=>{
 
         newScore.save()
 
+        const userScore = await challengeLeaderBoard.find({courseId:req.body.courseId})
+
 
         const sortedRankings = userScore.sort((a,b)=>{
             if(a.score!==b.score){
@@ -62,7 +65,10 @@ export const addScore = async(req,res)=>{
                 rank: index+1
             }
         })
-
+        console.log("request body", req.body)
+        console.log("score",score)
+        console.log("userScore",userScore)
+        console.log("sortedRankings",sortedRankings)
         const rank = score.find((item)=>item._doc.userId == userId)
 
         return res.json({success:true,rank:rank.rank})
