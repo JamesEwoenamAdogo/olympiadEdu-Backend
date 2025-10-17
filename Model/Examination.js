@@ -98,7 +98,7 @@ const examinationSchema = new mongoose.Schema({
         
     },
     instructions:{
-        type:String
+        type:[String]
     }
 }, {timestamps:true})
 
