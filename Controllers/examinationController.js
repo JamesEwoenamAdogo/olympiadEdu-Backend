@@ -545,5 +545,19 @@ export const addQuestion = async(req,res)=>{
   }
 }
 
+export const fetchExamMode = async(req,res)=>{
+  try{
+    const exams = await examinationModel.find({examMode:true,publish:true})
+
+    return res.json({success:true, exams})
+
+
+
+  }catch(error){
+    console.log(error)
+    return res.json({success:false})
+  }
+}
+
 
 

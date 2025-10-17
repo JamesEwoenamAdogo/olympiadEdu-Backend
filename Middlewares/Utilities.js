@@ -1,5 +1,9 @@
 import { competitionsSchema } from "../Model/Competions.js"
 import nodeMailer from "nodemailer"
+import dotenv from "dotenv"
+import axios from "axios"
+
+dotenv.config()
  
 export const RegisterId = async(id,Registered,userId)=>{
     const competition = await competitionsSchema.findById(id)
@@ -70,6 +74,54 @@ export const sendPasswordandUserName = async(email,password,userName)=>{
 
     }catch(error){
         console.log(error)
+    }
+}
+
+export const makePayment = async(req,res)=>{
+    try{
+        const appId = process.env.MOJOPAY_APP_ID
+        const appKey = process.env.MOJOPAY_APP_KEY
+
+        const devEnvironment = "https://dev.cspay.app"
+
+        const url = `${devEnvironment}/interapi/Process/Payment`
+
+       const order_id = `USER${userId}-TXN${Date.now()}`;
+
+       const {
+        name,
+        mobile,
+        feetypecode,
+        amount,
+        order_desc,
+
+       } = req.body
+
+
+        const paymentBody = {
+            app_Id:appId,
+            app_key:appKey,
+            name,
+            mobile,
+            feetypecode,
+            amount,
+            currency:"GHS",
+            order_desc,
+            order_id
+            
+        }
+
+        const response = await axios.post(url, paymentBody)
+        return res.json({data:response.data})
+
+
+
+
+
+
+    }catch(error){
+        console.log(error)
+        return res.json({success:false})
     }
 }
 

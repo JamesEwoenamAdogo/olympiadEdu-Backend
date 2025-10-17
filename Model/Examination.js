@@ -92,6 +92,13 @@ const examinationSchema = new mongoose.Schema({
     },
     endTime:{
         type:String
+    },
+    examMode:{
+        type:Boolean,
+        
+    },
+    instructions:{
+        type:String
     }
 }, {timestamps:true})
 

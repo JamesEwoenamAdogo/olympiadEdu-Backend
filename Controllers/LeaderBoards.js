@@ -65,10 +65,10 @@ export const addScore = async(req,res)=>{
                 rank: index+1
             }
         })
-        // console.log("request body", req.body)
-        // console.log("score",score)
-        // console.log("userScore",userScore)
-        // console.log("sortedRankings",sortedRankings)
+        console.log("request body", req.body)
+        console.log("score",score)
+        console.log("userScore",userScore)
+        console.log("sortedRankings",sortedRankings)
 
         const rank = score.find((item)=>item._doc.userId == userId)
 
