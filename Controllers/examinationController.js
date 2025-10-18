@@ -72,7 +72,7 @@ export const addExamination = async (req, res) => {
       const updateCompetition = await competitionsSchema.findByIdAndUpdate(existingProgram[0]._id,{Assessments:[...existingProgram[0].Assessments,quizDetails._id]},{new:true})
     }
 
-    return res.json({ success: true, message: "Quiz created successfully" });
+    return res.json({ success: true, message: "Quiz created successfully", id:quizDetails._id });
   } catch (error) {
     console.error(error.message);
     return res.status(500).json({ success: false, message: "Error creating quiz" ,error:error.message});
