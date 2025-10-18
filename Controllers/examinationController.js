@@ -10,7 +10,7 @@ import { competitionsSchema } from "../Model/Competions.js";
 
 export const addExamination = async (req, res) => {
   try {
-    const { title, description, time, programs,tags,features, numberOfQuestions, questions,grade ,featured,publish,attemptsAllowed,allowQuizReview,displayScores,shuffleQuestions,showFeedBackForm,contest,contestType,pointsPerQuestion,bonusTimeLimit,estimatedTime,endTime,difficulty,instructions} = req.body;
+    const { title, description, time, programs,tags,features, numberOfQuestions, questions,grade ,featured,publish,attemptsAllowed,allowQuizReview,displayScores,shuffleQuestions,showFeedBackForm,contest,contestType,pointsPerQuestion,bonusTimeLimit,estimatedTime,endTime,difficulty,instructions,examMode} = req.body;
     const parsedQuestions = JSON.parse(questions);
     
 
@@ -58,7 +58,8 @@ export const addExamination = async (req, res) => {
       contestType,
       endTime,
       difficulty,
-      instructions
+      instructions,
+      examMode
 
   
       
