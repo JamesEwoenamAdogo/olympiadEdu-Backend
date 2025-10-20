@@ -1,5 +1,5 @@
 import express from "express";
-import { addExamination, addQuestion, allExam ,allExamAdmin,course,deleteExam,getOneExam,updateOneExam, updateQuestion, fetchContest, fetchExamMode} from "../Controllers/examinationController.js";
+import { addExamination, addQuestion, allExam ,allExamAdmin,course,deleteExam,getOneExam,updateOneExam, updateQuestion, fetchContest, fetchExamMode, addExamRecord, fetchExamRecord} from "../Controllers/examinationController.js";
 import upload from "../Middlewares/UploadFile.js";
 import { CourseReview, fetchCourseReviews, fetchQuizReviews, QuizReview } from "../Controllers/analysisController.js";
 
@@ -37,5 +37,9 @@ router.get("/fetch-course-review/:userId/:courseId",fetchCourseReviews)
 router.get("/fetch-all-contest", fetchContest)
 
 router.get("/fetch-exam-mode", fetchExamMode)
+
+router.post("/add-exam-record/:id", addExamRecord)
+
+router.get("/fetch-exam-records/:id", fetchExamRecord)
 
 export default  router;

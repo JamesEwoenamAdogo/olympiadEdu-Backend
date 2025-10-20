@@ -5,6 +5,7 @@ import { courseDetailsModel } from "../Model/CourseDetails.js";
 import cloudinary from "../utils/cloudinaryConfig.js";
 import { uploadToGCS } from "../utils/googleCloudConfig.js";
 import { competitionsSchema } from "../Model/Competions.js";
+import { examScoresModel } from "../Model/examScores.js";
 
 
 
@@ -560,6 +561,41 @@ export const fetchExamMode = async(req,res)=>{
     return res.json({success:false})
   }
 }
+
+export const addExamRecord = async(req,res)=>{
+  try{
+    const {id} = req.params
+
+    const findExisting = await examScoresModel.findById(id)
+    if(!findExisting){
+      const newRecord = new examScoresModel(req.body)
+      newRecord.save()
+      return res.json({success:true})
+    }
+    const update = await examScoresModel.findByIdAndUpdate(findExisting._id,req.body,{new:true})
+    return res.json({success:true})
+
+
+  }catch(error){
+    console.log(error)
+    return res.json({success:false})
+  }
+}
+
+export const fetchExamRecord = async(req,res)=>{
+  try{
+    const {id}= req.params
+
+    const examRecords = await examScoresModel.find({quizId:id})
+
+    return res.json({success:true, examRecords})
+
+  }catch(error){
+    console.log(error)
+    return res.json({success:false})
+  }
+}
+
 
 
 
