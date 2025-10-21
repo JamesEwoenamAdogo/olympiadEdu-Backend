@@ -20,6 +20,7 @@ import { courseProgressModel } from "../Model/courseProgress.js";
 // import { profileImageModel } from "../Model/ProfileImages.js";
 import { profileImage } from "../Model/userProfileImage.js";
 import { coverImageModel } from "../Model/coverImage.js";
+// import { useReducer } from "react";
 dotenv.config()
 
 
@@ -38,9 +39,9 @@ export const addUser = async(req,res)=>{
             console.log(existingUser)
             return res.json({success:false,message:"User email already registered"})
         }
-        if(exsitingUserByPhoneNumber.length!==0 || exsitingUserByPhoneNumber.length>0){
-            return res.json({success:false,message:"Phone Number already registered"})
-        }
+        // if(exsitingUserByPhoneNumber.length!==0 || exsitingUserByPhoneNumber.length>0){
+        //     return res.json({success:false,message:"Phone Number already registered"})
+        // }
 
         // let userExams= []
         // for(let exam of purposeOfRegistration){
@@ -919,5 +920,23 @@ export const fetchProfilePicture = async(req,res)=>{
     }catch(error){
         console.log(error)
         return res.json({success:false, error})
+    }
+}
+
+
+export const updatePassword = async(req,res)=>{
+    try{
+        const {email,password} = req.body
+        console.log(req.body)
+        const user = await userModel.findOne({email})
+        console.log(user)
+        const hashedNewPassword = await bcrypt.hash(password,10)
+        const update = await userModel.findByIdAndUpdate(user._id,{password:hashedNewPassword},{new:true})
+
+        return res.json({success:true,update})
+
+    }catch(error){
+        console.log(error)
+        return res.json({succes:false})
     }
 }

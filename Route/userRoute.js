@@ -1,5 +1,5 @@
 import express from "express"
-import { addUser, loginUser, updateUsers,updateAddInvoiceAddOns,loadPurpose, updateAddPaymentAddOns,UpdateMessage, fetchChannelFeed, payAfterInvoice,fetchSingleUser, findAssessment, findCourses, forgotPassword, ResetPassword, FeaturedExams, uploadProfileImage, sendFeedBack,RegisterProgram, verifyRegistration,fetchRegisteredPrograms, fetchFeedback, updateCourseProgress, fetchCourseProgress, updateProfileImage, updateCoverImage, fetchProfilePicture} from "../Controllers/userController.js"
+import { addUser, loginUser, updateUsers,updateAddInvoiceAddOns,loadPurpose, updateAddPaymentAddOns,UpdateMessage, fetchChannelFeed, payAfterInvoice,fetchSingleUser, findAssessment, findCourses, forgotPassword, ResetPassword, FeaturedExams, uploadProfileImage, sendFeedBack,RegisterProgram, verifyRegistration,fetchRegisteredPrograms, fetchFeedback, updateCourseProgress, fetchCourseProgress, updateProfileImage, updateCoverImage, fetchProfilePicture, updatePassword} from "../Controllers/userController.js"
 import { authenticateUser } from "../Middlewares/authUser.js"
 import { channelImageUpload } from "../Middlewares/UploadFile.js"
 import { profileImageupload } from "../Middlewares/UploadFile.js"
@@ -48,6 +48,7 @@ userRoute.post("/fetch-course-progress",fetchCourseProgress)
 userRoute.post("/upload-excel", upload.single("file"), uploadExcel);
 userRoute.post("/generate-users", upload.single("file"), GenerateUsers);
 userRoute.get("/exam-grade-change",  examinationGradeChange);
+userRoute.post("/update-password", updatePassword)
 
 
 
