@@ -35,10 +35,10 @@ export const addUser = async(req,res)=>{
         const exsitingUserByPhoneNumber = await userModel.find({mobileNumber})
         
         
-        if(existingUser.length!==0 || existingUser.length>0) {
-            console.log(existingUser)
-            return res.json({success:false,message:"User email already registered"})
-        }
+        // if(existingUser.length!==0 || existingUser.length>0) {
+        //     console.log(existingUser)
+        //     return res.json({success:false,message:"User email already registered"})
+        // }
         // if(exsitingUserByPhoneNumber.length!==0 || exsitingUserByPhoneNumber.length>0){
         //     return res.json({success:false,message:"Phone Number already registered"})
         // }
