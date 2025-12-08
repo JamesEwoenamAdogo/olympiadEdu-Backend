@@ -63,3 +63,32 @@ export const makePayment = async(req,res)=>{
         return res.json({success:false})
     }
 }
+
+
+export const verifyPayment = async(req,res)=>{
+    try{
+        const appId = process.env.MOJOPAY_APP_ID
+        const appKey = process.env.MOJOPAY_APP_KEY
+
+        const {orderId} = req.params
+
+        const requestBody = {
+            appId,
+            appKey,
+            orderId
+        }
+
+
+        const response = await axios.post("https://baseurl/Interapi.svc/GetInvoiceStatus",requestBody)
+
+        console.log(response)
+
+        return res.json({success:true,response})
+
+
+
+    }catch(error){
+        console.log(error)
+        return res.json({success:false})
+    }
+}

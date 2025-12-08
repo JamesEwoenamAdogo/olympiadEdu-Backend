@@ -7,7 +7,7 @@ import { coverImageupload } from "../Middlewares/UploadFile.js"
 import upload from "../Middlewares/authUser.js"
 import { examinationGradeChange, GenerateUsers, uploadExcel } from "../Controllers/bulkUpload.js"
 // import { makePayment } from "../Middlewares/Utilities.js"
-import { makePayment } from "../Controllers/PaymentController.js"
+import { makePayment, verifyPayment } from "../Controllers/PaymentController.js"
 
 
 
@@ -56,7 +56,7 @@ userRoute.post("/update-password", updatePassword)
 //Payment Controller
 
 userRoute.post("/make-payment/:userId",makePayment)
-
+userRoute.post("/verify-payment/:orderId", verifyPayment)
 
 
 
