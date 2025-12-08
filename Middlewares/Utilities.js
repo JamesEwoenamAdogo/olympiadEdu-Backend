@@ -84,6 +84,8 @@ export const makePayment = async(req,res)=>{
 
         const devEnvironment = "https://dev.cspay.app"
 
+        const {userId } = req.params
+
         const url = `${devEnvironment}/interapi/Process/Payment`
 
        const order_id = `USER${userId}-TXN${Date.now()}`;
@@ -112,6 +114,7 @@ export const makePayment = async(req,res)=>{
         }
 
         const response = await axios.post(url, paymentBody)
+        console.log(response)
         return res.json({data:response.data})
 
 
