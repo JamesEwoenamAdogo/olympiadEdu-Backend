@@ -48,7 +48,7 @@ export const makePayment = async(req,res)=>{
             email,
             currency,
             // mobile_network,
-            return_url:"https://webhook.site/46ab2302-f14d-4b9b-8205-3cb14a80fd3f"
+            return_url:"https://www.giftededu.tech/verify-payment"
             
         }
 
