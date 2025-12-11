@@ -47,6 +47,9 @@ const courseInfo = new mongoose.Schema({
     },
     level:{
         type:String
+    },
+    registered:{
+        type:[String]
     }
     // progress
 },{timestamps:true})

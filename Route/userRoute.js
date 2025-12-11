@@ -56,7 +56,7 @@ userRoute.post("/update-password", updatePassword)
 //Payment Controller
 
 userRoute.post("/make-payment/:userId",makePayment)
-userRoute.post("/verify-payment/:orderId", verifyPayment)
+userRoute.post("/verify-payment", verifyPayment)
 
 
 

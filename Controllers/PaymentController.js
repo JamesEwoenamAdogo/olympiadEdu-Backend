@@ -2,6 +2,8 @@ import dotenv from "dotenv"
 import axios from "axios"
 
 
+import { courseInfoModel } from "../Model/CourseInfo.js"
+
 dotenv.config()
 
 
@@ -16,24 +18,25 @@ export const makePayment = async(req,res)=>{
 
         const url = ` https://portal.cs-pay.app/interapi/ProcessPayment`
 
-       const order_id = `USER${userId}-TXN${Date.now()}`;
-
-       const {
-        name,
-        mobile,
-        feetypecode,
-        amount,
-        order_desc,
-        email,
-        currency,
-        mobile_network
         
+        const {
+            name,
+            mobile,
+            feetypecode,
+            amount,
+            order_desc,
+            email,
+            currency,
+            // mobile_network
+            
 
-       } = req.body
+        } = req.body
+        
+        const order_id = `${userId}_${Date.now()}_${Math.floor(Math.random() * 10000)}`;
 
 
         const paymentBody = {
-            app_Id:appId,
+            app_id:appId,
             app_key:appKey,
             name,
             mobile,
@@ -44,7 +47,7 @@ export const makePayment = async(req,res)=>{
             order_id,
             email,
             currency,
-            mobile_network,
+            // mobile_network,
             return_url:"https://webhook.site/46ab2302-f14d-4b9b-8205-3cb14a80fd3f"
             
         }
@@ -67,21 +70,39 @@ export const makePayment = async(req,res)=>{
 
 export const verifyPayment = async(req,res)=>{
     try{
-        const appId = process.env.MOJOPAY_APP_ID
-        const appKey = process.env.MOJOPAY_APP_KEY
+        const app_id = process.env.MOJOPAY_APP_ID
+        const app_key = process.env.MOJOPAY_APP_KEY
 
-        const {orderId} = req.params
+        // const {order_id} = req.params
+
+        const {courseId, userId,ref}= req.body
 
         const requestBody = {
-            appId,
-            appKey,
-            orderId
+            app_id,
+            app_key,
+            order_id:ref
         }
 
 
-        const response = await axios.post("https://baseurl/Interapi.svc/GetInvoiceStatus",requestBody)
+        const response = await axios.post("https://portal.cs-pay.app/Interapi.svc/GetInvoiceStatus",requestBody)
 
         console.log(response)
+
+        if(response.data.status==1){
+            const course = await courseInfoModel.findById(userId)
+
+            const registered = course.registered
+
+            const existing = registered.find(item => item==userId)
+
+            if(!existing){
+                const updatedRegisteredUsers = [...registered,userId]
+
+                const update = await courserInfo(courseId,{registered:updatedRegistedUsers},{new:true})
+
+                
+            }
+        }
 
         return res.json({success:true,response})
 
